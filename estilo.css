@@ -1,0 +1,68 @@
+div{
+    border: 1px solid black;
+    padding: 3px;
+    background-color: #F2FAFA;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+#inicio{
+    height: 70px;
+}
+#logo{
+    width: 60px;
+    height: 60px;
+    float: left;
+    background-image: url(logotipo.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+img{
+    width: 50px;
+}
+#login{
+    width: 40%;
+    float: right;
+    height: 60px;
+}
+.metade{
+    height: 300px;
+}
+.um{
+    height: 200px;
+}
+.embaixo{
+    width: 49%;
+    height: 250px;
+}
+.texto{
+    float: left;
+}
+.imagens{
+    float: right;
+    background-image: url(assembleia.jpg);
+}
+#codigo{
+    border: 2px solid red;
+    width: 30%;
+    height: 50px;
+    float: left;
+    font-size: 35px;
+    padding-left: 5px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.botao{
+    border: 2px solid red;
+    width: 30%;
+    height: 50px;
+    float: right;
+    padding: 15px 25px;
+    text-align: center;
+    cursor: pointer;
+}
+.botao:hover{
+    background-color: red;
+}
