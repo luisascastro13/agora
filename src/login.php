@@ -2,51 +2,49 @@
 <html>
 	<head>
 
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	    <link href='https://fonts.google.com/specimen/Advent+Pro' rel='stylesheet' type='text/css'>
-
 	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-		<title>TestePHP</title>
+		<title>Ágora</title>
 	</head>
 	<body>
-		<div style="overflow: hidden; height: 100vh">
+		<div style="overflow: hidden;">
 
-			<nav class="navbar navbar-expand-md navbar navbar-light bg-light sticky-top">
+			<nav class="navbar navbar-expand-md navbar navbar-light bg-light sticky-top" id="nav">
 
-				<a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="index.php">
 
-					<img src="LogoTextoCaneta.svg" alt="" loading="lazy">
+                    <img src="LogoTextoCaneta.svg" alt="" loading="lazy" id="logo">
 
-		  		</a>
+                </a>
 
-			    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 
-			        <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
 
-			    </button>
+                </button>
 
-			    <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-			        <ul class="navbar-nav">
-			            <li class="nav-item">
-			                <a class="nav-link">Saiba Mais</a>
-			            </li>
-			            <li class="nav-item">
-			                <a class="nav-link">Acompanhe</a>
-			            </li>
-			        </ul>
-			    </div>
-			</nav>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link">Saiba Mais</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Acompanhe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Login</a>
+                        </li>
+                    </ul>
+                </div>
+        </nav>
 
 
-			<div class="container-fluid h-100" style="background-color: #519BA6;">
+			<div class="container-fluid h-75" style="background-color: #44A7B1;">
 
 					<div class="row">
-
 						<div class="col">
 
 							<div class="nav justify-content-center my-4">
@@ -80,7 +78,12 @@
 										}		
 									?>						
 								</label>
-							</div>				
+							</div>
+
+							
+							<p class="text-white text-center py-5 mb-4">Não tem uma conta? <a href="#" class="alert-link text-warning">Cadastre-se!</a></p>	
+							
+									
 					</div>
 
 				</div>
@@ -88,6 +91,12 @@
 			</div>
 		</div>
 
+
+		<footer class="footer py-4" style="background-color: #0D4968;">
+            <div class="container w-75 align-center text-center">
+                <span class="text-muted">© Copyright 2020 Ágora. All Rights Reserved.</span>
+            </div>
+        </footer>
 		
 	
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
