@@ -7,29 +7,34 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-  <!--   <link rel="stylesheet" href="assets/tether/tether.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="assets/dropdown/css/style.css">
-    <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.css">
-    <link rel="stylesheet" href="assets/formstyler/jquery.formstyler.theme.css">
-    <link rel="stylesheet" href="assets/datepicker/jquery.datetimepicker.min.css">
-    <link rel="stylesheet" href="assets/socicon/css/styles.css">
-    <link rel="stylesheet" href="assets/theme/css/style.css"> -->
 
     <title>Ágora</title>
 
+    
+    
+    <!-- <script>
+    
+    window.onscroll = function() { myFunction()};
+
+    function myFunction() {
+
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            document.getElementById("nav").classList.add("test");
+        } else {
+            document.getElementById("nav").classList.remove("test");
+        }
+    }
+    </script> -->
+
 </head>
-<body style="height: 100vh;">
+<body style="height: 100vh">
 
-    <div>
 
-       <nav class="navbar navbar-expand-md navbar navbar-light bg-light sticky-top">
+       <nav class="navbar navbar-expand-md navbar navbar-light bg-light sticky-top" id="nav">
 
                 <a class="navbar-brand" href="index.php">
 
-                    <img src="LogoTextoCaneta.svg" alt="" loading="lazy">
+                    <img src="LogoTextoCaneta.svg" alt="" loading="lazy" id="logo">
 
                 </a>
 
@@ -54,7 +59,6 @@
                 </div>
         </nav>
       
-
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
             <ol class="carousel-indicators">
@@ -164,8 +168,66 @@
         </section>
 
 
+        <section class="text-center mt-5">  
+
+                <hr class="bg-info w-75">
+                <p class="font-italic">Textinho legal lero lero lero lero jaosdifj qewpsdijpaisd asdpfiqjwpei</p>
+                <hr class="bg-info w-75">                       
+        </section>
+
+        <section class="mt-5">
+
+                <div class="container w-75 mx-auto">
+
+                   <div class="row mt-4">
+                        <div class="col-2 text-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="info" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                             </svg>                            
+                        </div>
+                        <div class="col-10 text-center">
+                            <strong>Titulo 1.</strong>
+                            Nunc posuere maximus metus, in euismod orci tempor efficitur.
+                            <a href="#">Experimente já</a>                            
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                      <div class="col-2 text-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="info" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                             </svg>                            
+                        </div>
+                       <div class="col-10 text-center">
+                            <strong>Titulo 2.</strong>
+                            Nunc posuere maximus metus, in euismod orci tempor efficitur.
+                            <a href="#">Experimente já</a>                            
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-2 text-center">
+                            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="info" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
+                             </svg>                            
+                        </div>
+                      <div class="col-10 text-center">
+                            <strong>Titulo 3.</strong>
+                            Nunc posuere maximus metus, in euismod orci tempor efficitur.
+                            <a href="#">Experimente já</a>                            
+                        </div>
+                    </div>
+                </div>
+                
+
+        </section>
+
+
       
-    </div>
+   
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
