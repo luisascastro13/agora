@@ -93,16 +93,20 @@ body.offcanvas-active{
 <!-- ========================= SECTION CONTENT ========================= -->
 
 <div class="">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-bottom">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-trigger="#main_nav">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler" type="button" data-trigger="#main_nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>  
+
+    <img src="LogoTextoCaneta.svg" alt="" loading="lazy" id="logo">
+
+  
+
 <div class="navbar-collapse" id="main_nav">
 
 <div class="offcanvas-header mt-3">  
-	<button class="btn btn-outline-danger btn-close float-right"> &times Close </button>
+	<button class="btn btn-outline-danger btn-close float-right">&times; Close </button>
 	<h5 class="py-2 text-white">Main navbar</h5>
 </div>
 
@@ -132,6 +136,7 @@ body.offcanvas-active{
 </ul>
   </div> <!-- navbar-collapse.// -->
 </nav>
+</div>
 
 <section class="section-content py-5">
 
