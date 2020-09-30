@@ -1,3 +1,22 @@
+<?php
+
+session_start();
+
+    $primeironome = $_SESSION['primeironome'];
+    
+   
+    // echo 'Primeiro nome: '.$_SESSION['primeironome'];
+
+    // echo '<br>Nome completo: '.$_SESSION['nomecompleto'];
+
+    // echo '<br>IDUsuario: '.$_SESSION['userid'];
+    
+    // echo '<br>Url da Foto do Usuário: '.$_SESSION['urlfoto'];
+
+    // echo '<br><a href="login.html">VOLTAR</a>';
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -30,7 +49,7 @@
                 <h3>
                     <img src="LogoTextoCaneta.svg">
                     <img src="perfil.jpg" class="w-50 h-50 mx-auto d-block rounded-circle">
-                    <div>Nome do Usuário</div>
+                    <div><?php echo $primeiro; ?></div>
                     <div>Matrícula</div>
                 </h3>
 

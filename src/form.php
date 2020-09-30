@@ -9,7 +9,7 @@
 
 	if(property_exists($tokenphp, "token")){
 		
-		header('location:bemvindo.php'); //direciona direto para a pagina "bemvindo.php"
+		header('location:mostrar.php'); //direciona direto para a pagina "bemvindo.php"
 
 		session_start();
 
