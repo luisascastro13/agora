@@ -25,6 +25,7 @@
 		$_SESSION['nomecompleto'] = $valoresphp->fullname;
 		$_SESSION['userid'] = $valoresphp->userid;
 		$_SESSION['urlfoto'] = $valoresphp->userpictureurl;
+		$_SESSION['username'] = $valoresphp->username;
 	}
 
 	else{

@@ -3,7 +3,8 @@
 session_start();
 
     $primeironome = $_SESSION['primeironome'];
-    
+    $username = $_SESSION['username'];
+    $urlfoto = $_SESSION['urlfoto'];
    
     // echo 'Primeiro nome: '.$_SESSION['primeironome'];
 
@@ -19,6 +20,11 @@ session_start();
 
 <!DOCTYPE html>
 <html>
+<style>
+    body{
+        height: 100%;
+    }
+    </style>
 
 <head>
     <meta charset="utf-8">
@@ -38,19 +44,24 @@ session_start();
 
 </head>
 <style>
-    
+    * {
+        font-size: 1.6em;
+    }
 </style>
 
 <body>
     <div class="wrapper">
         <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
+        <nav id="sidebar" style="background-color: #127681;" class="border-right border-warning">
+            <div class="sidebar-header" style="background-color: #127681;">
                 <h3>
                     <img src="LogoTextoCaneta.svg">
-                    <img src="perfil.jpg" class="w-50 h-50 mx-auto d-block rounded-circle">
+                    <div class="mt-3 mb-3">
+                        <img src="perfil.jpg" class="d-block rounded-circle border border-warning" style="width: 75px; height: 75px;">
+                    </div>
                     <div><?php echo $primeironome; ?></div>
-                    <div>Matrícula</div>
+                    <div><?php echo $username; ?></div>
+                    <hr>
                 </h3>
 
                 <strong>
@@ -59,23 +70,16 @@ session_start();
                 
             </div>
 
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-home"></i>
-                        Criar
-                    </a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
+            <ul class="list-unstyled components  mt-0">
+                <li>
+                    <a href="#">
+                        <div class="">
+                            <i class="fas fa-plus"></i>
+                            <span>Criar</span>
+                        </div>
+
+                    </a>                 
+                    
                 </li>
                 <li>
                     <a href="#">
@@ -106,13 +110,13 @@ session_start();
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-question"></i>
+                        <i class="fas fa-cog"></i>
                         Configurações
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="fas fa-paper-plane"></i>
+                       <i class="fas fa-sign-out-alt"></i>
                         Sair
                     </a>
                 </li>
@@ -133,35 +137,99 @@ session_start();
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light d-none d-md-block d-lg-none d-none d-lg-block d-xl-none d-none d-xl-block">
                 <div class="container-fluid">
-
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
                         <i class="fas fa-align-left"></i>
-                        <span>Toggle Sidebar</span>
-                    </button>
-                   
-
-                    
+                        <span>Menu</span>
+                    </button>  
+                    <input type="text">
+                    <button class="btn btn-info"></button>                          
                 </div>
             </nav>
 
-            <h2>Collapsible Sidebar Using Bootstrap 4</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              
 
-            <div class="line"></div>
+            <div class="row">
+                <!-- BUSCA + NUCLEOS + DOCS RECENTES -->
+                <div class="col-8">
+                    <div class="row">
+                        <span>Núcleos</span>
+                        <button class="btn btn-info">Ver todos</button>
+                    </div>
+                    <div class="row">
+                        <div class="col bg-secondary">
+                            <span>Grêmio IFRS</span>
+                        </div>
+                        <div class="col bg-secondary">
+                            <span>DS4</span>
+                        </div>
+                    </div>
 
-            <h2>Lorem Ipsum Dolor</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <div style="max-height: 50">
 
-            <div class="line"></div>
+                        <div class="row mt-5">
+                            <span>Documentos Recentes</span>
+                            <button class="btn btn-info">Ver todos</button>
+                        </div>
 
-            <h2>Lorem Ipsum Dolor</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div class="card-deck">
+                          <div class="card">
+                            <img class="card-img-top" src="amarelo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
+                          
+                         <div class="card">
+                            <img class="card-img-top" src="amarelo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
 
-            <div class="line"></div>
+                          <div class="card">
+                            <img class="card-img-top" src="amarelo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
 
-            <h3>Lorem Ipsum Dolor</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+
+                        <div class="card-deck">
+                          <div class="card">
+                            <img class="card-img-top" src="amarelo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
+                          
+                         <div class="card">
+                            <img class="card-img-top" src="amarelo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
+
+                          <div class="card">
+                            <img class="card-img-top" src="amarelo.jpg" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">Card title</h5>
+                            </div>
+                          </div>
+                      </div>
+
+                    </div>
+                  
+
+
+                </div>
+                
+
+                <!-- REUNIÕES DO MÊS -->
+                <div class="col-4 bg-secondary">
+                    
+                </div>
+            </div>     
         </div>
     </div>
     <div class="btn-group fixed-bottom w-100 d-block d-sm-none d-none d-sm-block d-md-none">
