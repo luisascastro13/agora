@@ -26,9 +26,33 @@
 		$_SESSION['userid'] = $valoresphp->userid;
 		$_SESSION['urlfoto'] = $valoresphp->userpictureurl;
 		$_SESSION['username'] = $valoresphp->username;
-	}
 
+		$nomecompleto = $valoresphp->fullname;
+		$username = $valoresphp->username;
+
+		$link = mysqli_connect('localhost','useragora', '', 'agora');
+
+		if (!$link) {
+		    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+		    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+		    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+		    exit;
+		}
+
+		else {
+
+			$query = mysqli_query($link, "select * from usuario where username = '$username'");
+
+			$numrows = mysqli_num_rows($query);
+
+			if($numrows==0){
+				mysqli_query($link, "INSERT INTO usuario (nomecompleto, username) VALUES ('$nomecompleto','$username')");
+				echo 'inseri';
+			}	
+		}
+	}
 	else{
+
 		header('location:login.php?msg=1');
 	}		
 ?>

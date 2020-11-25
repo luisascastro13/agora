@@ -20,8 +20,9 @@ $resultadoSelect = mysqli_query($link, "SELECT * FROM assembleia");
 
 		while($linha = mysqli_fetch_assoc($resultadoSelect)){
 			echo "<tr>
-			<td>{$linha['nome']}</td>
-			<td>{$linha['data']}</td>
+			<td><a href='saibamais.php'>{$linha['nome']}</a></td>
+			<td><a>{$linha['data']}</a></td>
+
 			</tr>";
 		}
 	}
@@ -38,7 +39,7 @@ $resultadoSelect = mysqli_query($link, "SELECT * FROM assembleia");
 		border: 1px solid black;
 		width: 70%;
 	}
-	th { 
+	th {
 		text-align: left;
 		border-bottom: 1px solid black;
 	}
@@ -51,7 +52,7 @@ $resultadoSelect = mysqli_query($link, "SELECT * FROM assembleia");
 	<form method="post" action="inserir.php">
 		<input type="text" name="nome" placeholder="Nome" required>
 		<input type="date" name="data" placeholder="Data" required>
-		<input type="submit">
+		<input type="submit" value="Criar">
 	</form>
 	
 
