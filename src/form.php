@@ -7,9 +7,10 @@
 
 	$tokenphp = json_decode($tokenjson); //transforma o resultado mostrado em objeto de php
 
+	//se o token existe, faz a conexão
 	if(property_exists($tokenphp, "token")){
 		
-		header('location:mostrar.php'); //direciona direto para a pagina "bemvindo.php"
+		// header('location:mostrar.php'); //direciona direto para a pagina "bemvindo.php"
 
 		session_start();
 
@@ -30,27 +31,51 @@
 		$nomecompleto = $valoresphp->fullname;
 		$username = $valoresphp->username;
 
-		$link = mysqli_connect('localhost','useragora', '', 'agora');
+		//faz a conexao com o banco
+		$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
-		if (!$link) {
-		    echo "Error: Unable to connect to MySQL." . PHP_EOL;
-		    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-		    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+		if (!$bd) {
 		    exit;
 		}
-
+		//se conexao com o banco tiver ok
 		else {
+			//verifica se o usuario ja existe no banco
+			try{
+				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$bd->beginTransaction();
+					$comando = $bd->prepare('select * from usuario where login = :login');
 
-			$query = mysqli_query($link, "select * from usuario where username = '$username'");
+				$res = $comando->execute(['login' => $_SESSION['username']]);
 
-			$numrows = mysqli_num_rows($query);
+				$bd->commit();
 
-			if($numrows==0){
-				mysqli_query($link, "INSERT INTO usuario (nomecompleto, username) VALUES ('$nomecompleto','$username')");
-				echo 'inseri';
-			}	
+				if ($res) {
+					$record = $comando->fetchAll();
+
+					//se o select retornar nenhuma linha, significa que o usuario nao esta cadastrado no banco. então o sistema faz a inserção de um novo usuário.
+					if (count($record) == 0) {
+
+						$bd->beginTransaction();
+						$comando = $bd->prepare('insert into usuario (nome, login) values (:nome, :login)');
+
+						$comando->execute(['nome' => $_SESSION['nomecompleto'], 'login'=>$_SESSION['username']]);
+
+						$bd->commit();				
+					}
+				}
+				header('Location: mostrar.php');
+			}
+						
+			//se houver algum erro na verificacao ou insercao de usuario no banco, gera uma exceção e desfaz as alteracoes no banco.
+			catch(Exception $e){
+				echo 'cheguei aqui';
+				echo $e->getMessage();
+				print_r($e->getTrace());
+				$bd->rollback();
+			}
 		}
 	}
+	//se o token nao existe, manda mensagem de erro
 	else{
 
 		header('location:login.php?msg=1');
