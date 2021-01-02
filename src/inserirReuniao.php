@@ -1,34 +1,37 @@
 <?php
 
-// $nome = $_POST['nome'];
-// $data = $_POST['data'];
+	session_start();
 
-$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
-if (!$bd) {
-    exit;
-}
+		$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
-else {
+		if (!$bd) {
+		    exit;
+		}
 
-	try{
-		$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$bd->beginTransaction();
-			$comando = $bd->prepare('insert into reuniao (nome, data) values ( :nome, :data)');
+		else {
+			
+			//quando o usuario criar uma reuniao, se torna administrador da mesma.
 
-			$comando->execute(['nome' =>$_POST['nome'], 'data' =>$_POST['data']]);
+			try{
+				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$bd->beginTransaction();
+					$comando = $bd->prepare('insert into reuniao (nome, data, id_usuarioadm) values ( :nome, :data, :id_usuarioadm)');
 
-			$bd->commit();
+					$comando->execute(['nome' =>$_POST['nome'], 'data' =>$_POST['data'], 'id_usuarioadm' => $_SESSION['username']]);
 
-		header('Location: banco.php');
-	}
-	
-	catch(Exception $e){
-		echo $e->getMessage();
-		print_r($e->getTrace());
-		$bd->rollback();
-	}
+					$bd->commit();
 
-}
+				header('Location: painel.php');
+			}
+			
+			catch(Exception $e){
+				echo $e->getMessage();
+				print_r($e->getTrace());
+				$bd->rollback();
+			}
+
+		}
+
 
 ?>

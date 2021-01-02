@@ -1,4 +1,6 @@
 <?php
+
+// faz a autenticacao do usuario. também insere o usuario no banco.
 		
 	$login = $_REQUEST['login'];
 	$senha = $_REQUEST['senha'];	
@@ -63,7 +65,7 @@
 						$bd->commit();				
 					}
 				}
-				header('Location: mostrar.php');
+				header('Location: painel.php');
 			}
 						
 			//se houver algum erro na verificacao ou insercao de usuario no banco, gera uma exceção e desfaz as alteracoes no banco.

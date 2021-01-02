@@ -29,7 +29,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link">Saiba Mais</a>
+                            <a class="nav-link" href="saibamais.php">Saiba Mais</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">Acompanhe</a>
