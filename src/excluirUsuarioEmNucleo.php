@@ -12,19 +12,17 @@ session_start();
 			
 			try{
 
-				//insere novo nome de pessoa no nucleo
+				//insere novo nucleo
 
 				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$bd->beginTransaction();
-					$comando = $bd->prepare('insert into usuarios_frequentam_nucleo (id_nucleo, nome_usuario) values (:id_nucleo, :nome_usuario)');
+					$comando = $bd->prepare('delete from usuarios_frequentam_nucleo where id = :id_usuarios_frequentam_nucleo');
 
-					$comando->execute(['id_nucleo' => $_SESSION['id_nucleo'], 'nome_usuario' => $_POST['nome']]);
+					$comando->execute(['id_usuarios_frequentam_nucleo' =>$_SESSION['id_ufn']]);		
 
 					$bd->commit();
 
-					echo 'inserido.';
-
-				// header('Location: painel.php');
+				header('Location: mostrarNucleo.php');
 			}
 			
 			catch(Exception $e){
@@ -38,3 +36,4 @@ session_start();
 
 
 ?>
+
