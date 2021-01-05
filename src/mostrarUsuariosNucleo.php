@@ -1,6 +1,7 @@
 <?php
 
-function mostrarNucleos(){
+function mostrarUsuariosNucleo(){
+
 
 			$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
@@ -10,20 +11,16 @@ function mostrarNucleos(){
 			    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
 			    exit;
 			}
-
 			else {
 
 
 				try{
 					$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$bd->beginTransaction();
+						$comando = $bd->prepare('SELECT nome_usuario FROM usuarios_frequentam_nucleo where id_nucleo = :id');
+						$comando->execute(['id'=>$_SESSION['id_nucleo']]);
 
-					// AQUI DEVE SER FEITO UM INSERT NA TABELA USUARIOS_FREQUENTAM_NUCLEO AINDA, PARA PODER MOSTRAR ALGUMA COISA NA TELA.
-
-
-						$comando = $bd->prepare('SELECT nucleo.nome, usuarios_frequentam_nucleo.id_nucleo FROM nucleo inner join usuarios_frequentam_nucleo on nucleo.id = usuarios_frequentam_nucleo.id_nucleo where id_usuario = :id');
-
-						$comando->execute(['id'=>$_SESSION['username']]);
+						// echo $_SESSION['id_nucleo'];
 
 
 					$bd->commit();
@@ -31,25 +28,25 @@ function mostrarNucleos(){
 					if($comando){
 
 						echo  "<table id='tabelinha'><tr>
-						<th>Nome do núcleo</th>
+						<th>Nome do usuário</th>						
+						<th></th>
 						</tr>";
 
 
 						while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
-						
-							echo "<tr>
-							<td>{$linha['nome']}</td>
-							<td><a href='mostrarNucleo.php'>Ver Mais</a></td>
-							</tr>";
 
-							$_SESSION['id_nucleo'] = $linha['id_nucleo'];
+							
+						echo "<tr>
+						<td>{$linha['nome_usuario']}</td>
+						<td><a href='#'>Ver Mais</a></td>
+						</tr>";
 
 						}
 
 						echo "</table>";
 					}
 					else{
-					echo "Não existem núcleos";
+					echo "Não existem reuniões";
 					}
 				}
 				
