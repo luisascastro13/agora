@@ -31,6 +31,35 @@ function mostrarUsuariosNucleo(){
 	    exit;
 	}
 	else {
+		
+		//consulta se o usuario atual é adm desse nucleo
+		try{
+			$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$bd->beginTransaction();
+
+			$comando = $bd->prepare("select usuario_adm from usuarios_frequentam_nucleo where id_usuario = :id_usuario limit 1");
+			$comando->execute(['id_usuario' => $_SESSION['username']]);
+
+			$bd->commit();
+
+			$total = $comando->rowCount();
+			$linha = $comando->fetch(PDO::FETCH_ASSOC);
+
+			if($linha == '0'){ //usuario é somente visualizador, não é adm
+				// echo 'não adm';
+				$adm = 'false';
+			}
+			else{ //usuario é adm
+				// echo 'sim adm';
+				$adm = 'true';
+			}
+
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+			print_r($e->getTrace());
+			$bd->rollback();
+		}
 
 		try{
 
@@ -41,12 +70,8 @@ function mostrarUsuariosNucleo(){
 
 				$id_nucleo = $_REQUEST['idnuc'];
 
-				var_dump($_REQUEST);		
-
 				$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :idnuc order by nome_usuario');
 				$comando->execute(['idnuc'=>$id_nucleo]);
-
-				echo $id_nucleo;
 
 				$bd->commit();
 
@@ -66,20 +91,42 @@ function mostrarUsuariosNucleo(){
 						$_SESSION['id_ufn'] = $linha['id'];
 
 						
-					echo "<tr>
-					<td>{$linha['nome_usuario']}</td>
-					<td><div class='dropdown'>
-					  <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
-					    Ver mais
-					  </button>
-					  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-					    <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
-					    <li><a class='dropdown-item' href='#'>Another action</a></li>
-					    <li><a class='dropdown-item' href='#'>Something else here</a></li>
-					  </ul>
-					</div>
-					</td>
-					</tr>";
+						echo "<tr><td>{$linha['nome_usuario']}</td>";
+
+						if($adm == 'true'){
+							echo "<td><div class='dropdown'>
+						  <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
+						    Ver mais
+						  </button>
+						  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+						    <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
+						    <li><a class='dropdown-item' href='#'>Another action</a></li>
+						    <li><a class='dropdown-item' href='#'>Something else here</a></li>
+						  </ul>
+						</div>
+						</td>
+						</tr>";
+						}
+
+						else{
+
+							echo "<td>voce nao é adm</td>";
+
+						// 	echo "td><div class='dropdown'>
+						//   <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
+						//     Ver mais
+						//   </button>
+						//   <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+						//     <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
+						//     <li><a class='dropdown-item' href='#'>Another action</a></li>
+						//     <li><a class='dropdown-item' href='#'>Something else here</a></li>
+						//   </ul>
+						// </div>
+						// </td>
+						// </tr>";
+
+						}					
+
 					}
 
 					echo "</table>";
