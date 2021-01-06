@@ -17,8 +17,8 @@ function mostrarReunioes(){
 				try{
 					$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$bd->beginTransaction();
-						$comando = $bd->prepare('SELECT * FROM reuniao where id_usuarioadm = :id');
-						$comando->execute(['id'=>$_SESSION['username']]);
+						$comando = $bd->prepare('SELECT * FROM reuniao where id_nucleo = :id_nucleo');
+						$comando->execute(['id_nucleo'=>$_SESSION['id_nucleo']]);
 					$bd->commit();
 
 					if($comando){

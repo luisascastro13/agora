@@ -2,6 +2,7 @@
 
 function mostrarNucleos(){
 
+
 			$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
 			if (!$bd) {
@@ -15,6 +16,7 @@ function mostrarNucleos(){
 
 
 				try{
+
 					$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$bd->beginTransaction();
 
