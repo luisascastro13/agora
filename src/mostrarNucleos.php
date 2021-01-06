@@ -29,21 +29,31 @@ function mostrarNucleos(){
 
 						$bd->commit();
 
-						if($comando){
+						$total = $comando->rowCount();
+
+						if($total > 0){
 
 							echo  "<table id='tabelinha'><tr>
 							<th>Nome do núcleo</th>
+						
 							</tr>";
 
 
 							while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
-							
-								echo "<tr>
-								<td>{$linha['nome']}</td>
-								<td><a href='mostrarNucleo.php'>Ver Mais</a></td>
-								</tr>";
 
-								$_SESSION['id_nucleo'] = $linha['id_nucleo'];
+							$id = $linha['id_nucleo'];							
+
+								echo "<tr>
+							<td>{$linha['nome']}</td>
+							<td><a href='mostrarNucleo.php?idnuc=$id'>Ver Mais</a></td>
+							<td style='visibility:hidden'>{$linha['id_nucleo']}</td>
+							</tr>";
+							
+							
+
+								
+
+							$_SESSION['id_nucleo'] = $linha['id_nucleo'];
 
 							}
 

@@ -14,85 +14,89 @@
 
 </script>
 
-
-
 </body>
 
 </html>
-
-
 
 <?php
 
 function mostrarUsuariosNucleo(){
 
+	$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
-			$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
-
-			if (!$bd) {
-			    echo "Error: Unable to connect to MySQL." . PHP_EOL;
-			    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-			    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-			    exit;
-			}
-			else {
-
-
-				try{
-					$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-					$bd->beginTransaction();
-						$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :id order by nome_usuario');
-						$comando->execute(['id'=>$_SESSION['id_nucleo']]);
-
-						// echo $_SESSION['id_nucleo'];
-
-
-					$bd->commit();
-
-					if($comando){
-
-						echo  "<table id='tabelinha'><tr>
-						<th>Nome do usuário</th>						
-						<th></th>
-						</tr>";
-
-
-						while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
-
-							$_SESSION['nome_usuario'] = $linha['nome_usuario'];
-							$_SESSION['id_ufn'] = $linha['id'];
-
-							
-						echo "<tr>
-						<td>{$linha['nome_usuario']}</td>
-						<td><div class='dropdown'>
-  <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
-    Ver mais
-  </button>
-  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-    <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
-    <li><a class='dropdown-item' href='#'>Another action</a></li>
-    <li><a class='dropdown-item' href='#'>Something else here</a></li>
-  </ul>
-</div>
-						</td>
-						</tr>";
-
-						}
-
-						echo "</table>";
-					}
-					else{
-					echo "Não existem reuniões";
-					}
-				}
-				
-				catch(Exception $e){
-					echo $e->getMessage();
-					print_r($e->getTrace());
-					$bd->rollback();
-				}		
-			}
+	if (!$bd) {
+	    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+	    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+	    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+	    exit;
 	}
+	else {
 
-	?>
+		try{
+
+			if(isset($_REQUEST['idnuc'])){
+
+				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+				$bd->beginTransaction();
+
+				$id_nucleo = $_REQUEST['idnuc'];
+
+				var_dump($_REQUEST);		
+
+				$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :idnuc order by nome_usuario');
+				$comando->execute(['idnuc'=>$id_nucleo]);
+
+				echo $id_nucleo;
+
+				$bd->commit();
+
+				$total = $comando->rowCount();
+
+				if($total>0){
+
+					echo "<table id='tabelinha'><tr>
+					<th>Nome do usuário</th>						
+					<th></th>
+					</tr>";
+
+
+					while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
+
+						$_SESSION['nome_usuario'] = $linha['nome_usuario'];
+						$_SESSION['id_ufn'] = $linha['id'];
+
+						
+					echo "<tr>
+					<td>{$linha['nome_usuario']}</td>
+					<td><div class='dropdown'>
+					  <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
+					    Ver mais
+					  </button>
+					  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+					    <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
+					    <li><a class='dropdown-item' href='#'>Another action</a></li>
+					    <li><a class='dropdown-item' href='#'>Something else here</a></li>
+					  </ul>
+					</div>
+					</td>
+					</tr>";
+					}
+
+					echo "</table>";
+				}
+				else{
+				echo "Não existem membros do núcleo.";
+				}
+			}
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+			print_r($e->getTrace());
+			$bd->rollback();
+		}		
+	
+		
+	}
+}
+
+?>

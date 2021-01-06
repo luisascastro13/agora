@@ -27,7 +27,7 @@ session_start();
 	<div>
 		<h1>Busca de núcleos</h1>
 
-		<form method="post" action="#">
+		<form method="post" action="">
 			<input type="text" name="nomePesquisado" placeholder="Nome do núcleo" required>
 			<input type="submit" value="Buscar">
 		</form>
