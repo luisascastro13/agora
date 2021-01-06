@@ -41,7 +41,7 @@ function mostrarUsuariosNucleo(){
 				try{
 					$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 					$bd->beginTransaction();
-						$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :id');
+						$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :id order by nome_usuario');
 						$comando->execute(['id'=>$_SESSION['id_nucleo']]);
 
 						// echo $_SESSION['id_nucleo'];

@@ -1,6 +1,7 @@
 <?php
-require('mostrarReunioes.php');
+
 require('mostrarNucleos.php');
+require('mostrarNucleosPesquisados.php');
 
 session_start();
 
@@ -16,12 +17,29 @@ session_start();
 <body>
 
 	<div>
+		<h4>Nome do usuário: <?php echo $_SESSION['primeironome'];?>
+		<br>Matrícula: <?php echo $_SESSION['username'];?>
+	</h4>
+
 		
+	</div>
+
+	<div><h1>Busca de núcleos</h1>
+
+		<form method="post" action="mostrarNucleosPesquisados.php">
+			<input type="text" name="nomePesquisado" placeholder="Nome do núcleo" required>
+			<input type="submit" value="Buscar">
+		</form>		
+		
+		
+		<div>
+
+		</div>	
 
 	</div>
 
 	<div>
-		<h1>Núcleos</h1>
+		<h1>Núcleos que o usuário participa</h1>
 
 		<form method="post" action="inserirNucleo.php">
 			<input type="text" name="nome" placeholder="Nome do núcleo" required>
@@ -30,19 +48,14 @@ session_start();
 		
 		
 		<div>	
-			<?php echo mostrarNucleos();
+			<?php
+			echo mostrarNucleos();
 			?>
 		</div>		
 
 	</div>
 
-	<div>
-		<!-- <h1>Locais</h1> -->
-		
-	</div>
-
-
-
+	
 <br><br>
 </body>	
 </html>
