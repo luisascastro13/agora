@@ -17,25 +17,22 @@ session_start();
 <body>
 
 	<div>
-		<h4>Nome do usuário: <?php echo $_SESSION['primeironome'];?>
-		<br>Matrícula: <?php echo $_SESSION['username'];?>
-	</h4>
-
-		
+		<h4>
+			Nome do usuário: <?php echo $_SESSION['primeironome'];?>
+			<br>
+			Matrícula: <?php echo $_SESSION['username'];?>
+		</h4>
 	</div>
 
-	<div><h1>Busca de núcleos</h1>
+	<div>
+		<h1>Busca de núcleos</h1>
 
-		<form method="post" action="mostrarNucleosPesquisados.php">
+		<form method="post" action="#">
 			<input type="text" name="nomePesquisado" placeholder="Nome do núcleo" required>
 			<input type="submit" value="Buscar">
-		</form>		
+		</form>
 		
-		
-		<div>
-
-		</div>	
-
+		<div><?php mostrarNucleosPesquisados(); ?></div>
 	</div>
 
 	<div>
@@ -44,18 +41,14 @@ session_start();
 		<form method="post" action="inserirNucleo.php">
 			<input type="text" name="nome" placeholder="Nome do núcleo" required>
 			<input type="submit" value="Criar novo núcleo">
-		</form>		
-		
+		</form>	
 		
 		<div>	
 			<?php
 			echo mostrarNucleos();
 			?>
-		</div>		
-
+		</div>
 	</div>
 
-	
-<br><br>
 </body>	
 </html>

@@ -1,6 +1,8 @@
 <?php
 
 
+function mostrarNucleosPesquisados(){
+
 	$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
 			if (!$bd) {
@@ -14,6 +16,9 @@
 				try{
 
 					if (isset($_POST["nomePesquisado"])) {
+
+
+						// header('Location: painel.php');
 
 
 						$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,6 +35,8 @@
 
 						if($comando)
 						{
+
+
 							echo  "<table id='tabelinha'><tr>
 							<th>Nome do núcleo</th>
 							<th></th>
@@ -45,19 +52,13 @@
 
 							}
 
-							echo "</table>";
-							
+							echo "</table>";							
 
 						}
 						else{
 							echo "Não existem núcleos compatíveis com sua pesquisa. Sinto muito, tente novamente.";
-						}
-
-
-						
+						}						
 					}
-
-
 				}
 				
 				catch(Exception $e){
@@ -67,5 +68,6 @@
 				}		
 			}
 	
+	}
 
 ?>
