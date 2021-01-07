@@ -17,6 +17,10 @@ session_start();
 <body>
 
 	<div>
+		<a href="login.php">TROCAR DE CONTA</a>
+	</div>
+
+	<div>
 		<h4>
 			Nome do usuário: <?php echo $_SESSION['primeironome'];?>
 			<br>
@@ -45,7 +49,7 @@ session_start();
 		
 		<div>	
 			<?php
-			echo mostrarNucleos();
+			mostrarNucleos();
 			?>
 		</div>
 	</div>

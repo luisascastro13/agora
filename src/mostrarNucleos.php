@@ -2,7 +2,6 @@
 
 function mostrarNucleos(){
 
-
 			$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
 			if (!$bd) {
@@ -19,9 +18,6 @@ function mostrarNucleos(){
 						$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 						$bd->beginTransaction();
 
-						// AQUI DEVE SER FEITO UM INSERT NA TABELA USUARIOS_FREQUENTAM_NUCLEO AINDA, PARA PODER MOSTRAR ALGUMA COISA NA TELA.
-
-
 							$comando = $bd->prepare('SELECT nucleo.nome, usuarios_frequentam_nucleo.id_nucleo FROM nucleo inner join usuarios_frequentam_nucleo on nucleo.id = usuarios_frequentam_nucleo.id_nucleo where id_usuario = :id');
 
 							$comando->execute(['id'=>$_SESSION['username']]);
@@ -34,27 +30,19 @@ function mostrarNucleos(){
 						if($total > 0){
 
 							echo  "<table id='tabelinha'><tr>
-							<th>Nome do núcleo</th>
-						
+							<th>Nome do núcleo</th>						
 							</tr>";
 
 
 							while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
 
-							$id = $linha['id_nucleo'];							
+							$id_nucleo = $linha['id_nucleo'];							
 
-								echo "<tr>
+							echo "<tr>
 							<td>{$linha['nome']}</td>
-							<td><a href='mostrarNucleo.php?idnuc=$id'>Ver Mais</a></td>
-							<td style='visibility:hidden'>{$linha['id_nucleo']}</td>
-							</tr>";
+							<td><a href='mostrarNucleo.php?id_nucleo=$id_nucleo'>Ver Mais</a></td>
+							</tr>";		
 							
-							
-
-								
-
-							$_SESSION['id_nucleo'] = $linha['id_nucleo'];
-
 							}
 
 							echo "</table>";

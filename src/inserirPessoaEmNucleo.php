@@ -9,22 +9,24 @@ session_start();
 		}
 
 		else {
-			
 			try{
 
-				//insere novo nome de pessoa no nucleo
+				var_dump($_POST);
 
+				$idn = $_POST['id_nucleo'];
+
+				//insere novo nome de pessoa no nucleo
 				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$bd->beginTransaction();
 					$comando = $bd->prepare('insert into usuarios_frequentam_nucleo (id_nucleo, nome_usuario) values (:id_nucleo, :nome_usuario)');
 
-					$comando->execute(['id_nucleo' => $_SESSION['id_nucleo'], 'nome_usuario' => $_POST['nome']]);
+					//id_nucleo não pode estar vazio
+					$comando->execute(['id_nucleo' => $_POST['id_nucleo'], 'nome_usuario' => $_POST['nome']]);
 
 					$bd->commit();
 
-					echo 'inserido.';
-
-				// header('Location: painel.php');
+					
+				header("Location: mostrarNucleo.php?id_nucleo=$idn");
 			}
 			
 			catch(Exception $e){

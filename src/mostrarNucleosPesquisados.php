@@ -60,7 +60,7 @@ function mostrarNucleosPesquisados(){
 							
 							echo "<tr>
 							<td>{$linha['nome']}</td>
-							<td><a href='mostrarNucleo.php?idnuc=$id'>Ver Mais</a></td>
+							<td><a href='mostrarNucleo.php?id_nucleo=$id'>Ver Mais</a></td>
 							</tr>";
 
 						}

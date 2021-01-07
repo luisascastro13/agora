@@ -13,7 +13,6 @@ session_start();
 			try{
 
 				//insere novo nucleo
-
 				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$bd->beginTransaction();
 					$comando = $bd->prepare('delete from usuarios_frequentam_nucleo where id = :id_usuarios_frequentam_nucleo');

@@ -7,10 +7,7 @@
 </head>
 <body>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
-
 
 </script>
 
@@ -20,7 +17,8 @@
 
 <?php
 
-function mostrarUsuariosNucleo(){
+function mostrarUsuariosNucleo($id_nucleo){	
+	
 
 	$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 
@@ -46,14 +44,13 @@ function mostrarUsuariosNucleo(){
 			$linha = $comando->fetch(PDO::FETCH_ASSOC);
 
 			if($linha == '0'){ //usuario é somente visualizador, não é adm
-				// echo 'não adm';
+				echo '<br>não adm';
 				$adm = 'false';
 			}
 			else{ //usuario é adm
-				// echo 'sim adm';
+				echo '<br>sim adm';
 				$adm = 'true';
 			}
-
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -61,89 +58,88 @@ function mostrarUsuariosNucleo(){
 			$bd->rollback();
 		}
 
-		try{
 
-			if(isset($_REQUEST['idnuc'])){
+		try{				
 
-				$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$bd->beginTransaction();
+			$bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$bd->beginTransaction();
 
-				$id_nucleo = $_REQUEST['idnuc'];
 
-				$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :idnuc order by nome_usuario');
-				$comando->execute(['idnuc'=>$id_nucleo]);
+			$comando = $bd->prepare('SELECT nome_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = :idnuc order by nome_usuario asc');
 
-				$bd->commit();
+			$comando->execute(['idnuc'=>$id_nucleo]);
 
-				$total = $comando->rowCount();
+			$bd->commit();
 
-				if($total>0){
+			$total = $comando->rowCount();
 
-					echo "<table id='tabelinha'><tr>
-					<th>Nome do usuário</th>						
-					<th></th>
+			if($total>0){
+
+				echo "<table id='tabelinha'><tr>
+				<th>Nome do usuário</th>						
+				<th></th>
+				</tr>";
+
+
+				while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
+
+					$_SESSION['nome_usuario'] = $linha['nome_usuario'];
+					$_SESSION['id_ufn'] = $linha['id'];
+
+					
+					echo "<tr><td>{$linha['nome_usuario']}</td>";
+
+					if($adm == 'true'){
+						echo "<td><div class='dropdown'>
+					  <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
+					    Ver mais
+					  </button>
+					  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+					    <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
+					    <li><a class='dropdown-item' href='#'>Another action</a></li>
+					    <li><a class='dropdown-item' href='#'>Something else here</a></li>
+					  </ul>
+					</div>
+					</td>
 					</tr>";
-
-
-					while($linha = $comando->fetch(PDO::FETCH_ASSOC)){
-
-						$_SESSION['nome_usuario'] = $linha['nome_usuario'];
-						$_SESSION['id_ufn'] = $linha['id'];
-
-						
-						echo "<tr><td>{$linha['nome_usuario']}</td>";
-
-						if($adm == 'true'){
-							echo "<td><div class='dropdown'>
-						  <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
-						    Ver mais
-						  </button>
-						  <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-						    <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
-						    <li><a class='dropdown-item' href='#'>Another action</a></li>
-						    <li><a class='dropdown-item' href='#'>Something else here</a></li>
-						  </ul>
-						</div>
-						</td>
-						</tr>";
-						}
-
-						else{
-
-							echo "<td>voce nao é adm</td>";
-
-						// 	echo "td><div class='dropdown'>
-						//   <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
-						//     Ver mais
-						//   </button>
-						//   <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-						//     <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
-						//     <li><a class='dropdown-item' href='#'>Another action</a></li>
-						//     <li><a class='dropdown-item' href='#'>Something else here</a></li>
-						//   </ul>
-						// </div>
-						// </td>
-						// </tr>";
-
-						}					
-
 					}
 
-					echo "</table>";
+					else{
+
+						echo "<td>voce nao é adm</td>";
+
+					// 	echo "td><div class='dropdown'>
+					//   <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='false'>
+					//     Ver mais
+					//   </button>
+					//   <ul class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+					//     <li><a class='dropdown-item' href='excluirUsuarioEmNucleo.php'>Excluir</a></li>
+					//     <li><a class='dropdown-item' href='#'>Another action</a></li>
+					//     <li><a class='dropdown-item' href='#'>Something else here</a></li>
+					//   </ul>
+					// </div>
+					// </td>
+					// </tr>";
+
+					}					
+
 				}
-				else{
-				echo "Não existem membros do núcleo.";
-				}
+
+				echo "</table>";
 			}
+			else{
+			echo "Não existem membros do núcleo.";
+			}
+			
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
 			print_r($e->getTrace());
 			$bd->rollback();
-		}		
-	
+		}
 		
 	}
 }
+
 
 ?>
