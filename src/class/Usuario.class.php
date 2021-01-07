@@ -45,5 +45,7 @@ class Usuario {
 		return $this->listaComentario;
 	}
 
+	
+
 }
 ?>
