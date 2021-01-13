@@ -1,12 +1,13 @@
 <?php
 Class Nucleo{
-	protected $id, $nome, $descricao, $listaMembro;
+	protected $id, $nome, $descricao;
+	protected $listaMembro = array();
+	protected $listaAdm = array();
+	protected $listaAtivo = array();
 
-	public function __construct($id, $nome, $descricao, $listaMembro){
-		$this->id = $id;
+
+	public function __construct($nome){
 		$this->nome = $nome;
-		$this->descricao = $descricao;
-		$this->listaMembro.push($listaMembro);
 	}
 
 	public function __destruct(){ }
@@ -46,5 +47,32 @@ Class Nucleo{
 	public function removeListaMembro($listaMembro) {
 		unset($this->listaMembro[array_search($listaMembro,$this->listaMembro)]);
 	}
+
+	public function addListaAdm($a) {
+		array_push($this->listaAdm, $a);
+	}
+
+	public function getListaAdm(){	
+
+		foreach($this->listaAdm as $adm){
+			return $adm;
+		}
+	}
+
+	public function removeListaAdm($listaAdm) {
+		unset($this->listaAdm[array_search($listaAdm,$this->listaAdm)]);
+	}
+
+	public function addListaAtivo($listaAtivo) {
+		$this->listaAtivo.push($listaAtivo);
+	}
+
+	public function removeListaAtivo($listaAtivo) {
+		unset($this->listaAtivo[array_search($listaAtivo,$this->listaAtivo)]);
+	}
+
+
+
+
 }
 ?>

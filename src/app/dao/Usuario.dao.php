@@ -4,7 +4,10 @@ require_once '../model/Conexao.class.php';
 Class UsuarioDAO{
 	public static function listarUsuario($conn){
 		$sql = "SELECT * FROM USUARIO";
-		$resultado = Conexao::consultarTabela($sql, $conn);
+		// $resultado = Conexao::consultarTabela($sql, $conn, null);
+
+		$resultado = $conn->consultarTabela($sql, $conn, null);
+
 		return $resultado;
 	}
 	public static function inserirUsuario($conn, $usuario){
