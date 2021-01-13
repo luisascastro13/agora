@@ -40,8 +40,8 @@ Class Nucleo{
 		return $this->listaMembro;
 	}
 
-	public function addListaMembro($listaMembro) {
-		$this->listaMembro.push($listaMembro);
+	public function addListaMembro($a) {
+		array_push($this->listaMembro, $a);
 	}
 
 	public function removeListaMembro($listaMembro) {

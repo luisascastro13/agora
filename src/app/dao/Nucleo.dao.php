@@ -59,7 +59,6 @@ Class NucleoDAO{
 		$resultado = $conn->consultarTabela($sql, [$id]);
 
 		return $resultado;
-
 	}
 
 	public static function editarNucleo($nucleo){
@@ -68,6 +67,21 @@ Class NucleoDAO{
 		$sql = "UPDATE NUCLEO SET nome = ? WHERE id = ?";
 		$conn->atualizarTabela($sql, [$nucleo->getNome(), $nucleo->getId()]);
 
+	}
+
+	public static function listarMembros($nucleo){
+		$conn = new Conexao();
+
+		$sql = "SELECT nome_usuario FROM usuarios_frequentam_nucleo where id_nucleo = ?";
+		$resultado = $conn->consultarTabela($sql, [$nucleo->getId()]);
+
+		return $resultado;
+	}
+
+	public static function inserirUsuarioEmNucleo($nucleo, $usuario){
+		$conn = new Conexao();
+		$sql = "INSERT INTO usuarios_frequentam_nucleo (id_usuario, id_nucleo, nome_usuario, usuario_adm, ativo) values (?,?,?,?,?)";
+		$conn->atualizarTabela($sql, [$usuario->getLogin(), $nucleo->getId(), $usuario->getNome(), '0', '1']);	
 	}
 
 }

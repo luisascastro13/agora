@@ -12,42 +12,64 @@ if(ISSET($_GET['a'])){
 
 	switch($_GET['a']){
 		case 'inserir':
-		//cria o nucleo com nome e adiciona o usuario à lista de adms.
+			//cria o nucleo com nome e adiciona o usuario à lista de adms.
 			$nucleo = new Nucleo($_POST['nome']);
 
-		//adiciona o usuário da sessão como adm do objeto nucleo criado;
+			//adiciona o usuário da sessão como adm do objeto nucleo criado;
 			$nucleo->addListaAdm($usuario);		
 
-		//insere no banco o novo nucleo
+			//insere no banco o novo nucleo
 			$idNucleo = NucleoDAO::inserirNucleo($nucleo);
 
-		//a partir do id (auto increment) retornado pela inserção, atualiza o id do objeto $nucleo com o respectivo valor.
+			//a partir do id (auto increment) retornado pela inserção, atualiza o id do objeto $nucleo com o respectivo valor.
 			$nucleo->setId($idNucleo);
 
-		//insere na tabela usuarios_frequentam_nucleo no banco
+			//insere na tabela usuarios_frequentam_nucleo no banco
 			NucleoDAO::inserirUsuarioAdmEmNucleo($nucleo, $usuario);
+
+			header('Location: ../view/index.php');
 
 			break;
 
-		case 'editar':
-		//edita o nome do nucleo
+		case 'editarNomeNucleo':
+			//edita o nome do nucleo e id
 			$nucleo = new Nucleo($_POST['nome']);
 			$nucleo->setId($_POST['id']);
 
-		//insere no banco o novo nucleo
+			//atualiza no banco o nucleo
 			NucleoDAO::editarNucleo($nucleo);
 
-		echo 'lindja';
+			header('Location: ../view/index.php');
+
+			break;
+
+		case 'inserirMembro':
+
+			//cria o nucleo e adiciona nome e id
+			$nucleo = new Nucleo($_POST['nome']);
+			$nucleo->setId($_POST['id']);
+
+
+			//cria um usuario com os valores passados pelo form
+			$usuario = new Usuario(null, $_POST['nomeMembro'], null, null);
+
+			//insere o membro na lista do objeto listaMembro da classe nucleo
+			$nucleo->addListaMembro($usuario);
+
+			//atualiza a tabela usuarios_frequentam_nucleo no banco com o usuario passado
+			NucleoDAO::inserirUsuarioEmNucleo($nucleo, $usuario);
+
 			break;
 
 		case 'eliminar':
 			break;
-	}
+
+		}
 }
 else{
 	echo 'ops nao passou nenhum parametro na url pra eu saber se devo inserir, editar ou eliminar';
 }
 
-header('Location: ../view/index.php');
+
 
 ?>
