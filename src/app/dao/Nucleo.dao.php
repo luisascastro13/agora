@@ -11,7 +11,7 @@ Class NucleoDAO{
 		$conn = new Conexao();
 
 		$sql = "SELECT * FROM NUCLEO";		
-		$resultado = $conn->consultarTabela($sql, $conn, null);
+		$resultado = $conn->consultarTabela($sql, null);
 
 		return $resultado;
 	}
@@ -72,7 +72,7 @@ Class NucleoDAO{
 	public static function listarMembros($nucleo){
 		$conn = new Conexao();
 
-		$sql = "SELECT nome_usuario FROM usuarios_frequentam_nucleo where id_nucleo = ?";
+		$sql = "SELECT nome_usuario, id_usuario, id FROM usuarios_frequentam_nucleo where id_nucleo = ?";
 		$resultado = $conn->consultarTabela($sql, [$nucleo->getId()]);
 
 		return $resultado;
@@ -81,7 +81,19 @@ Class NucleoDAO{
 	public static function inserirUsuarioEmNucleo($nucleo, $usuario){
 		$conn = new Conexao();
 		$sql = "INSERT INTO usuarios_frequentam_nucleo (id_usuario, id_nucleo, nome_usuario, usuario_adm, ativo) values (?,?,?,?,?)";
-		$conn->atualizarTabela($sql, [$usuario->getLogin(), $nucleo->getId(), $usuario->getNome(), '0', '1']);	
+		$id = $conn->atualizarTabela($sql, [$usuario->getLogin(), $nucleo->getId(), $usuario->getNome(), '0', '1']);
+
+		return $id;	
+	}
+
+	public static function atribuirLoginAUsuario($idUsuarioNucleo, $usuario){
+		$conn = new Conexao();
+		$sql = "UPDATE usuarios_frequentam_nucleo SET id_usuario = ? WHERE id = ?;";
+
+		$erro = $conn->atualizarTabela($sql, [$usuario->getLogin(), $idUsuarioNucleo]);
+		if(isset($erro)){
+			return $erro;
+		}
 	}
 
 }

@@ -67,7 +67,7 @@ require_once('../model/Usuario.class.php');
 						$bd->commit();	
 					}
 				}
-				header('Location: ../view/index.php');
+				header('Location: ../view/painel.php');
 			}
 						
 			//se houver algum erro na verificacao ou insercao de usuario no banco, gera uma exceção e desfaz as alteracoes no banco.

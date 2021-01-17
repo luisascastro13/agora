@@ -80,8 +80,8 @@ $objNucleo->setId($id);
 			{ ?>
 			<tr>
 				<td><?= $val['nome_usuario'] ?></td>
-				<td><a href="editar.php?id=<?=$val['id']?>">Editar</a></td>
-				<td><a href="../controller/Nucleo.controller.php?a=elim&id=<?=$fila[0]?>" onclick="return confirm('Deseja excluir?')">Excluir</a></td>
+				<td><a href="#">Editar</a></td>
+				<td><a href="#" onclick="return confirm('Deseja excluir?')">Excluir</a></td>
 			</tr>
 		<?php } ?>
 	</table>

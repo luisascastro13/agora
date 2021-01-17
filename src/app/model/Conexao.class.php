@@ -70,9 +70,11 @@ class Conexao extends PDO{
 				return $id;	
 
 			}catch(Exception $e){
-				echo $e->getMessage();
-				print_r($e->getTrace());
+				$erro= $e->getMessage();
+				// $erro = $conn->errorInfo();
+				// array_push($erro, $conn->errorInfo());
 				$conn->rollback();
+				return $erro;
 			}
 		}
 	}
