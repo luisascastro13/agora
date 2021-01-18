@@ -73,15 +73,28 @@ if(ISSET($_GET['a'])){
 		// Porque o campo é chave estrangeira de Usuario
 		// Portanto, se o valor informado não existir no banco, o próprio MySQL retorna erro.
 
-				$idUsuarioNucleo = $_POST['idUsuarioNucleo'];
+			$idUsuarioNucleo = $_POST['idUsuarioNucleo'];
+			$login = $_POST['login'];
 
-				var_dump($_POST);
-				
-				//cria um nucleo
-				$nucleo = new Nucleo($_POST['nomeNucleo']);
-				$nucleo->setId($_POST['idNucleo']);
-				$idNucleo = $_POST['idNucleo'];
+			// var_dump($_POST);
+			
+			//cria um nucleo
+			$nucleo = new Nucleo($_POST['nomeNucleo']);
+			$nucleo->setId($_POST['idNucleo']);
+			$idNucleo = $_POST['idNucleo'];
 
+			//verifica se o login já esta sendo utilizado por algum usuário
+			$membros = NucleoDAO::listarMembros($nucleo);
+			$loginDosMembros = array();
+
+			foreach($membros as $membro){
+				array_push($loginDosMembros, $membro[1]);				
+			}
+			
+			if(in_array($login, $loginDosMembros)){
+				header("Location: ../view/visualizarNucleo.php?id=$idNucleo&msg=2");
+			}
+			else{
 				//pega o usuario que ja existe e altera o id, que antes era nulo, para id existente
 				$usuarioNovo = new Usuario($_POST['login'], "nome", null, null);
 
@@ -91,10 +104,13 @@ if(ISSET($_GET['a'])){
 				$erro =	NucleoDAO::atribuirLoginAUsuario($idUsuarioNucleo, $usuarioNovo);
 
 				if(strpos($erro, "constraint")){
-					header("Location: ../view/visualizarNucleo.php?id=$idNucleo&msg=1");			
-				}else{
-					header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
+					header("Location: ../view/visualizarNucleo.php?id=$idNucleo&msg=1");	
+
 				}			
+				else{
+					header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
+				}
+			}		
 			break;		
 
 		case 'eliminar':

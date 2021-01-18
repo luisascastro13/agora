@@ -17,7 +17,15 @@ require_once '../model/Nucleo.class.php';
 	$objNucleo->setId($id);
 
 	if(isset($_GET['msg'])){
-		echo '<script>alert("Opa! Login inválido.")</script>';
+		switch($_GET['msg']){
+			case '1':
+				echo '<script>alert("Opa! Login inválido.")</script>';
+				break;
+			case '2':
+				echo '<script>alert("Opa! Este login já está em uso.")</script>';
+				break;
+		}
+		
 	}
 ?>
 
