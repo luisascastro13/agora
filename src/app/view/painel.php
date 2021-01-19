@@ -15,8 +15,7 @@ $conn =  new Conexao();
 			// $_SESSION['conn'] = $conn;
 
 			$usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
-			// echo $usuario->getNome();
-			// echo '<br>'.$usuario->getLogin();
+			echo $usuario->getNome() . '<br>'. $usuario->getLogin();
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +46,8 @@ $conn =  new Conexao();
 			</tr>
 		<?php } ?>
 	</table> -->
+
+	<a href="login.php">VOLTAR</a>
 
 	<header>
 		<h2>Núcleos</h2>

@@ -9,7 +9,6 @@ $conn = new Conexao();
 $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
 
 if(ISSET($_GET['a'])){
-
 	switch($_GET['a']){
 		case 'inserir':
 			//cria o nucleo com nome e adiciona o usuario à lista de adms.
@@ -22,9 +21,9 @@ if(ISSET($_GET['a'])){
 			$idNucleo = NucleoDAO::inserirNucleo($nucleo);
 
 			//a partir do id (auto increment) retornado pela inserção, atualiza o id do objeto $nucleo com o respectivo valor.
-			$nucleo->setId($idNucleo);
+			$nucleo->setId($idNucleo);		
 
-			//insere na tabela usuarios_frequentam_nucleo no banco
+			$id = NucleoDAO::inserirUsuarioEmNucleo($nucleo, $usuario);
 			NucleoDAO::inserirUsuarioAdmEmNucleo($nucleo, $usuario);
 
 			header('Location: ../view/painel.php');
@@ -68,10 +67,10 @@ if(ISSET($_GET['a'])){
 
 		case 'atribuirLoginAUsuario':
 
-		// IMPORTANTE!!!!!
-		// Não houve necessidade de verificar se o valor inserido é um login válido
-		// Porque o campo é chave estrangeira de Usuario
-		// Portanto, se o valor informado não existir no banco, o próprio MySQL retorna erro.
+			// IMPORTANTE!!!!!
+			// Não houve necessidade de verificar se o valor inserido é um login válido
+			// Porque o campo é chave estrangeira de Usuario
+			// Portanto, se o valor informado não existir no banco, o próprio MySQL retorna erro.
 
 			$idUsuarioNucleo = $_POST['idUsuarioNucleo'];
 			$login = $_POST['login'];
@@ -117,7 +116,46 @@ if(ISSET($_GET['a'])){
 			// 
 			break;
 
-		}
+		case 'addAdm':
+
+			//cria o nucleo e adiciona nome e id
+			$nucleo = new Nucleo($_POST['nome']);
+			$nucleo->setId($_POST['id']);
+			$idNucleo = $_POST['id'];
+
+			// primeira coisa a se fazer é verificar se o login já não está na tabela
+
+			//lista de todos membros do nucleo
+			$membrosNucleo = NucleoDAO::listarMembros($nucleo);
+			$usuariosAdm = array();
+			foreach($membrosNucleo as $membro){
+				if($membro[4] == 1){
+					// se o membro for adm, insere o usuario em um array de adms
+					array_push($usuariosAdm, $membro);
+				}						
+			}
+			// cria novo usuario a partir dos valores da session do usuario logado
+			$usuario = new Usuario($_POST['login'], "", null, null);
+
+			// se o id do usuario logado estiver na lista de usuarios adm, setta a variavel pra trues
+			if(in_array(intval($usuario->getLogin()), $usuariosAdm[0])){
+			 	// usuario já é ADM
+				header("Location: ../view/editarNucleo.php?id=$idNucleo&msg=1");	
+			}
+			else{
+				// usuário não é ADM
+				// atualiza tabela usuarios_frequentam_nucleo no banco com adm = 1
+				$erro = NucleoDAO::inserirUsuarioAdmEmNucleo($nucleo, $usuario);
+
+				if(strpos($erro, "constraint")){
+					header("Location: ../view/editarNucleo.php?id=$idNucleo&msg=1");
+				}			
+				else{echo '<script>alert("Opa! Login inválido.")</script>';
+					header("Location: ../view/editarNucleo.php?id=$idNucleo");
+				}
+			}
+			break;
+	}
 }
 else{
 	echo 'ops nao passou nenhum parametro na url pra eu saber se devo inserir, editar ou eliminar';
