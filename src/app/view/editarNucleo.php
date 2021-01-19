@@ -70,9 +70,10 @@ require_once '../model/Nucleo.class.php';
 
 	<h3>1. ALTERAR NOME DO NÚCLEO</h3>
 	<form method="post" action="../controller/Nucleo.controller.php?a=editarNomeNucleo">
-		<!-- sei la -->
+		<input type="text" name="nome" value="<?=$nucleoCerto['nome']?>">
+		<input type="hidden" name="id" value="<?=$nucleoCerto['id']?>">
+		<input type="submit" value="Alterar nome do núcleo">
 	</form>
-
 
 	<h3>2. ADMINISTRADORES</h3>
 	<!-- TABELA LISTAR ADMS -->

@@ -71,8 +71,6 @@ class Conexao extends PDO{
 
 			}catch(Exception $e){
 				$erro= $e->getMessage();
-				// $erro = $conn->errorInfo();
-				// array_push($erro, $conn->errorInfo());
 				$conn->rollback();
 				return $erro;
 			}

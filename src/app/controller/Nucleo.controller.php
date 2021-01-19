@@ -34,11 +34,12 @@ if(ISSET($_GET['a'])){
 			//edita o nome do nucleo e id
 			$nucleo = new Nucleo($_POST['nome']);
 			$nucleo->setId($_POST['id']);
+			$idNucleo = $_POST['id'];
 
 			//atualiza no banco o nucleo
 			NucleoDAO::editarNucleo($nucleo);
 
-			header('Location: ../view/painel.php');
+			header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
 
 			break;
 

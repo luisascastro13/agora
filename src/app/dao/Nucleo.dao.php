@@ -4,7 +4,6 @@ require_once '../model/Usuario.class.php';
 
 session_start();
 
-
 Class NucleoDAO{
 	//lista todos nucleos do banco de dados
 	public static function listarNucleo(){
@@ -16,7 +15,9 @@ Class NucleoDAO{
 		return $resultado;
 	}
 
-	//lista os nucleos em que o usuario está na lista de ativos
+
+	// TALVEZ SEJA ÚTIL, POSTERIORMENTE, PASSAR O OBJETO $USUARIO COMO PARÂMETRO, A FIM DE QUE A FUNÇÃO POSSA SER REUTILIZADA;
+	//lista os nucleos em que o usuario_logado está na lista de ativos
 	public static function listarNucleoUsuarioParticipa(){
 		$conn = new Conexao();
 		$usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);

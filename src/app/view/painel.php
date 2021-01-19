@@ -26,26 +26,6 @@ $conn =  new Conexao();
 	<title>Document</title>
 </head>
 <body>
-	<!-- <header>
-		<h1>Oi!</h1>
-		<h2>Listar Usuários</h2>
-	<header>
-	<a href="inserir.php?model=usuario">Inserir novo</a>
-	<table>
-		<tr>
-			<th>Nome</th>
-			<th colspan="2">Opções</th>
-		</tr>
-		<?php 
-		foreach (UsuarioDAO::listarUsuario($conn) as $fila)
-			{ ?>
-			<tr>
-				<td><?= $fila[1] ?></td>
-				<td><a href="editar.php?id=<?=$fila[0]?>">Editar</a></td>
-				<td><a href="../controladores/Usuario.controlador.php?&a=elim&id=<?=$fila[0]?>" onclick="return confirm('Deseja excluir?')">Excluir</a></td>
-			</tr>
-		<?php } ?>
-	</table> -->
 
 	<a href="login.php">VOLTAR</a>
 
@@ -58,7 +38,7 @@ $conn =  new Conexao();
 	<!-- novo nucleo Button trigger modal -->
 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Inserir novo núcleo</button>
 
-	<!-- Modal -->
+	<!-- Modal NOVO NUCLEO-->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -87,7 +67,6 @@ $conn =  new Conexao();
 	<table>
 		<tr>
 			<th>Nome</th>
-			<th colspan="2">Opções</th>
 		</tr>
 
 		<!-- listar todos nucleos que o usuario está na lista-->
@@ -95,9 +74,7 @@ $conn =  new Conexao();
 		foreach (NucleoDAO::listarNucleoUsuarioParticipa() as $val)
 			{ ?>
 			<tr>
-				<td><?= $val['nome'] ?></td>
-				<td><a href="visualizarNucleo.php?id=<?=$val['id']?>">Editar</a></td>
-				<td><a href="../controller/Nucleo.controller.php?a=elim&id=<?=$fila[0]?>" onclick="return confirm('Deseja excluir?')">Excluir</a></td>
+				<td><a href="visualizarNucleo.php?id=<?=$val['id']?>"><?= $val['nome'] ?></a></td>
 			</tr>
 		<?php } ?>
 	</table>
@@ -109,16 +86,13 @@ $conn =  new Conexao();
 	<table>
 		<tr>
 			<th>Nome</th>
-			<th colspan="2">Opções</th>
 		</tr>
 
-		<!-- listar todos nucleos que o usuario está na lista-->
 		<?php 
 		foreach (NucleoDAO::listarNucleo() as $val)
 			{ ?>
-			<tr>
-				<td><?= $val["nome"] ?></td>				
-				<td><a href="visualizarNucleo.php?id=<?=$val['id']?>">Ver Mais</a></td>
+			<tr>		
+				<td><a href="visualizarNucleo.php?id=<?=$val['id']?>"><?= $val["nome"] ?></a></td>
 			</tr>
 
 		<?php } ?>

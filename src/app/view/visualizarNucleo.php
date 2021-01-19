@@ -1,6 +1,8 @@
 <?php
 require_once '../dao/Nucleo.dao.php';
 require_once '../model/Nucleo.class.php';
+require_once '../dao/Reuniao.dao.php';
+require_once '../model/Reuniao.class.php';
 
 ####### CRIA OBJETO NUCLEO ########
 
@@ -213,16 +215,127 @@ require_once '../model/Nucleo.class.php';
 	  </div>
 	</div>
 
-	<?php if($userAdm == true){ ?>
-		<a class="btn btn-warning" href="editarNucleo.php?id=<?=$nucleoCerto['id'] ?>">Editar Núcleo</a>
-	<?php } ?> 
-
 	<!-- FORMULARIO INVISIVEL QUE PERMITE EXCLUSAO DE USUARIOS -->
 	<form style="display: none" id='theForm' method="post" action="../controller/Nucleo.controller.php?a=removerUsuario">
 		<input id="idUFN" name="idUFN" value="">
 		<input name="idNucleo" value="<?=$nucleoCerto['id'] ?>">		
 		<input type="submit">
 	</form>
+
+	<!-- FUNCIONALIDADES VISÍVEIS SOMENTE PARA ADMS -->
+	<?php if($userAdm == true){ ?>
+
+		<!-- Redi<reciona para a tela de edição administrar usuários ADM-->
+		<a class="btn btn-warning" href="editarNucleo.php?id=<?=$nucleoCerto['id'] ?>">Editar Núcleo</a>
+
+		<!-- BOTÃO CRIAR REUNIÃO (abre modal Nova Reuniao) -->
+		<button type="button" class="btn btn-primary" onClick="abrirModalNovaReuniao()">Criar Reunião</button>
+
+	<?php } ?>	
+
+	<!-- Modal NOVA REUNIÃO -->
+	<div class="modal fade" id="novaReuniao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Nova Reunião</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	     
+	      	<form method="post" action="../controller/Reuniao.controller.php?a=inserir">
+
+	      		<!-- INFORMACOES DA REUNIAO -->
+	      		<!-- NOME DA REUNIAO -->
+	      		<div class="input-group mb-3">
+					<div class="input-group-prepend">
+				    	<span class="input-group-text" id="basic-addon1">Nome da reunião: </span>
+				  	</div>
+					<input type="text" class="form-control" placeholder="Reunião mensal" aria-label="Username" aria-describedby="basic-addon1" name="nome">
+				</div>
+
+				<!-- DATA -->
+				<div class="input-group mb-3">
+			  		<div class="input-group-prepend">
+			    		<span class="input-group-text">Data</span>
+			  		</div>
+			  		<input type="date" class="form-control" name="data">
+			  	</div>
+
+			  	<!-- HORÁRIO -->
+			  	<div class="input-group mb-3">
+			  		<div class="input-group-prepend">
+			    		<span class="input-group-text">Horário</span>
+			  		</div>
+			  		<input type="time" class="form-control" name="horario">
+			  	</div>
+
+				<!-- Descricao -->
+				<div class="input-group mb-3">
+			  		<div class="input-group-prepend">
+			   			<span class="input-group-text">Descrição</span>
+			  		</div>
+			  		<textarea class="form-control" name="descricao" ></textarea>
+				</div>
+
+				<!-- DOCUMENTOS QUE GOSTARIA DE CRIAR  -->
+	      		<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="ata">
+				  	<label class="form-check-label" for="ata">Ata</label>
+				</div>
+				<div class="form-check">
+				  	<input class="form-check-input" type="checkbox" value="" id="listaPresenca">
+				  	<label class="form-check-label" for="listaPresenca">Lista de Presença</label>
+				</div>
+				<div class="form-check">
+				  	<input class="form-check-input" type="checkbox" value="" id="votacao">
+				  	<label class="form-check-label" for="votacao">Votação</label>
+				</div>
+
+				<!-- INPUTS INVISIVEIS PARA PASSAR ID DO NUCLEO -->
+	      		<input type="hidden" name="nomeNucleo" value="<?=$nucleoCerto['nome'] ?>">
+	      		<input type="hidden" name="idNucleo" value="<?=$nucleoCerto['id'] ?>">
+	    
+		      </div>
+		      <div class="modal-footer">     
+		        <input type='submit' id="novaReuniao" class="btn btn-primary" value="Criar Nova Reunião">
+		    </form>
+
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- TABELA LISTAR REUNIÕES -->
+	<table id='minhaTabelaReunioes'>
+		<h3>Reuniões</h3>
+		<tr>
+			<th>Reunião</th>
+			<th>Data</th>			
+		</tr>
+
+		<?php $reunioesNucleo = array(); ?>
+			<tr>
+
+			<?php foreach (ReuniaoDAO::listarReunioes() as $val){
+				if($val[9] == $nucleoCerto['id']){
+					array_push($reunioesNucleo, $val); 
+					$data = date_create($val[3]);
+					$dataFormatada = date_format($data, 'd/m/Y H:i');
+
+					?>
+					<td><a><?=$val[1] ?></a></td>
+					<td><?=$dataFormatada ?></td>
+				<?php } ?>
+			</tr>
+		<?php } ?>
+	</table>
+
+
+
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -245,6 +358,11 @@ require_once '../model/Nucleo.class.php';
 			document.getElementById("theForm").submit();			
 		}	
 	}
+	function abrirModalNovaReuniao(){
+		$("#novaReuniao").modal('show');
+	}
+
+
 </script>
 
 </body>
