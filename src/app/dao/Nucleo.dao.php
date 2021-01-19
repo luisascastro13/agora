@@ -41,18 +41,9 @@ Class NucleoDAO{
 
 		$sql = "DELETE FROM NUCLEO WHERE id = $nucleo->getId()";
 		$conn->atualizarTabela($sql);
-	}
+	}	
 
-	public static function inserirUsuarioAdmEmNucleo($nucleo, $usuario){
-		$conn = new Conexao();
-		$sql = "UPDATE usuarios_frequentam_nucleo set usuario_adm = 1 where id_usuario = ? and id_nucleo = ?";
-		$erro = $conn->atualizarTabela($sql, [$usuario->getLogin(), $nucleo->getId()]);
-
-		if(isset($erro)){
-			return $erro;
-		}		
-	}
-
+	### BUSCA NUCLEO POR ID
 	public static function buscarPorId($id){
 		$conn = new Conexao();
 
@@ -87,6 +78,16 @@ Class NucleoDAO{
 		return $id;	
 	}
 
+	public static function removerUsuarioEmNucleo($idUsuarioNucleo){
+		$conn = new Conexao();
+		$sql = "DELETE FROM usuarios_frequentam_nucleo where id = ?";
+		$erro = $conn->atualizarTabela($sql, [$idUsuarioNucleo]);
+		if(isset($erro)){
+			return $erro;
+		}
+
+	}
+
 	public static function atribuirLoginAUsuario($idUsuarioNucleo, $usuario){
 		$conn = new Conexao();
 		$sql = "UPDATE usuarios_frequentam_nucleo SET id_usuario = ? WHERE id = ?;";
@@ -95,6 +96,16 @@ Class NucleoDAO{
 		if(isset($erro)){
 			return $erro;
 		}
+	}
+
+	public static function inserirUsuarioAdmEmNucleo($nucleo, $usuario){
+		$conn = new Conexao();
+		$sql = "UPDATE usuarios_frequentam_nucleo set usuario_adm = 1 where id_usuario = ? and id_nucleo = ?";
+		$erro = $conn->atualizarTabela($sql, [$usuario->getLogin(), $nucleo->getId()]);
+
+		if(isset($erro)){
+			return $erro;
+		}		
 	}
 
 	public static function removerUsuarioAdmEmNucleo($nucleo, $usuario){

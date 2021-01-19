@@ -29,7 +29,7 @@ require_once '../model/Nucleo.class.php';
 
 	foreach($membrosNucleo as $membro){
 		if($membro[4] == 1){
-			echo "<br>Valor ". $membro[4]." no usuario: ". $membro[1];
+			// echo "<br>Valor ". $membro[4]." no usuario: ". $membro[1];
 			// se o membro for adm, insere o usuario em um array de adms
 			array_push($usuariosAdm, $membro);
 			if($membro[1] == $login){
@@ -78,18 +78,19 @@ require_once '../model/Nucleo.class.php';
 	<!-- TABELA LISTAR ADMS -->
 	<table id='minhaTabela'>
 		<h4>Administradores do Núcleo</h4>
-
-		<tr>
-			<th>Nome</th>
-			<th colspan="2">Opções</th>
-		</tr>
+		<tr><th>Nome</th><th colspan="2">Opções</th></tr>
 
 		<?php foreach ($usuariosAdm as $val){ ?>
 				<tr>
+					<!-- MOSTRA NOME E LOGIN DOS USUARIOS ADM -->
 					<td><?= $val['nome_usuario'] ?></td>
 					<td><?= $val['id_usuario'] ?></td>
-					
-					<td><button type="submit" class="btn btn-outline-warning" onClick="removerUsuarioAdm(<?= $val['id_usuario']?>)">Excluir ADM</button></td>			
+
+					<!-- SE O NUCLEO TIVER UM UNICO ADM, NAO PODE EXCLUÍ-LO -->
+					<?php if(count($usuariosAdm) > 1){ ?>
+						<td><button type="submit" class="btn btn-outline-warning" onClick="removerUsuarioAdm(<?= $val['id_usuario']?>)">Excluir ADM</button></td>
+					<?php } ?>
+							
 				</tr>
 			</form>
 		<?php } ?>

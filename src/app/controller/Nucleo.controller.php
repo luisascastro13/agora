@@ -166,13 +166,22 @@ if(ISSET($_GET['a'])){
 			$nucleo->setId($idNucleo);
 
 			$erro = NucleoDAO::removerUsuarioAdmEmNucleo($nucleo, $usuarioAdmRemovido);
+
 			if(isset($erro)){
-				header("Location: ../view/visualizarNucleo.php?id=$idNucleo&msg=3");
+				header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
 			}
 			else{
 				header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
-			}
+			}			
+			break;
 
+		case 'removerUsuario':
+			$idNucleo = $_POST['idNucleo'];
+
+			$idUsuarioNucleo = $_POST['idUFN'];
+			$erro = NucleoDAO::removerUsuarioEmNucleo($idUsuarioNucleo);
+			header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
+			break;
 	}
 }
 else{
