@@ -18,7 +18,6 @@ require_once '../model/Nucleo.class.php';
 	$objNucleo = new Nucleo($nome);
 	$objNucleo->setId($id);
 
-
 ####### VERIFICA SE USUARIO_LOGADO É ADM DO NUCLEO #######
 
 	//lista de todos membros do nucleo
@@ -53,8 +52,6 @@ require_once '../model/Nucleo.class.php';
 		}		
 	}
 
-
-
 ?>
 
 <html>
@@ -88,11 +85,13 @@ require_once '../model/Nucleo.class.php';
 		</tr>
 
 		<?php foreach ($usuariosAdm as $val){ ?>
-			<tr>
-				<td><?= $val['nome_usuario'] ?></td>
-				<td ><?= $val['id_usuario'] ?></td>
-				<td><a href="#" onclick="return confirm('Deseja excluir?')">Excluir</a></td>					
-			</tr>
+				<tr>
+					<td><?= $val['nome_usuario'] ?></td>
+					<td><?= $val['id_usuario'] ?></td>
+					
+					<td><button type="submit" class="btn btn-outline-warning" onClick="removerUsuarioAdm(<?= $val['id_usuario']?>)">Excluir ADM</button></td>			
+				</tr>
+			</form>
 		<?php } ?>
 	</table>
 
@@ -127,12 +126,26 @@ require_once '../model/Nucleo.class.php';
 	  </div>
 	</div>
 
+	<!-- FORMULARIO INVISIVEL QUE PERMITE EXCLUSAO DE ADMS -->
+	<form style="display: none" id='theForm' method="post" action="../controller/Nucleo.controller.php?a=removerAdm">
+		<input id="idUsuario" name="idUsuario">
+		<input name="idNucleo" value="<?=$nucleoCerto['id']; ?>">
+		<input type="submit">
+	</form>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 <script>
 	function abrirModalNovoUsuarioAdm(){
 		$("#novoUsuarioAdm").modal('show');
+	}
+
+	function removerUsuarioAdm(id){
+		if(confirm('Deseja excluir? ID: ' + id)){
+			document.getElementById("idUsuario").value = id;	
+			document.getElementById("theForm").submit();			
+		}					
 	}
 </script>
 

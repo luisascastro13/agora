@@ -28,6 +28,9 @@ require_once '../model/Nucleo.class.php';
 			case '2':
 				echo '<script>alert("Opa! Este login já está em uso.")</script>';
 				break;
+			case '3':
+				echo '<script>alert("Opa! Erro")';
+				break;
 		}		
 	}
 
@@ -133,8 +136,7 @@ require_once '../model/Nucleo.class.php';
 								<button type="button" class="btn btn-outline-warning btn-sm" onClick="abrirModalLogin(<?=$idezinho ?>)">Atribuir usuário</button>
 							<?php } ?>
 
-							<!-- <td><a href="#" onclick="return confirm('Deseja excluir?')">Excluir</a></td> -->
-						<?php } ?>						
+					<?php } ?>						
 					</td>				
 			</tr>
 		<?php } ?>

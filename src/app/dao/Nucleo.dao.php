@@ -97,6 +97,16 @@ Class NucleoDAO{
 		}
 	}
 
+	public static function removerUsuarioAdmEmNucleo($nucleo, $usuario){
+		$conn = new Conexao();
+		$sql = "UPDATE usuarios_frequentam_nucleo SET usuario_adm = 0 where id_usuario = ? and id_nucleo = ?";
+
+		$erro = $conn->atualizarTabela($sql, [$usuario->getLogin(), $nucleo->getId()]);
+		if(isset($erro)){
+			return $erro;
+		}
+	}
+
 
 }
 

@@ -150,11 +150,29 @@ if(ISSET($_GET['a'])){
 				if(strpos($erro, "constraint")){
 					header("Location: ../view/editarNucleo.php?id=$idNucleo&msg=1");
 				}			
-				else{echo '<script>alert("Opa! Login inválido.")</script>';
+				else{
 					header("Location: ../view/editarNucleo.php?id=$idNucleo");
 				}
 			}
 			break;
+
+		case 'removerAdm':
+
+			$idUsuario = $_POST['idUsuario'];
+			$usuarioAdmRemovido = new Usuario($idUsuario, "", null, null);
+
+			$idNucleo = $_POST['idNucleo'];
+			$nucleo = new Nucleo("");
+			$nucleo->setId($idNucleo);
+
+			$erro = NucleoDAO::removerUsuarioAdmEmNucleo($nucleo, $usuarioAdmRemovido);
+			if(isset($erro)){
+				header("Location: ../view/visualizarNucleo.php?id=$idNucleo&msg=3");
+			}
+			else{
+				header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
+			}
+
 	}
 }
 else{
