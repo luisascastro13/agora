@@ -1,7 +1,7 @@
 <?php
 
 class Reuniao{
-	protected $id, $nome, $datahora, $descricao,
+	protected $codigo, $nome, $datahora, $descricao,
 		$idusuarioadm, $idNucleo, $idAta, $idListapresenca, $idVotacao, $idLocal;
 
 	public function __construct($nome, $datahora){
@@ -9,11 +9,11 @@ class Reuniao{
 		$this->datahora = $datahora;
 	}
 
-	public function setId($id){
-		$this->id = $id;
+	public function setCodigo($codigo){
+		$this->codigo = $codigo;
 	}
-	public function getId(){
-		return $this->id;
+	public function getCodigo(){
+		return $this->codigo;
 	}
 
 	public function setNome($nome){
@@ -56,17 +56,35 @@ class Reuniao{
 		return $this->idAta;
 	}
 
+	public function setIdAta($idAta){
+		$this->idAta = $idAta;
+	}
+
 	public function getIdListapresenca(){
 		return $this->idListapresenca;
+	}
+
+	public function setIdListaPresenca($listaPresenca){
+		$this->listaPresenca = $listaPresenca;
 	}
 
 	public function getIdVotacao(){
 		return $this->idVotacao;
 	}
 
+	public function setIdVotacao($idVotacao){
+		$this->idVotacao = $idVotacao;
+	}
+
 	public function getIdLocal(){
 		return $this->idLocal;
 	}
+
+	public function setIdLocal($idLocal){
+		$this->idLocal = $idLocal;
+	}
+
+	
 
 }
 ?>

@@ -316,15 +316,15 @@ require_once '../model/Reuniao.class.php';
 
 		<?php $reunioesNucleo = array(); ?>
 			<tr>
-
 			<?php foreach (ReuniaoDAO::listarReunioes() as $val){
 				if($val[9] == $nucleoCerto['id']){
 					array_push($reunioesNucleo, $val); 
 					$data = date_create($val[3]);
 					$dataFormatada = date_format($data, 'd/m/Y H:i');
-
+					$idReuniao = $val[0];			
 					?>
-					<td><a><?=$val[1] ?></a></td>
+
+					<td><a href="visualizarReuniao.php?id=<?=$val[0] ?>"><?=$val[1] ?></a></td>
 					<td><?=$dataFormatada ?></td>
 				<?php } ?>
 			</tr>

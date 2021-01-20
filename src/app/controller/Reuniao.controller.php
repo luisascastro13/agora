@@ -32,7 +32,7 @@ if(ISSET($_GET['a'])){
 			$id = ReuniaoDAO::inserirReuniao($reuniao);
 
 			// setta o id conforme o retornado pela funcao inserirReuniao()
-			$reuniao->setId($id);
+			$reuniao->setCodigo($id);
 			$reuniao->setIdNucleo($_POST['idNucleo']);
 
 			$erro = ReuniaoDAO::atualizarReuniao($reuniao);			
