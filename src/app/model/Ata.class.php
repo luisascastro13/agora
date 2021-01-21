@@ -2,10 +2,7 @@
 Class Ata{
 	protected $id, $nome, $descricao;
 
-	public function __construct($id, $nome, $descricao){
-		$this->id = $id;
-		$this->nome = $nome;
-		$this->descricao = $descricao;
+	public function __construct(){
 	}
 
 	public function __destruct(){ }

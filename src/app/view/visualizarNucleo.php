@@ -251,44 +251,35 @@ require_once '../model/Reuniao.class.php';
 					<div class="input-group-prepend">
 				    	<span class="input-group-text" id="basic-addon1">Nome da reunião: </span>
 				  	</div>
-					<input type="text" class="form-control" placeholder="Reunião mensal" aria-label="Username" aria-describedby="basic-addon1" name="nome">
+					<input type="text" class="form-control" placeholder="Reunião mensal" aria-label="Username" aria-describedby="basic-addon1" name="nome" required>
 				</div>
 
-				<!-- DATA -->
 				<div class="input-group mb-3">
-			  		<div class="input-group-prepend">
-			    		<span class="input-group-text">Data</span>
-			  		</div>
-			  		<input type="date" class="form-control" name="data">
-			  	</div>
-
-			  	<!-- HORÁRIO -->
-			  	<div class="input-group mb-3">
-			  		<div class="input-group-prepend">
-			    		<span class="input-group-text">Horário</span>
-			  		</div>
-			  		<input type="time" class="form-control" name="horario">
-			  	</div>
+					<span class="input-group-text">Data e Horário</span>
+					<input type="date" aria-label="Data" class="form-control" name="data" required>
+					<input type="time" aria-label="Horário" class="form-control" name="horario" required>
+				</div>
 
 				<!-- Descricao -->
 				<div class="input-group mb-3">
 			  		<div class="input-group-prepend">
 			   			<span class="input-group-text">Descrição</span>
 			  		</div>
-			  		<textarea class="form-control" name="descricao" ></textarea>
+			  		<textarea class="form-control" name="descricao"></textarea>
 				</div>
 
+				<h5 id="exampleModalLabel">Documentos</h5>
 				<!-- DOCUMENTOS QUE GOSTARIA DE CRIAR  -->
 	      		<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="ata">
+					<input class="form-check-input" name="ata" type="checkbox" value="" id="ata" <?php if (isset($ata)) echo "checked";?>>
 				  	<label class="form-check-label" for="ata">Ata</label>
 				</div>
 				<div class="form-check">
-				  	<input class="form-check-input" type="checkbox" value="" id="listaPresenca">
+				  	<input class="form-check-input" name="listaPresenca" type="checkbox" value="" id="listaPresenca" <?php if (isset($listaPresenca)) echo "checked";?>>
 				  	<label class="form-check-label" for="listaPresenca">Lista de Presença</label>
 				</div>
 				<div class="form-check">
-				  	<input class="form-check-input" type="checkbox" value="" id="votacao">
+				  	<input class="form-check-input" name="votacao" type="checkbox" value="" id="votacao" <?php if (isset($votacao)) echo "checked";?>>
 				  	<label class="form-check-label" for="votacao">Votação</label>
 				</div>
 
@@ -333,11 +324,6 @@ require_once '../model/Reuniao.class.php';
 
 
 
-
-
-
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
@@ -361,7 +347,6 @@ require_once '../model/Reuniao.class.php';
 	function abrirModalNovaReuniao(){
 		$("#novaReuniao").modal('show');
 	}
-
 
 </script>
 

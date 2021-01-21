@@ -2,7 +2,9 @@
 require_once '../model/Conexao.class.php';
 require_once '../model/Usuario.class.php';
 
-session_start();
+if(!ISSET($_SESSION)){
+	session_start();
+}
 
 Class NucleoDAO{
 	//lista todos nucleos do banco de dados
@@ -14,7 +16,6 @@ Class NucleoDAO{
 
 		return $resultado;
 	}
-
 
 	// TALVEZ SEJA ÚTIL, POSTERIORMENTE, PASSAR O OBJETO $USUARIO COMO PARÂMETRO, A FIM DE QUE A FUNÇÃO POSSA SER REUTILIZADA;
 	//lista os nucleos em que o usuario_logado está na lista de ativos
@@ -64,11 +65,8 @@ Class NucleoDAO{
 
 	public static function listarMembros($nucleo){
 		$conn = new Conexao();
-
-		$sql = "SELECT nome_usuario, id_usuario, id, ativo, usuario_adm FROM usuarios_frequentam_nucleo where id_nucleo = ?";
-		
+		$sql = "SELECT nome_usuario, id_usuario, id, ativo, usuario_adm FROM usuarios_frequentam_nucleo where id_nucleo = ?";		
 		$resultado = $conn->consultarTabela($sql, [$nucleo->getId()]);
-
 		return $resultado;
 	}
 
@@ -86,7 +84,6 @@ Class NucleoDAO{
 		if(isset($erro)){
 			return $erro;
 		}
-
 	}
 
 	public static function atribuirLoginAUsuario($idUsuarioNucleo, $usuario){

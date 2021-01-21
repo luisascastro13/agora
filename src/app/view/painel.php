@@ -82,7 +82,7 @@ $conn =  new Conexao();
 
 
 	<!-- mostrar todos nucleos que existem no sistema -->
-	<h3>Todos núcleos do sistema</h3>
+	<!-- <h3>Todos núcleos do sistema</h3>
 	<table>
 		<tr>
 			<th>Nome</th>
@@ -96,7 +96,7 @@ $conn =  new Conexao();
 			</tr>
 
 		<?php } ?>
-	</table>
+	</table> -->
 
 
 

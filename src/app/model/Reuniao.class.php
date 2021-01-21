@@ -64,8 +64,8 @@ class Reuniao{
 		return $this->idListapresenca;
 	}
 
-	public function setIdListaPresenca($listaPresenca){
-		$this->listaPresenca = $listaPresenca;
+	public function setIdListapresenca($idlistaPresenca){
+		$this->idListapresenca = $idlistaPresenca;
 	}
 
 	public function getIdVotacao(){

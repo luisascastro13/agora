@@ -4,6 +4,10 @@ require_once '../model/Conexao.class.php';
 require_once '../model/Reuniao.class.php';
 require_once '../dao/Reuniao.dao.php';
 require_once '../model/Usuario.class.php';
+require_once '../model/ListaPresenca.class.php';
+require_once '../dao/ListaPresenca.dao.php';
+require_once '../model/Ata.class.php';
+require_once '../dao/Ata.dao.php';
 
 $conn = new Conexao();
 $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
@@ -35,7 +39,55 @@ if(ISSET($_GET['a'])){
 			$reuniao->setCodigo($id);
 			$reuniao->setIdNucleo($_POST['idNucleo']);
 
-			$erro = ReuniaoDAO::atualizarReuniao($reuniao);			
+			$erro = ReuniaoDAO::atualizarReuniao($reuniao);
+
+			if(isset($_POST['listaPresenca'])){
+				//cria lista de presenca pra essa reuniao
+				$listaPresenca = new ListaPresenca();
+				$listaPresenca->setDescricao("");
+				$idListaPresenca = ListaPresencaDAO::criarListaPresenca($listaPresenca);
+
+				$listaPresenca->setId($idListaPresenca);
+				$reuniao->setIdListapresenca($idListaPresenca);
+				$erro = ReuniaoDAO::atualizarReuniao($reuniao);
+
+				var_dump($reuniao);
+				echo "<br><br><br>";
+				var_dump($idListaPresenca);
+				echo "<br><br><br>";
+				var_dump($listaPresenca);
+
+				if($erro != 0){
+					echo "Erro na Lista de Presença: ".$erro;
+				}
+			}
+			if(isset($_POST['ata'])){
+				//cria ata pra essa reuniao
+				$ata = new Ata();
+				$ata->setDescricao("");
+				$idAta = AtaDAO::criarAta($ata);
+
+				$ata->setId($idAta);
+				$reuniao->setIdAta($idAta);
+				$erro = ReuniaoDAO::atualizarReuniao($reuniao);				
+
+				var_dump($reuniao);
+				echo "<br><br><br>";
+				var_dump($idAta);
+				echo "<br><br><br>";
+				var_dump($ata);
+
+				if($erro != 0){
+					echo "Erro na Ata: ".$erro;
+				}
+				
+				
+			}
+			if(isset($_POST['votacao'])){
+				//cria votacao pra essa reuniao
+			}
+
+			// header("Location: ../view/visualizarReuniao.php?id=$id");
 			break;
 		
 

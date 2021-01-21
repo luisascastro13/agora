@@ -2,11 +2,8 @@
 Class ListaPresenca{
 	protected $id, $nome, $descricao, $lista;
 
-	public function __construct($id, $nome, $descricao, $lista){
-		$this->id = $id;
-		$this->nome = $nome;
-		$this->descricao = $descricao;
-		$this->lista.push($lista);
+	public function __construct(){
+		
 	}
 
 	public function __destruct(){ }
