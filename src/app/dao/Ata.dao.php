@@ -13,6 +13,25 @@ class AtaDAO{
 		$id = $conn->atualizarTabela($sql, [$ata->getDescricao()]);
 		return $id;
 	}
+
+	public static function atualizarAta($ata){
+		$conn = new Conexao();
+
+		$sql = "UPDATE ata SET descricao = ? WHERE id = ?";
+		$erro = $conn->atualizarTabela($sql, [$ata->getDescricao(), $ata->getId()]);
+
+		if(isset($erro)){
+			return $erro;
+		}
+	}
+
+	public static function mostrarDescricao($id){
+		$conn = new Conexao();
+
+		$sql = "SELECT descricao FROM ata WHERE id = ?";
+		$resultado = $conn->consultarTabela($sql, [$id]);
+		return $resultado;
+	}
 }
 
 ?>
