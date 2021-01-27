@@ -81,7 +81,11 @@
 							</div>
 
 							
-							<p class="text-white text-center py-5 mb-4">Não tem uma conta? <a href="#" class="alert-link text-warning">Cadastre-se!</a></p>	
+							<p class="text-white text-center py-5 mb-4">
+
+								<!-- Não tem uma conta? -->
+								<!-- <a href="#" class="alert-link text-warning">Cadastre-se!</a> -->
+							</p>	
 							
 									
 					</div>
@@ -94,7 +98,7 @@
 
 		<footer class="footer py-4" style="background-color: #0D4968;">
             <div class="container w-75 align-center text-center">
-                <span class="text-muted">© Copyright 2020 Ágora. All Rights Reserved.</span>
+                <span class="text-muted">© Copyright 2020-2021 Ágora. All Rights Reserved.</span>
             </div>
         </footer>
 		

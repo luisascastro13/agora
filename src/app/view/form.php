@@ -67,7 +67,7 @@ require_once('../model/Usuario.class.php');
 						$bd->commit();	
 					}
 				}
-				header('Location: ../view/painel.php');
+				header('Location: painel.php');
 			}
 						
 			//se houver algum erro na verificacao ou insercao de usuario no banco, gera uma exceção e desfaz as alteracoes no banco.
@@ -82,6 +82,6 @@ require_once('../model/Usuario.class.php');
 	//se o token nao existe, manda mensagem de erro
 	else{
 
-		header('location: ../view/login.php?msg=1');
+		header('location: login.php?msg=1');
 	}		
 ?>
