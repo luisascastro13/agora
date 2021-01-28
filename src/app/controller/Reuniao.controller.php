@@ -87,7 +87,7 @@ if(ISSET($_GET['a'])){
 				//cria votacao pra essa reuniao
 			}
 
-			// header("Location: ../view/visualizarReuniao.php?id=$id");
+			header("Location: ../view/visualizarReuniao.php?id=$id");
 			break;
 		
 
