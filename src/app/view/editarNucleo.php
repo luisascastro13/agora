@@ -13,6 +13,7 @@ require_once '../model/Nucleo.class.php';
 	//nome do nucleo e id do nucleo
 	$nome = $nucleoCerto['nome'];
 	$id = $nucleoCerto['id'];
+	$idNucleo = $nucleoCerto['id'];
 
 	//crio um novo objeto nucleo e settar os valores dele
 	$objNucleo = new Nucleo($nome);
@@ -291,11 +292,13 @@ else {
         <!-- CONTEÚDO DA PÁGINA -->
 	    <div id="pagina" class="container-fluid pl-md-4">
 
+	    	<a href="visualizarNucleo.php?id=<?=$idNucleo?>" class="d-block">VOLTAR</a>
+
 			<span class="display-4">Alterar nome do núcleo</span>
-			<form method="post" action="../controller/Nucleo.controller.php?a=editarNomeNucleo">
-				<input type="text" name="nome" value="<?=$nucleoCerto['nome']?>">
+			<form method="post" class="input-group w-75" action="../controller/Nucleo.controller.php?a=editarNomeNucleo">
+				<input type="text" name="nome" class="form-control" value="<?=$nucleoCerto['nome']?>">
 				<input type="hidden" name="id" value="<?=$nucleoCerto['id']?>">
-				<input type="submit" value="Alterar nome do núcleo">
+				<input type="submit" class="btn btn-warning" value="Alterar nome do núcleo">
 			</form>
 
 			<span class="display-3">Administradores</span>
@@ -321,7 +324,7 @@ else {
 			</table>
 
 			<!-- INSERIR NOVO ADM AO NUCLEO -->
-			<button type="button" class="btn btn-secondary" id="abrirModalNovoUsuarioAdm" onClick="abrirModalNovoUsuarioAdm()">Inserir novo usuário ADM</button>
+			<button type="button" class="btn btn-primary" id="abrirModalNovoUsuarioAdm" onClick="abrirModalNovoUsuarioAdm()">Inserir novo usuário ADM</button>
 
 			<!-- Modal NOVO USUARIO ADM -->
 			<div class="modal fade" id="novoUsuarioAdm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -367,6 +370,8 @@ else {
 <!-- fecha o container grandao da pagina     -->
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
 <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -398,10 +403,23 @@ else {
 	}
 
 	function removerUsuarioAdm(id){
-		if(confirm('Deseja excluir? ID: ' + id)){
-			document.getElementById("idUsuario").value = id;	
-			document.getElementById("theForm").submit();			
-		}					
+
+		Swal.fire({
+		  text: "Você tem certeza de que deseja excluir?",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Sim, quero excluir.',
+		  cancelButtonText: 'Não, manter usuário.'
+		}).then((result) => {
+		  if (result.isConfirmed){
+		  	Swal.fire('Excluído!', '', 'success');		
+		  	document.getElementById("idUsuario").value = id;	
+			document.getElementById("theForm").submit();
+		  }
+		})	
+						
 	}
 
 

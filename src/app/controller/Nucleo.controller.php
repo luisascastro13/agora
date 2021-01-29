@@ -26,7 +26,7 @@ if(ISSET($_GET['a'])){
 			$id = NucleoDAO::inserirUsuarioEmNucleo($nucleo, $usuario);
 			NucleoDAO::inserirUsuarioAdmEmNucleo($nucleo, $usuario);
 
-			header('Location: ../view/painel.php');
+			header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
 
 			break;
 

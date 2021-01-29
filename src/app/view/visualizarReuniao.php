@@ -5,10 +5,20 @@ require_once '../dao/Nucleo.dao.php';
 require_once '../model/Nucleo.class.php';
 require_once '../dao/Ata.dao.php';
 require_once '../model/Ata.class.php';
+require_once '../model/Conexao.class.php';
 
 if(!ISSET($_SESSION)){
   session_start();
 }
+
+$conn =  new Conexao();
+if (!$conn) {
+    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
+
 
 ########## CRIA OBJETO REUNIAO ###########
 $idReuniao = $_GET['id'];
@@ -41,7 +51,10 @@ foreach($membrosNucleo as $membro){
 ########## FORMATA A DATAHORA ############
 $data = date_create($reuniao->getDatahora());
 $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
- 
+
+$somenteData = date_format($data, 'Y-m-d');
+$somenteHorario = date_format($data, 'H:i');
+
 ?>
 
 
@@ -75,7 +88,80 @@ $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
 
 <!-- mostra espaço de edição da ata para o usuario adm -->
 <?php if($userAdm==true){ ?>
-	<a href="#" class="btn btn-sm btn-outline-warning">Editar Reunião</a>
+
+  <!-- BOTÃO EDITAR REUNIÃO (abre modal EDITAR Reuniao) -->
+  <button type="button" class="btn btn-sm btn-outline-warning" onClick="abrirModalEditarReuniao()">Editar Reunião</button>
+
+
+  <!-- Modal EDITAR REUNIÃO -->
+  <div class="modal fade" id="editarReuniao" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Reunião</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+       
+          <form method="post" action="../controller/Reuniao.controller.php?a=editar">
+
+            <!-- INFORMACOES DA REUNIAO -->
+            <!-- NOME DA REUNIAO -->
+            <div class="input-group mb-3">
+          <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Nome da reunião: </span>
+            </div>
+          <input type="text" class="form-control" placeholder="Reunião mensal" aria-label="Username" aria-describedby="basic-addon1" name="nome" required value="<?php echo $reuniao->getNome();?>">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text">Data e Horário</span>
+          <input type="date" aria-label="Data" class="form-control" name="data" required value="<?php echo $somenteData ?>">
+          <input type="time" aria-label="Horário" class="form-control" name="horario" required value="<?php echo $somenteHorario;?>">
+        </div>
+
+        <!-- Descricao -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Descrição</span>
+            </div>
+            <textarea class="form-control" name="descricao"><?php echo $reuniao->getDescricao(); ?></textarea>
+        </div>
+
+        <h5 id="exampleModalLabel">Documentos</h5>
+        <!-- DOCUMENTOS QUE GOSTARIA DE CRIAR  -->
+            <div class="form-check">
+          <input class="form-check-input"  name="ata" type="checkbox" value="" id="ata" <?php if(isset($ata)) {echo "checked";} if($reuniao->getIdAta() != null){ echo "checked"; } ?>>
+            
+            <label class="form-check-label" for="ata">Ata</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="listaPresenca" type="checkbox" value="" id="listaPresenca"
+            <?php if(isset($listaPresenca)) {echo "checked";} if($reuniao->getIdListapresenca() != null){ echo "checked"; } ?>>
+            <label class="form-check-label" for="listaPresenca">Lista de Presença</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="votacao" type="checkbox" value="" id="votacao"
+            <?php if(isset($votacao)) {echo "checked";} if($reuniao->getIdVotacao() != null){ echo "checked"; } ?>>
+            <label class="form-check-label" for="votacao">Votação</label>
+        </div>
+
+        <!-- INPUTS INVISIVEIS PARA PASSAR ID DO NUCLEO -->
+            <input type="hidden" name="nomeNucleo" value="<?=$objNucleo->getNome();?>">
+            <input type="hidden" name="idNucleo" value="<?=$objNucleo->getId(); ?>">
+            <input type="hidden" name="idReuniao" value="<?=$idReuniao?>">
+      
+          </div>
+          <div class="modal-footer">     
+            <input type='submit'  class="btn btn-primary" value="Editar Reunião">
+        </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
    <?php if($reuniao->getIdAta() != null OR $reuniao->getIdListapresenca() != null OR $reuniao->getIdVotacao() != null){ 
       echo "<h3>Documentos:</h3>"; ?>
@@ -116,23 +202,28 @@ $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
             </div>
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Lista de Presença
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <?php if($reuniao->getIdListaPresenca() != null){ 
-                echo "<h4>Lista presenca:</h4>"; ?>
-                aqui vai ter a lista ok<br>                
-                <a href="#" class="btn btn-sm btn-outline-info">Lista Presenca</a>
-              <?php } ?>
+
+        <?php if($reuniao->getIdListaPresenca() != null){ ?>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Lista de Presença
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                // <?php if($reuniao->getIdListaPresenca() != null){ 
+                  echo "<h4>Lista presenca:</h4>"; ?>
+                  aqui vai ter a lista ok<br>                
+                  <a href="#" class="btn btn-sm btn-outline-info">Lista Presenca</a>
+                <!-- <?php } ?> -->
+              </div>
             </div>
           </div>
-        </div>
-        <div class="accordion-item">
+        <?php } ?>
+
+
+       <!--  <div class="accordion-item">
           <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               Accordion Item #3
@@ -140,17 +231,25 @@ $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
           </h2>
           <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+              
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       
   <?php } ?>
 <?php } ?>
 
 
 </body>
+
+<script>
+
+   function abrirModalEditarReuniao(){
+    $("#editarReuniao").modal('show');
+   }  
+
+</script>
 
 <script>
     ClassicEditor
@@ -165,7 +264,12 @@ $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
     .catch( error => {
         console.error( error );
     } );
+   
+
 </script>
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 

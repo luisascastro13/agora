@@ -14,9 +14,9 @@
 
 			<nav class="navbar navbar-expand-md navbar navbar-light bg-light sticky-top" id="nav">
 
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand w-75" href="index.php">
 
-                    <img src="LogoTextoCaneta.svg" alt="" loading="lazy" id="logo">
+                    <img src="img/LoguinhoAzul.svg" class="w-25" alt="" loading="lazy" id="logo">
 
                 </a>
 
@@ -42,10 +42,9 @@
         </nav>
 
 
-			<div class="container-fluid h-75" style="background-color: #44A7B1;">
-
+			<div class="container-fluid" style="background-color: #44A7B1;">
 					<div class="row">
-						<div class="col">
+						<div class="col"  style="height: 85vh;">
 
 							<div class="nav justify-content-center my-4">
 								<p class="h3 text-white">Acesse o Ágora fazendo seu login!</p>		
@@ -64,7 +63,7 @@
 											<input type="password" class="form-control" id="senha" name="senha">
 										</div>
 										<div class="form-group">
-											<button type="submit" name="enviar" class="btn-block btn btn-primary text-nowrap">Acessar<img width="20" src="moodleicon.png"></button>
+											<button type="submit" name="enviar" class="btn-block btn btn-primary text-nowrap">Acessar<img width="20" src="img/iconmoodle.webp" class="ml-2"></button>
 										</div>
 									</div>
 								</form>
@@ -96,11 +95,12 @@
 		</div>
 
 
-		<footer class="footer py-4" style="background-color: #0D4968;">
+		<footer class="footer py-4 fixed-bottom" style="background-color: #0D4968;">
             <div class="container w-75 align-center text-center">
                 <span class="text-muted">© Copyright 2020-2021 Ágora. All Rights Reserved.</span>
             </div>
         </footer>
+
 		
 	
 		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

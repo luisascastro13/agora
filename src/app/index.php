@@ -34,11 +34,10 @@
 		<div class="d-none d-lg-block col-md-6 d-xl-block"> 
 
 				<!-- Logotipo -->
-				<div id="logotipo" class="bg-light align-items-center .d-block" style="height: 20vh">
-					
-						<a href="#">
-								<img class="mt-4 ml-4" src="LogoTextoCaneta.svg">	
-						</a>							
+				<div id="logotipo" class="bg-light align-items-center .d-block">					
+					<a href="#">
+						<img class="mt-4 ml-4" src="view/img/LoguinhoAzul.svg"  style="height: 10vh;">	
+					</a>							
 				</div>
 			
 
@@ -59,15 +58,15 @@
 
 		<div id="parte2" class="col-lg-6 pr-0 pl-0">
 
-			<div class="d-flex align-items-start flex-column align-items-center" style="height: 100vh; background-image: url('bginicio.png'); background-repeat: no-repeat; background-size: cover;">
+			<div class="d-flex align-items-start flex-column align-items-center" style="height: 100vh; background-image: url('view/img/bginicio.png'); background-repeat: no-repeat; background-size: cover;">
 
 				<div class="d-block d-lg-none d-xl-none">
 
 					<!-- Logotipo -->
-					<div id="logotipo" class="align-items-center d-block" style="height: 20vh">
+					<div id="logotipo">
 					
 						<a href="#">
-								<img class="mt-4 ml-4" src="LogoTextoCaneta.svg">	
+							<img class="mt-4 ml-4" src="view/img/LoguinhoAzul.svg" style="height: 10vh;">	
 						</a>
 
 					</div>

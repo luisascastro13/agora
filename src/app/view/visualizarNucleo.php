@@ -439,7 +439,7 @@ else {
 	<!-- FUNCIONALIDADES VISÍVEIS SOMENTE PARA ADMS -->
 	<?php if($userAdm == true){ ?>
 
-		<!-- Redi<reciona para a tela de edição administrar usuários ADM-->
+		<!-- Redireciona para a tela de edição administrar usuários ADM-->
 		<a class="btn btn-warning" href="editarNucleo.php?id=<?=$nucleoCerto['id'] ?>">Editar Núcleo</a>
 
 		<!-- BOTÃO CRIAR REUNIÃO (abre modal Nova Reuniao) -->
@@ -630,10 +630,22 @@ else {
 	}
 
 	function excluirUsuario(idUFN){
-		if(confirm('Deseja excluir?')){
-			document.getElementById("idUFN").value = idUFN;	
-			document.getElementById("theForm").submit();			
-		}	
+		Swal.fire({
+		  text: "Você tem certeza de que deseja excluir?",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Sim, quero excluir.',
+		  cancelButtonText: 'Não, manter usuário.'
+		}).then((result) => {
+		  if (result.isConfirmed){
+		  	Swal.fire('Excluído!', '', 'success');		
+		  	document.getElementById("idUFN").value = idUFN;	
+			document.getElementById("theForm").submit();
+		  }
+		})	
+
 	}
 	function abrirModalNovaReuniao(){
 		$("#novaReuniao").modal('show');
