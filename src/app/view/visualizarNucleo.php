@@ -73,9 +73,6 @@ else {
 	// $_SESSION['conn'] = $conn;
 	$usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
 	
-	// echo $usuario->getNome() . '<br>'. $usuario->getLogin();
-
-	
 ?>
 
 <!DOCTYPE html>

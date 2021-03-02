@@ -17,6 +17,7 @@ else {
 	
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <?php include('template/head.php'); ?>
