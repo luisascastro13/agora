@@ -35,6 +35,8 @@ require_once('../model/Usuario.class.php');
 		$nomecompleto = $valoresphp->fullname;
 		$username = $valoresphp->username;
 
+		// echo $valoresphp->userpictureurl;
+
 		//faz a conexao com o banco
 		$bd = new PDO('mysql:host=localhost;dbname=agora', 'useragora', '');
 

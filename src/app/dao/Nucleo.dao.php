@@ -116,6 +116,14 @@ Class NucleoDAO{
 		}
 	}
 
+	public static function deletarTodosNucleos(){
+		$conn = new Conexao();
+		$sql = "delete * from nucleo";
+
+		$conn->atualizarTabela($sql, null);
+
+	}
+
 
 }
 

@@ -1,4 +1,9 @@
 <html>
+<?php include('template/head.php'); ?>
+<body>
+	<?php include('template/navbarPequenos.php'); ?>
+	<?php include('template/navbarGrandes.php'); ?>
+
 	<h1>Inserir</h1>
 
 	<?php 

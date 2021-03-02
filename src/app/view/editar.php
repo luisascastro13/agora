@@ -17,15 +17,24 @@ $objNucleo = new Nucleo($nome);
 $objNucleo->setId($id);
 ?>
 
+
+<!DOCTYPE html>
 <html>
-
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<meta charset="UTF-8" />
-</head>
-
+<?php include('template/head.php'); ?>
 <body>
-	<h1>Editar</h1>
+<!-- container grandao da pagina -->
+<div class="container-fluid m-0 p-0">
+
+	<!-- TELA TODA -->
+    <div class="row p-0 m-0">
+
+		<?php include('template/navbarPequenos.php'); ?>
+		<?php include('template/navbarGrandes.php'); ?>	
+
+        <!-- CONTEÚDO DA PÁGINA -->
+	    <div id="pagina" class="container-fluid pl-md-4">
+
+	    		<h1>Editar</h1>
 	<a href="index.php">Voltar</a>
 
 	<form action="../controller/Nucleo.controller.php?a=editarNomeNucleo" method="POST">
@@ -67,7 +76,6 @@ $objNucleo->setId($id);
 	  </div>
 	</div>
 
-
 	<table>
 		<tr>
 			<th>Nome</th>
@@ -86,6 +94,13 @@ $objNucleo->setId($id);
 		<?php } ?>
 	</table>
 
+		<!-- fecha o conteudo da pagina -->
+		</div>
+
+	<!-- fecha a row da tela toda -->
+    </div>
+<!-- fecha o container grandao da pagina     -->
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
