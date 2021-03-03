@@ -4,6 +4,13 @@ require_once '../model/Nucleo.class.php';
 require_once '../dao/Reuniao.dao.php';
 require_once '../model/Reuniao.class.php';
 
+
+###### DATA E HORÁRIO ATUAL PARA IMPEDIR QUE O USUÁRIO CRIE UMA REUNIÃO ANTERIOR AO DIA E HORÁRIO DE HOJE
+
+date_default_timezone_set('America/Sao_Paulo');
+$hoje = date('Y-m-d');
+$horario = date("H:i");
+
 ####### CRIA OBJETO NUCLEO ########
 
 	//busca o nucleo pelo id dele
@@ -276,8 +283,8 @@ else {
 
 						<div class="input-group mb-3">
 							<span class="input-group-text">Data e Horário</span>
-							<input type="date" aria-label="Data" class="form-control" name="data" required>
-							<input type="time" aria-label="Horário" class="form-control" name="horario" required>
+							<input type="date" aria-label="Data" class="form-control" name="data" min="<?php echo $hoje?>" required>
+							<input type="time" aria-label="Horário" class="form-control" name="horario" min="<?php echo $horario?>" required>
 						</div>
 
 						<!-- Descricao -->
@@ -309,7 +316,7 @@ else {
 			    
 				      </div>
 				      <div class="modal-footer">     
-				        <input type='submit' id="novaReuniao" class="btn btn-primary" value="Criar Nova Reunião">
+				        <input type='submit' id="novaReuniao" class="btn btn-primary" onClick="verificarData()" value="Criar Nova Reunião">
 				    </form>
 
 			      </div>
