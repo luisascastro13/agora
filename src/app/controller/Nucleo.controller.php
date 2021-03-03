@@ -20,6 +20,10 @@ if(ISSET($_GET['a'])){
 			//insere no banco o novo nucleo
 			$idNucleo = NucleoDAO::inserirNucleo($nucleo);
 
+			if(strpos($idNucleo, "constraint")){
+				header("Location: ../view/painel.php?id=&msg=1");	
+			}
+
 			//a partir do id (auto increment) retornado pela inserção, atualiza o id do objeto $nucleo com o respectivo valor.
 			$nucleo->setId($idNucleo);		
 

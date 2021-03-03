@@ -17,10 +17,10 @@ else {
 	
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <?php include('template/head.php'); ?>
+
 <body>
 <!-- container grandao da pagina -->
 <div class="container-fluid m-0 p-0">
@@ -34,13 +34,8 @@ else {
         <!-- CONTEÚDO DA PÁGINA -->
 	    <div id="pagina" class="container-fluid pl-md-4">
 
-	    	<div class="row">
-			    <div class="col-12 col-md-8 col-lg-5">		    		
-		    		<div class="d-flex justify-content-between">	
-		    			<!-- novo nucleo Button trigger modal -->    		
-						<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Inserir novo núcleo</button>
-						<a href="#" type="button" class="btn btn-primary btn-sm">Ver todos</a>
-					</div>
+	    	<div class="row pb-5 mb-4 mt-sm-3">
+			    <div class="col-12 col-md-8 col-lg-5">	    		
 
 					<div>
 					<!-- listar todos nucleos que o usuario está na lista-->
@@ -53,9 +48,7 @@ else {
 						<?php } ?>
 					</div>
 				</div>
-			</div>  
-
-		    
+			</div>		    
 
 		<!-- fecha o conteudo da pagina -->
 		</div>

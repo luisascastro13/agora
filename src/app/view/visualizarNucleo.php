@@ -36,6 +36,7 @@ require_once '../model/Reuniao.class.php';
 		}		
 	}
 
+
 ####### VERIFICA SE USUARIO_LOGADO É ADM DO NUCLEO #######
 
 	//lista de todos membros do nucleo
@@ -364,6 +365,7 @@ else {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
+
 	
 	 function sair(){
         Swal.fire({

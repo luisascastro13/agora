@@ -16,6 +16,13 @@ if (!$conn) {
 	$usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
 	
 	// echo $usuario->getNome() . '<br>'. $usuario->getLogin();
+
+	if(isset($_GET['msg'])){
+		switch($_GET['msg']){
+			case '1':
+			echo "<script>alert('Já existe núcleo com esse nome. Tente outro.')</script>";
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -32,19 +39,9 @@ if (!$conn) {
 		<?php include('template/navbarGrandes.php'); ?>	
 
         <!-- CONTEÚDO DA PÁGINA -->
-	    <div id="pagina" class="container-fluid pl-md-4">
+	    <div id="pagina" class="container-fluid pl-md-4 pt-3">
 
-	    	<!-- barra de busca -->
-		    <div class="row navbarGrande">
-		    	<div class="col-12 col-md-8 col-lg-5">
-		    		<form class="form-block mt-5 mb-4 d-flex justify-content-between">
-					    <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-					    <button class="btn btn-outline-info my-sm-0" type="submit">Buscar</button>
-				  	</form>
-		    	</div>
-		    </div>
-
-		    <!-- Modal NOVO NUCLEO-->
+	    	<!-- Modal NOVO NUCLEO-->
 			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -107,24 +104,6 @@ if (!$conn) {
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.js"
 ></script>
-
-<script>	
-	function sair(){
-		Swal.fire({
-		  text: "Você tem certeza de que deseja sair?",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Sim, quero sair.',
-		  cancelButtonText: 'Não, voltar.'
-		}).then((result) => {
-		  if (result.isConfirmed){
-		  	window.location = 	"../index.php";	
-		  }
-		})		
-	}
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 </script>

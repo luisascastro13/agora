@@ -116,14 +116,34 @@ Class NucleoDAO{
 		}
 	}
 
-	public static function deletarTodosNucleos(){
+	public static function mostrarTodosNucleos(){
 		$conn = new Conexao();
-		$sql = "delete * from nucleo";
+		$sql = "select * from nucleo";
 
-		$conn->atualizarTabela($sql, null);
-
+		$res = $conn->consultarTabela($sql, null);
+		return $res;
 	}
 
+	public static function mostrarTodosNucleosEmString(){
+		$conn = new Conexao();
+		$sql = "select * from nucleo";
+
+		$res = $conn->consultarTabela($sql, null);
+		$string = '';
+		$string .='[';
+		foreach ($res as $nucleo){
+			$string .='"'.$nucleo['nome'].'",';			
+		}
+		$string.= ']';
+		return $string;		
+	}
+
+	public static function mostrarIdPorNome($nome){
+		$conn = new Conexao();
+		$sql = "select id from nucleo where nome = ?";
+		$res = $conn->consultarTabela($sql, [$nome]);
+		return $res;
+	}
 
 }
 
