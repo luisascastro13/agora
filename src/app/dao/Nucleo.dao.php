@@ -60,7 +60,8 @@ Class NucleoDAO{
 		$conn = new Conexao();
 
 		$sql = "UPDATE NUCLEO SET nome = ? WHERE id = ?";
-		$conn->atualizarTabela($sql, [$nucleo->getNome(), $nucleo->getId()]);
+		$erro = $conn->atualizarTabela($sql, [$nucleo->getNome(), $nucleo->getId()]);
+		return $erro;
 	}
 
 	public static function listarMembros($nucleo){

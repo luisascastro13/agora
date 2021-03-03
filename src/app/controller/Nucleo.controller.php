@@ -40,10 +40,17 @@ if(ISSET($_GET['a'])){
 			$nucleo->setId($_POST['id']);
 			$idNucleo = $_POST['id'];
 
-			//atualiza no banco o nucleo
-			NucleoDAO::editarNucleo($nucleo);
 
-			header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
+			//atualiza no banco o nucleo
+			$erro = NucleoDAO::editarNucleo($nucleo);
+
+			if(strpos($erro, "constraint")){
+				header("Location: ../view/editarNucleo.php?id=$idNucleo&msg=2");
+			}
+			else{
+				header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
+			}
+	
 
 			break;
 

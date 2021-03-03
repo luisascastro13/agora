@@ -38,7 +38,6 @@ require_once '../model/Nucleo.class.php';
 			}
 		}						
 	}
-
 	
 	// echo 'todos membros do nucleo';
 	// print("<pre>".print_r($membrosNucleo,true)."</pre>");
@@ -49,7 +48,10 @@ require_once '../model/Nucleo.class.php';
 		switch($_GET['msg']){
 			case '1':
 				echo '<script>alert("Opa! Login inválido.")</script>';
-				break;					
+				break;
+			case '2':
+				echo '<script>alert("Esse nome já está em uso, tente outro.")</script>';
+				break;
 		}		
 	}
 
@@ -70,7 +72,6 @@ else {
 	// echo $usuario->getNome() . '<br>'. $usuario->getLogin();
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -100,7 +101,6 @@ else {
 		<span class="display-3">Administradores</span>
 		<!-- TABELA LISTAR ADMS -->
 		<table id='minhaTabela'>
-			<h4>Administradores do Núcleo</h4>
 			<tr><th>Nome</th><th colspan="2">Opções</th></tr>
 
 			<?php foreach ($usuariosAdm as $val){ ?>
@@ -150,6 +150,9 @@ else {
 		  </div>
 		</div>
 
+		<!-- EXCLUIR NUCLEO -->
+		<button type="button" class="btn btn-danger btn-outline" id="excluirNucleo" onClick="verificaAdms('<?php echo count($usuariosAdm)?>')">Excluir Núcleo</button>
+
 		<!-- FORMULARIO INVISIVEL QUE PERMITE EXCLUSAO DE ADMS -->
 		<form style="display: none" id='theForm' method="post" action="../controller/Nucleo.controller.php?a=removerAdm">
 			<input id="idUsuario" name="idUsuario">
@@ -193,6 +196,7 @@ else {
 		  }
 		})		
 	}
+	
 	function abrirModalNovoUsuarioAdm(){
 		$("#novoUsuarioAdm").modal('show');
 	}
@@ -216,6 +220,16 @@ else {
 		})	
 						
 	}
+	function verificaAdms(quantidadeAdm){	
+		if(quantidadeAdm == 1){
+			console.log ("você pode excluir o núcleo");
+		}
+		else{
+			console.log("Você não pode excluir o núcleo. O núcleo só pode ser excluído quando houver um único administrador.");
+		}		
+	}
+
+	
 
 
 </script>
