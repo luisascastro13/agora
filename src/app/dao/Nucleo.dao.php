@@ -11,7 +11,7 @@ Class NucleoDAO{
 	public static function listarNucleo(){
 		$conn = new Conexao();
 
-		$sql = "SELECT * FROM NUCLEO";		
+		$sql = "SELECT * FROM NUCLEO where status = 0";		
 		$resultado = $conn->consultarTabela($sql, null);
 
 		return $resultado;
@@ -23,7 +23,7 @@ Class NucleoDAO{
 		$conn = new Conexao();
 		$usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
 
-		$sql = "SELECT nucleo.nome, nucleo.id FROM usuarios_frequentam_nucleo INNER JOIN nucleo ON nucleo.id = usuarios_frequentam_nucleo.id_nucleo WHERE ativo = '1' AND id_usuario = ? ";
+		$sql = "SELECT nucleo.nome, nucleo.id FROM usuarios_frequentam_nucleo INNER JOIN nucleo ON nucleo.id = usuarios_frequentam_nucleo.id_nucleo WHERE ativo = '1' AND id_usuario = ? AND nucleo.status = 0";
 
 		$resultado = $conn->consultarTabela($sql, [$usuario->getLogin()]);
 		return $resultado;
@@ -40,16 +40,16 @@ Class NucleoDAO{
 
 	public static function deletarNucleo($nucleo){
 		$conn = new Conexao();
-
-		$sql = "DELETE FROM NUCLEO WHERE id = $nucleo->getId()";
-		$conn->atualizarTabela($sql);
+		// setta o status do nucleo pra 1, que significa desativado
+		$sql = "update nucleo set status = 1 where id = ?";
+		$conn->atualizarTabela($sql, [$nucleo->getId()]);
 	}	
 
 	### BUSCA NUCLEO POR ID
 	public static function buscarPorId($id){
 		$conn = new Conexao();
 
-		$sql = "SELECT id, nome FROM NUCLEO WHERE id = ?";
+		$sql = "SELECT id, nome FROM NUCLEO WHERE id = ? and status = 0";
 		
 		$resultado = $conn->consultarTabela($sql, [$id]);
 
@@ -119,7 +119,7 @@ Class NucleoDAO{
 
 	public static function mostrarTodosNucleos(){
 		$conn = new Conexao();
-		$sql = "select * from nucleo";
+		$sql = "select * from nucleo where status = 0";
 
 		$res = $conn->consultarTabela($sql, null);
 		return $res;
@@ -127,7 +127,7 @@ Class NucleoDAO{
 
 	public static function mostrarTodosNucleosEmString(){
 		$conn = new Conexao();
-		$sql = "select * from nucleo";
+		$sql = "select * from nucleo where status = 0";
 
 		$res = $conn->consultarTabela($sql, null);
 		$string = '';
@@ -141,7 +141,7 @@ Class NucleoDAO{
 
 	public static function mostrarIdPorNome($nome){
 		$conn = new Conexao();
-		$sql = "select id from nucleo where nome = ?";
+		$sql = "select id from nucleo where nome = ? and status = 0";
 		$res = $conn->consultarTabela($sql, [$nome]);
 		return $res;
 	}

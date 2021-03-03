@@ -194,6 +194,15 @@ if(ISSET($_GET['a'])){
 			$erro = NucleoDAO::removerUsuarioEmNucleo($idUsuarioNucleo);
 			header("Location: ../view/visualizarNucleo.php?id=$idNucleo");
 			break;
+
+		case 'excluirNucleo':
+			$nucleo = new Nucleo('');
+			$nucleo->setId($_POST['idNucleoExcluido']);		
+
+			NucleoDAO::deletarNucleo($nucleo);
+
+			header("Location: ../view/painel.php");
+			break;
 	}
 }
 else{

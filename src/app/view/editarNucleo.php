@@ -160,6 +160,12 @@ else {
 			<input type="submit">
 		</form>
 
+		<!-- FORMULARIO INVISIVEL QUE PERMITE EXCLUSAO DO NUCLEO -->
+		<form style="display: none" id='theForm2' method="post" action="../controller/Nucleo.controller.php?a=excluirNucleo">
+			<input name="idNucleoExcluido" value="<?=$nucleoCerto['id']; ?>">
+			<input type="submit">
+		</form>
+
 		<!-- fecha o conteudo da pagina -->
 		</div>
 
@@ -220,12 +226,32 @@ else {
 		})	
 						
 	}
+
 	function verificaAdms(quantidadeAdm){	
 		if(quantidadeAdm == 1){
 			console.log ("você pode excluir o núcleo");
+			Swal.fire({
+			  text: "Você tem certeza de que deseja excluir o núcleo?",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Sim, quero excluir.',
+			  cancelButtonText: 'Não, manter núcleo.'
+			}).then((result) => {
+			  if (result.isConfirmed){
+			  	Swal.fire('Excluído!', '', 'success');	
+				document.getElementById("theForm2").submit();
+			  }
+			})	
 		}
 		else{
 			console.log("Você não pode excluir o núcleo. O núcleo só pode ser excluído quando houver um único administrador.");
+			Swal.fire({
+			  icon: 'error',
+			  title: 'Oops...',
+			  text: 'Você não pode excluir o núcleo. O núcleo só pode ser excluído quando houver um único administrador.',
+			})
 		}		
 	}
 
