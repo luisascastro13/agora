@@ -4,13 +4,13 @@
 
 <!-- navbar em cima para pequenos -->
 <nav class="navbarPequena navbar navbar-expand-lg navbar-light bg-primary mb-3 sticky-top">
-  	<div class="container-fluid">
+  	<div class="container-fluid p-0">
   		<a class="navbar-brand" href="#" style="max-width: 25%;">
   			<img src="img/Loguinho.svg" style="max-width: 100%;">
   		</a>
 
   		<div class="dropdown">	  
-	  		<a class="btn shadow-none pr-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+	  		<a class="btn shadow-none p-0 m-0 d-flex justify-content-end" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
 	    		<img src="https://moodle.canoas.ifrs.edu.br/pluginfile.php/32244/user/icon/boost/f1?rev=1351144" class="img-thumbnail rounded-circle border border-warning w-50 float-right" alt="Foto de perfil">
 	  		</a>
 
@@ -25,7 +25,7 @@
 <!-- navbar bottom-fixed para pequenos -->
 <div class="navbar fixed-bottom d-flex bg-info navbarPequena" role="group" aria-label="Ações do usuário" style="height: 10%;">
 
-	<div class="input-group w-75 d-flex justify-content-between" id="menuBottomSM">
+	<div class="input-group w-100 d-flex justify-content-between" id="menuBottomSM">
 		
 		<!-- painel -->
 		<a class="nav-link active text-light" aria-current="page" href="painel.php">
@@ -48,71 +48,23 @@
 			</svg>
 		</a>
 
+
 		<!-- buscar -->
-		<a class="nav-link active text-light" aria-current="page" href="buscar.php">
-			<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+		<a class="nav-link active text-light" aria-current="page" href="#">
+			<svg xmlns="http://www.w3.org/2000/svg"  width="1.5em" height="1.5em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 			  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 			</svg>
 		</a>
-	</div>	    
 
+		<!-- criar -->
+		<a class="nav-link active text-light" aria-current="page" href="#">
+			<svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+			  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+			  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+			</svg>
+		</a>	
 
-	<!-- floating action button -->
-	<a class="btn btn-lg btn-warning btn-floating position-absolute bottom-0 end-0 mb-4 mr-4" style="width: 56px; height: 56px;">
-		<i class="bi bi-plus position-absolute top-50 start-50 translate-middle pb-2" style="font-size: 3.5em;"></i>
-	</a>
-	
-			<!-- Modal PESQUISAR-->
-			<div class="modal fade" id="pesquisar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">Pesquisar</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			      </div>
-			      <div class="modal-body">
+	</div> 
 
-			      	<!-- pesquisar -->
-			      	<form method="post" action='../controller/Nucleo.controller.php?a=inserirMembro'>
-
-			      		<label>Nome:</label>
-			      		<input type="text" name="nomeMembro">
-
-			      		<!-- esse id que está sendo passado é o id do nucleo atual -->
-			      		<input type="hidden" name="id" value="<?=$id ?>">
-			      		<!-- esse nome é o nome do nucleo atual-->
-			      		<input input type="hidden" name="nome" value="<?=$nome ?>">
-
-				      </div>
-				      <div class="modal-footer">	      
-				        <input type='submit' class="btn btn-primary">
-				    </form>
-			      </div>
-			    </div>
-			  </div>
-			</div>
 
 </div>
-
-
-<script>	
-	function sair(){
-		Swal.fire({
-		  text: "Você tem certeza de que deseja sair?",
-		  icon: 'warning',
-		  showCancelButton: true,
-		  confirmButtonColor: '#3085d6',
-		  cancelButtonColor: '#d33',
-		  confirmButtonText: 'Sim, quero sair.',
-		  cancelButtonText: 'Não, voltar.'
-		}).then((result) => {
-		  if (result.isConfirmed){
-		  	window.location = 	"../index.php";	
-		  }
-		})		
-	}
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
