@@ -133,7 +133,7 @@ Class NucleoDAO{
 		$string = '';
 		$string .='[';
 		foreach ($res as $nucleo){
-			$string .='"'.$nucleo['nome'].'",';			
+			$string .='"'.$nucleo['id'].':'.$nucleo['nome'].'",';			
 		}
 		$string.= ']';
 		return $string;		

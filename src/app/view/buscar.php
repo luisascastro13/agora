@@ -68,7 +68,6 @@ if (!$conn) {
 // Code goes here
 var busca = null;
 var array = <?php echo NucleoDAO::mostrarTodosNucleosEmString() ?>;
-
 console.log(array);
 
 $(document).ready(function(){
@@ -91,8 +90,15 @@ $(document).ready(function(){
         $('#saidaTxt').text('');
         $('#quantidade').html(quantidade+' resultados<br><br>');
         for(var ind in saida){
-          $('#saidaTxt').append('<span href="#">'+saida[ind]+'</span>'+'<br>');
+          var res = saida[ind].split(":");
+          var nomeNucleo = res[1];
+          var idNucleo = res[0];
+          var url = "visualizarNucleo.php?id=";
+          var urlCompleta = url.concat(idNucleo);
+
+          $('#saidaTxt').append('<a href="'+urlCompleta+'">'+nomeNucleo+'</a>'+'<br>');
         }
+
         
       }else{
         $('#quantidade').html('');
