@@ -18,20 +18,22 @@ class ListaPresencaDAO{
 	public static function inserirMembroNaLista($listaPresenca, $membro){
 		$conn = new Conexao();
 
-		$sql = "INSERT INTO presenca VALUES (?, ?, 1, 0)";
+		$sql = "INSERT INTO presenca VALUES (?, ?, 0, 0)";
 		$erro = $conn->atualizarTabela($sql, [$listaPresenca->getId(), $membro]);
 		return $erro;
 	}
 
-	public static function mostrarListaPresenca($nucleo){
+	public static function mostrarListaPresenca($idLista){
 		$conn = new Conexao();
 
-		$sql = "SELECT presenca.id_usuario, usuario.nome, presenca.convidado, presenca.presente FROM presenca INNER JOIN usuario ON usuario.login = presenca.id_usuario";	
+		$sql = "SELECT presenca.id_usuario, usuario.nome, presenca.convidado, presenca.presente FROM presenca
+		INNER JOIN listapresenca ON listapresenca.id = presenca.id_lista_presenca
+		INNER JOIN usuario ON usuario.login = presenca.id_usuario
+		WHERE presenca.id_lista_presenca = ?";	
 
-		$lista = $conn->consultarTabela($sql, [$nucleo->getId()]);	
+		$lista = $conn->consultarTabela($sql, [$idLista]);	
 		return $lista;
 	}
-
 
 }
 

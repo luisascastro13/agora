@@ -45,60 +45,56 @@ if(ISSET($_GET['a'])){
 
 			$erro = ReuniaoDAO::atualizarReuniao($reuniao);
 
-			if(isset($_POST['listaPresenca'])){
-				//cria lista de presenca pra essa reuniao
-				$listaPresenca = new ListaPresenca();
-				$listaPresenca->setDescricao("");
-				$idListaPresenca = ListaPresencaDAO::criarListaPresenca($listaPresenca);
+			//cria lista de presenca pra essa reuniao
+			$listaPresenca = new ListaPresenca();
+			$listaPresenca->setDescricao("");
+			$idListaPresenca = ListaPresencaDAO::criarListaPresenca($listaPresenca);
 
-				$listaPresenca->setId($idListaPresenca);
-				$reuniao->setIdListapresenca($idListaPresenca);
-				$erro = ReuniaoDAO::atualizarReuniao($reuniao);
+			$listaPresenca->setId($idListaPresenca);
+			$reuniao->setIdListapresenca($idListaPresenca);
+			$erro = ReuniaoDAO::atualizarReuniao($reuniao);
 
-				// var_dump(NucleoDAO::mostrarMembrosAtivos($nucleo));
 
-				// foreach(NucleoDAO::mostrarMembrosAtivos($nucleo) as $membro){
+			foreach(NucleoDAO::mostrarMembrosAtivos($nucleo) as $membro){
 
-				// 	var_dump($membro);
-				// 	listaPresencaDAO::inserirMembroNaLista($listaPresenca, $membro);
-				// }
-
-				var_dump($reuniao);
-				echo "<br><br><br>";
-				var_dump($idListaPresenca);
-				echo "<br><br><br>";
-				var_dump($listaPresenca);
-
-				if($erro != 0){
-					echo "Erro na Lista de Presença: ".$erro;
-				}
-			}
-			if(isset($_POST['ata'])){
-				//cria ata pra essa reuniao
-				$ata = new Ata();
-				$ata->setDescricao("");
-				$idAta = AtaDAO::criarAta($ata);
-
-				$ata->setId($idAta);
-				$reuniao->setIdAta($idAta);
-				$erro = ReuniaoDAO::atualizarReuniao($reuniao);				
-
-				var_dump($reuniao);
-				echo "<br><br><br>";
-				var_dump($idAta);
-				echo "<br><br><br>";
-				var_dump($ata);
-
-				if($erro != 0){
-					echo "Erro na Ata: ".$erro;
-				}
-				
-			}
-			if(isset($_POST['votacao'])){
-				//cria votacao pra essa reuniao
+				var_dump($membro);
+				ListaPresencaDAO::inserirMembroNaLista($listaPresenca, $membro[1]);
 			}
 
-			// header("Location: ../view/visualizarReuniao.php?id=$id");
+			echo '<br><br>oi';
+			var_dump($reuniao);
+			echo "<br><br><br>";
+			var_dump($idListaPresenca);
+			echo "<br><br><br>";
+			var_dump($listaPresenca);
+
+			if($erro != 0){
+				echo "Erro na Lista de Presença: ".$erro;
+			}
+
+			//cria ata pra essa reuniao
+			$ata = new Ata();
+			$ata->setDescricao("");
+			$idAta = AtaDAO::criarAta($ata);
+
+			$ata->setId($idAta);
+			$reuniao->setIdAta($idAta);
+			$erro = ReuniaoDAO::atualizarReuniao($reuniao);				
+
+			var_dump($reuniao);
+			echo "<br><br><br>";
+			var_dump($idAta);
+			echo "<br><br><br>";
+			var_dump($ata);
+
+			if($erro != 0){
+				echo "Erro na Ata: ".$erro;
+			}
+
+			//cria ata pra essa reuniao
+			// $votacao = new Votacao();			
+
+			header("Location: ../view/visualizarReuniao.php?id=$id");
 			break;
 
 		case 'editar':	
@@ -120,8 +116,7 @@ if(ISSET($_GET['a'])){
 			$reuniao->setCodigo($idReuniao);
 
 			// insere o administrador da reuniao como sendo o usuario logado
-			$reuniao->setIdusuarioadm($_SESSION['username']);			
-
+			$reuniao->setIdusuarioadm($_SESSION['username']);
 			
 			$reuniao->setIdNucleo($_POST['idNucleo']);
 

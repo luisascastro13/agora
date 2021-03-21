@@ -284,7 +284,7 @@ else {
 						<div class="input-group mb-3">
 							<span class="input-group-text">Data e Horário</span>
 							<input type="date" aria-label="Data" class="form-control" name="data" min="<?php echo $hoje?>" required>
-							<input type="time" aria-label="Horário" class="form-control" name="horario" min="<?php echo $horario?>" required>
+							<input type="time" aria-label="Horário" class="form-control" name="horario" required>
 						</div>
 
 						<!-- Descricao -->
@@ -295,9 +295,9 @@ else {
 					  		<textarea class="form-control" name="descricao"></textarea>
 						</div>
 
-						<h5 id="exampleModalLabel">Documentos</h5>
+						<!-- <h5 id="exampleModalLabel">Documentos</h5> -->
 						<!-- DOCUMENTOS QUE GOSTARIA DE CRIAR  -->
-			      		<div class="form-check">
+			      		<!-- <div class="form-check">
 							<input class="form-check-input" name="ata" type="checkbox" value="" id="ata" <?php if (isset($ata)) echo "checked";?>>
 						  	<label class="form-check-label" for="ata">Ata</label>
 						</div>
@@ -308,7 +308,7 @@ else {
 						<div class="form-check">
 						  	<input class="form-check-input" name="votacao" type="checkbox" value="" id="votacao" <?php if (isset($votacao)) echo "checked";?>>
 						  	<label class="form-check-label" for="votacao">Votação</label>
-						</div>
+						</div> -->
 
 						<!-- INPUTS INVISIVEIS PARA PASSAR ID DO NUCLEO -->
 			      		<input type="hidden" name="nomeNucleo" value="<?=$nucleoCerto['nome'] ?>">
@@ -372,7 +372,6 @@ else {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-
 	
 	 function sair(){
         Swal.fire({

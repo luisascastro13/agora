@@ -64,69 +64,67 @@ $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
 
 $somenteData = date_format($data, 'Y-m-d');
 $somenteHorario = date_format($data, 'H:i');
-
-
-                  
+                
 
 ?>
 
 <!doctype html>
 <html lang="en">
-  <head>
-  <meta charset="utf-8">
+  <head>      
+    <meta charset="utf-8">
 
-  <!-- Required meta tags -->
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
 
-  <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 
-  <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/translations/pt-br.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/translations/pt-br.js"></script>
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet"/>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
 
-  <!-- MDB -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.2.0/mdb.min.css" rel="stylesheet"/>
 
-  <title>Document</title>  
+    <title>Document</title>  
 
-  <style type="text/css">
+    <style type="text/css">
 
-    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+      @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
-    /* até 768px ele esconde essas coisas */
-    @media screen and (max-width: 768px) {
-       .navbarGrande{
-            display:none;
-       }
-    }
+      /* até 768px ele esconde essas coisas */
+      @media screen and (max-width: 768px) {
+         .navbarGrande{
+              display:none;
+         }
+      }
 
-    /* a partir de 769px ele mostra essas */
-    @media screen and (min-width: 769px) {
-       .navbarPequena{
-            display:none !important;
-       }
+      /* a partir de 769px ele mostra essas */
+      @media screen and (min-width: 769px) {
+         .navbarPequena{
+              display:none !important;
+         }
 
-       #pagina{
-        width: calc(100% - 180px);
-       }
-    }
+         #pagina{
+          width: calc(100% - 180px);
+         }
+      }
 
-    .navbarGrande li{
-      margin-left: 1em;
-      padding-left: 0;
-    }
+      .navbarGrande li{
+        margin-left: 1em;
+        padding-left: 0;
+      }
 
-  </style>
+    </style>
   </head>
   <body>
 
@@ -144,9 +142,17 @@ $somenteHorario = date_format($data, 'H:i');
           <!-- CONTEÚDO DA PÁGINA -->
           <div id="pagina" class="container-fluid pl-md-4">
 
-          <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
+          <h1><?=$reuniao->getNome()?></h1>
+          <h2><?=$dataFormatada?></h2>
 
+          <!-- BOTÃO DETALHES REUNIÃO -->
+          <a type="button" href="confirmarPresenca.php" class="btn btn-primary">Detalhes</a>
+
+         
+          <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
           <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?=$urlencoded?>&amp;size=100x100" alt="" title="" />
+
+
 
             <!-- SE EXISTE ALGUM DOCUMENTO RELACIONADO À REUNIAO, MOSTRAR ESSES ACCORDIONS DE ACORDO COM OS DOCUMENTOS EXISTENTES -->
             <div class="accordion" id="accordionExample">
@@ -217,15 +223,26 @@ $somenteHorario = date_format($data, 'H:i');
                       </thead>
                       <tbody>
 
-                        <?php foreach (NucleoDAO::listarMembros($objNucleo) as $val){ ?>
+                        <?php foreach (ListaPresencaDAO::mostrarListaPresenca($reuniao->getIdListapresenca()) as $val){ ?>
                           <tr>
                           <!-- MOSTRA LOGIN, NOME E STATUS DO USUARIO NA REUNIÃO-->
                             <th scope='row'><?= $val['id_usuario'] ?></th>
-                            <td><?= $val['nome_usuario'] ?></td> 
-                            <td><?= $val['status'] ?></td>
+                            <td><?= $val['nome'] ?></td> 
+                            <td><?php
+
+                            if($val['convidado'] == 1){
+                              echo "Convidado";
+                            }
+                            else if($val['presente'] == 0){
+                              echo "Ausente";
+                            }
+                            else{
+                              echo "Presente";
+                            }
+
+                            ?></td>
                           </tr>
-                        <?php } ?> 
-                        
+                        <?php } ?>                       
                       </tbody>
                     </table>
                       
@@ -257,6 +274,7 @@ $somenteHorario = date_format($data, 'H:i');
     } );  
 
     </script>
+    
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
