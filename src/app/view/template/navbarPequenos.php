@@ -68,3 +68,25 @@
 
 
 </div>
+
+
+<script>	
+	function sair(){
+		Swal.fire({
+		  text: "Você tem certeza de que deseja sair?",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Sim, quero sair.',
+		  cancelButtonText: 'Não, voltar.'
+		}).then((result) => {
+		  if (result.isConfirmed){
+		  	window.location = 	"../index.php";	
+		  }
+		})		
+	}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+</script>

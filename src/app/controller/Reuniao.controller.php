@@ -8,6 +8,7 @@ require_once '../model/ListaPresenca.class.php';
 require_once '../dao/ListaPresenca.dao.php';
 require_once '../model/Ata.class.php';
 require_once '../dao/Ata.dao.php';
+require_once '../dao/Nucleo.dao.php';
 
 $conn = new Conexao();
 $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
@@ -39,6 +40,9 @@ if(ISSET($_GET['a'])){
 			$reuniao->setCodigo($id);
 			$reuniao->setIdNucleo($_POST['idNucleo']);
 
+			$nucleo = new Nucleo(null);
+			$nucleo->setId($_POST['idNucleo']);
+
 			$erro = ReuniaoDAO::atualizarReuniao($reuniao);
 
 			if(isset($_POST['listaPresenca'])){
@@ -50,6 +54,14 @@ if(ISSET($_GET['a'])){
 				$listaPresenca->setId($idListaPresenca);
 				$reuniao->setIdListapresenca($idListaPresenca);
 				$erro = ReuniaoDAO::atualizarReuniao($reuniao);
+
+				// var_dump(NucleoDAO::mostrarMembrosAtivos($nucleo));
+
+				// foreach(NucleoDAO::mostrarMembrosAtivos($nucleo) as $membro){
+
+				// 	var_dump($membro);
+				// 	listaPresencaDAO::inserirMembroNaLista($listaPresenca, $membro);
+				// }
 
 				var_dump($reuniao);
 				echo "<br><br><br>";
@@ -81,13 +93,12 @@ if(ISSET($_GET['a'])){
 					echo "Erro na Ata: ".$erro;
 				}
 				
-				
 			}
 			if(isset($_POST['votacao'])){
 				//cria votacao pra essa reuniao
 			}
 
-			header("Location: ../view/visualizarReuniao.php?id=$id");
+			// header("Location: ../view/visualizarReuniao.php?id=$id");
 			break;
 
 		case 'editar':	

@@ -146,6 +146,14 @@ Class NucleoDAO{
 		return $res;
 	}
 
+	public static function mostrarMembrosAtivos($nucleo){
+		$conn = new Conexao();
+
+		$sql = "SELECT * FROM usuarios_frequentam_nucleo WHERE id_nucleo = ? AND ativo = 1";
+		$res = $conn->consultarTabela($sql, [$nucleo->getId()]);
+		return $res;
+	}
+
 }
 
 ?>
