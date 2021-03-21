@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-<?php 
-
-include('template/head.php');
+<?php
 
 require_once '../model/Usuario.class.php';
 require_once '../model/Reuniao.class.php';
@@ -16,7 +12,23 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 $idReuniao = $_GET['id'];
 $reuniao = ReuniaoDAO::buscarPorId($_GET['id']);
 
+if(isset($_GET['msg'])){
+	switch($_GET['msg']){
+		case 1:
+			echo "<script>alert('matricula não coincide com o nome do usuario, tente novamente.')</script>";
+			break;
+
+		case 2:
+			echo "<script>alert('esse não é o seu nome.')</script>";
+			break;
+	}
+}
+
 ?>
+
+<!DOCTYPE html>
+<html>
+<?php include('template/head.php'); ?>
 <body>
 <!-- container grandao da pagina -->
 <div class="container-fluid m-0 p-0">
@@ -91,5 +103,8 @@ $reuniao = ReuniaoDAO::buscarPorId($_GET['id']);
 	}
 	
 </script>
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
 </body>

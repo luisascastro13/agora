@@ -152,8 +152,6 @@ $somenteHorario = date_format($data, 'H:i');
           <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
           <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?=$urlencoded?>&amp;size=100x100" alt="" title="" />
 
-
-
             <!-- SE EXISTE ALGUM DOCUMENTO RELACIONADO À REUNIAO, MOSTRAR ESSES ACCORDIONS DE ACORDO COM OS DOCUMENTOS EXISTENTES -->
             <div class="accordion mb-5 pb-4" id="accordionExample">
 
@@ -232,8 +230,7 @@ $somenteHorario = date_format($data, 'H:i');
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                   
-                    <?php if($userAdm == true)
-                    { ?>
+                   
                       <div class="accordion-body">
 
                       <table class="table table-sm table-hover">
@@ -246,7 +243,7 @@ $somenteHorario = date_format($data, 'H:i');
                       </thead>
                       <tbody>
 
-                        <?php foreach (ListaPresencaDAO::mostrarListaPresenca($reuniao->getIdListapresenca()) as $val){ ?>
+                      <?php foreach (ListaPresencaDAO::mostrarListaPresenca($reuniao->getIdListapresenca()) as $val){ ?>
                           <tr>
                           <!-- MOSTRA LOGIN, NOME E STATUS DO USUARIO NA REUNIÃO-->
                             <!-- <th scope='row'><?= $val['id_usuario'] ?></th> -->
@@ -270,12 +267,7 @@ $somenteHorario = date_format($data, 'H:i');
                     </table>
                       
                     </div>
-
-                    <?php } else { ?>
-                    <div class="accordion-body">
-                      oi
-                    </div>
-                   <?php } ?>
+                    
 
                   </div>
                 </div>
@@ -304,6 +296,9 @@ $somenteHorario = date_format($data, 'H:i');
     } );  
 
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+</script>
     
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

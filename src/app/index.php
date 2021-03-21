@@ -77,7 +77,7 @@
 
 					<div id="partezinha" class="my-auto mx-auto" style="width: 30%;">
 					
-							<a type="button" href="#" class="btn btn-primary btn-lg btn-block">Acompanhe</a>
+							<a type="button" href="view/confirmarPresenca.php" class="btn btn-primary btn-lg btn-block">Acompanhe</a>
 
 							<p class="my-2 text-center">ou</p>	
 

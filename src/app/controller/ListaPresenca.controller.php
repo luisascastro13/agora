@@ -22,35 +22,32 @@ if(ISSET($_GET['a'])){
 	switch($_GET['a']){
 		case 'confirmarPresenca':
 			var_dump($_POST);
+			echo "$idReuniao";
 
 			$nomeMembro = $_POST['select'];
 			$matricula = $_POST['matricula'];
 			$usuarios = array();
 
-			foreach (UsuarioDAO::listarUsuario() as $membro){				
-				if($membro['nome'] == $nomeMembro){					
-					if($matricula == $membro['login']){
-						echo "igual";
-						// MUDAR A TABELA PRESENCA
-						// ALTERAR PRESENTE PARA 1 CONFORME O NUMERO DO ID_USUARIO (MATRICULA)
-
-						ListaPresencaDAO::atualizarMembroPresente($reuniao->getIdListapresenca(), $matricula);
-					}
-					else{
-						echo 'diferente';
-
-						// ENVIAR MENSAGEM DE ERRO PRO USUARIO NA PAGINA ANTERIOR
-						// JA QUE A MATRICULA NAO É A MESMA À DO USUARIO
-						// header();
-					}
+			if($nomeMembro == $_SESSION['nomecompleto']){
+				if($matricula == $_SESSION['username']){
+					// echo 'sim, pode confimar sua presenca<br>';
+					ListaPresencaDAO::atualizarMembroPresente($reuniao->getIdListapresenca(), $matricula);
+					header("Location: ../view/visualizarReuniao.php?id=$idReuniao");
 				}
-
+				else{
+					echo 'matricula não coincide com o nome do usuario, tente novamente.';
+					header("Location: ../view/confirmarPresenca.php?id=$idReuniao&msg=1");
+				}				
 			}
+			else{
+				echo 'nao pode confirmar a presença de outra pessoa<br>';
+				header("Location: ../view/confirmarPresenca.php?id=$idReuniao&msg=2");				
+			}		
 
 			break;
 	}
 }
-else{
+else {
 	echo 'ops nao passou nenhum parametro na url pra eu saber se devo inserir, editar ou eliminar';
 }
 

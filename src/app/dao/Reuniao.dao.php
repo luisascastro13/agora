@@ -72,8 +72,6 @@ Class ReuniaoDAO{
 		return $objetoReuniao;
 	}
 
-
-
 }
 
 ?>
