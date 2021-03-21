@@ -325,7 +325,8 @@ else {
 			</div>
 
 			<!-- TABELA LISTAR REUNIÕES -->
-			<table id='minhaTabelaReunioes'>
+			<div class="mb-5 pb-4">
+				<table id='minhaTabelaReunioes'>
 				<h3>Reuniões</h3>
 				<tr>
 					<th>Reunião</th>
@@ -348,6 +349,7 @@ else {
 					</tr>
 				<?php } ?>
 			</table>
+			</div>
 
 				<!-- fecha o conteudo da pagina -->
 				</div>

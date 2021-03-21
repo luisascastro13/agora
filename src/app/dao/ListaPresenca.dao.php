@@ -35,6 +35,18 @@ class ListaPresencaDAO{
 		return $lista;
 	}
 
+	public static function mostrarAusentes($idLista){
+		$conn = new Conexao();
+
+		$sql = "SELECT usuario.nome FROM presenca
+		INNER JOIN listapresenca ON listapresenca.id = presenca.id_lista_presenca
+		INNER JOIN usuario ON usuario.login = presenca.id_usuario
+		WHERE presenca.id_lista_presenca = 36 AND presenca.presente = 0";
+
+		$lista = $conn->consultarTabela($sql, [$idLista]);
+		return $lista;
+	}
+
 }
 
 ?>

@@ -146,7 +146,7 @@ $somenteHorario = date_format($data, 'H:i');
           <h2><?=$dataFormatada?></h2>
 
           <!-- BOTÃO DETALHES REUNIÃO -->
-          <a type="button" href="confirmarPresenca.php" class="btn btn-primary">Detalhes</a>
+          <a type="button" href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Detalhes</a>
 
          
           <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
@@ -155,7 +155,7 @@ $somenteHorario = date_format($data, 'H:i');
 
 
             <!-- SE EXISTE ALGUM DOCUMENTO RELACIONADO À REUNIAO, MOSTRAR ESSES ACCORDIONS DE ACORDO COM OS DOCUMENTOS EXISTENTES -->
-            <div class="accordion" id="accordionExample">
+            <div class="accordion mb-5 pb-4" id="accordionExample">
 
               <!-- SE EXISTE ATA -->
                 <div class="accordion-item">
@@ -165,6 +165,9 @@ $somenteHorario = date_format($data, 'H:i');
                     </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+
+                    <?php if($userAdm == true)
+                    { ?>
                     <div class="accordion-body">
 
                       <form action="../controller/Ata.controller.php?a=atualizarAta" method="post" id="formularioAta">
@@ -175,9 +178,8 @@ $somenteHorario = date_format($data, 'H:i');
                       <textarea name="content" id="editor" class="document-editor">
                         
                         <?php
-
-                        $descricao = AtaDAO::mostrarDescricao($reuniao->getIdAta());
-                        echo $descricao[0]['descricao'];                       
+                          $descricao = AtaDAO::mostrarDescricao($reuniao->getIdAta());
+                          echo $descricao[0]['descricao'];                       
                         ?>
 
                       </textarea>
@@ -186,6 +188,16 @@ $somenteHorario = date_format($data, 'H:i');
                     </form>
 
                     </div>
+
+                   <?php } else { ?>
+                    <div class="accordion-body">
+                      <?php
+                          $descricao = AtaDAO::mostrarDescricao($reuniao->getIdAta());
+                          echo $descricao[0]['descricao'];                       
+                        ?>
+                    </div>
+                   <?php } ?>
+
                   </div>
                 </div>
 
@@ -198,6 +210,15 @@ $somenteHorario = date_format($data, 'H:i');
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 
+                    <?php if($userAdm == true)
+                    { ?>
+                    <div class="accordion-body">
+                    </div>
+                    <?php } else { ?>
+                    <div class="accordion-body">
+                      oi
+                    </div>
+                   <?php } ?>
 
                   </div>
                 </div>
@@ -210,8 +231,10 @@ $somenteHorario = date_format($data, 'H:i');
                     </button>
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-
+                  
+                    <?php if($userAdm == true)
+                    { ?>
+                      <div class="accordion-body">
 
                       <table class="table table-sm table-hover">
                       <thead>
@@ -247,6 +270,13 @@ $somenteHorario = date_format($data, 'H:i');
                     </table>
                       
                     </div>
+
+                    <?php } else { ?>
+                    <div class="accordion-body">
+                      oi
+                    </div>
+                   <?php } ?>
+
                   </div>
                 </div>
             </div>
