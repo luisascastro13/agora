@@ -16,9 +16,6 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 $idReuniao = $_GET['id'];
 $reuniao = ReuniaoDAO::buscarPorId($_GET['id']);
 
-
-
-
 ?>
 <body>
 <!-- container grandao da pagina -->

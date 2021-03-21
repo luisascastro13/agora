@@ -5,6 +5,7 @@ require_once '../model/Ata.class.php';
 require_once '../dao/Ata.dao.php';
 require_once '../dao/Reuniao.dao.php';
 require_once '../dao/Usuario.dao.php';
+require_once '../dao/ListaPresenca.dao.php';
 
 if(!ISSET($_SESSION)){
 	session_start();
@@ -30,9 +31,10 @@ if(ISSET($_GET['a'])){
 				if($membro['nome'] == $nomeMembro){					
 					if($matricula == $membro['login']){
 						echo "igual";
-
 						// MUDAR A TABELA PRESENCA
 						// ALTERAR PRESENTE PARA 1 CONFORME O NUMERO DO ID_USUARIO (MATRICULA)
+
+						ListaPresencaDAO::atualizarMembroPresente($reuniao->getIdListapresenca(), $matricula);
 					}
 					else{
 						echo 'diferente';

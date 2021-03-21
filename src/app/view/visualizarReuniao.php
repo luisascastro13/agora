@@ -238,8 +238,8 @@ $somenteHorario = date_format($data, 'H:i');
 
                       <table class="table table-sm table-hover">
                       <thead>
-                        <tr>
-                          <th scope="col">Matrícula</th>
+                        <tr><!-- 
+                          <th scope="col">Matrícula</th> -->
                           <th scope="col">Nome</th>
                           <th scope="col">Status</th>            
                         </tr>
@@ -249,7 +249,7 @@ $somenteHorario = date_format($data, 'H:i');
                         <?php foreach (ListaPresencaDAO::mostrarListaPresenca($reuniao->getIdListapresenca()) as $val){ ?>
                           <tr>
                           <!-- MOSTRA LOGIN, NOME E STATUS DO USUARIO NA REUNIÃO-->
-                            <th scope='row'><?= $val['id_usuario'] ?></th>
+                            <!-- <th scope='row'><?= $val['id_usuario'] ?></th> -->
                             <td><?= $val['nome'] ?></td> 
                             <td><?php
 
