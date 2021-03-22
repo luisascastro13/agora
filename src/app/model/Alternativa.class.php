@@ -1,10 +1,10 @@
 <?php 
 Class Alternativa{
-	protected $id, $texto;
+	protected $id, $texto, $idPergunta;
 
-	public function __construct( $id, $texto){
-		$this->id = $id;
+	public function __construct($texto, $idPergunta){
 		$this->texto = $texto;
+		$this->idPergunta = $idPergunta;
 	}
 
 	public function __destruct(){ }
@@ -23,6 +23,14 @@ Class Alternativa{
 	 
 	public function setTexto($texto) {
 	    $this->texto = $texto;
+	}
+
+	public function getIdPergunta(){
+		return $this->idPergunta;
+	}
+
+	public function setIdPergunta($idPergunta) {
+		$this->idPergunta = $idPergunta;
 	}
 }
 ?>

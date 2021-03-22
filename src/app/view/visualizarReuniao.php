@@ -146,8 +146,7 @@ $somenteHorario = date_format($data, 'H:i');
           <h2><?=$dataFormatada?></h2>
 
           <!-- BOTÃO DETALHES REUNIÃO -->
-          <a type="button" href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Detalhes</a>
-
+          <a href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Detalhes</a>
          
           <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
           <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?=$urlencoded?>&amp;size=100x100" alt="" title="" />
@@ -155,7 +154,7 @@ $somenteHorario = date_format($data, 'H:i');
             <!-- SE EXISTE ALGUM DOCUMENTO RELACIONADO À REUNIAO, MOSTRAR ESSES ACCORDIONS DE ACORDO COM OS DOCUMENTOS EXISTENTES -->
             <div class="accordion mb-5 pb-4" id="accordionExample">
 
-              <!-- SE EXISTE ATA -->
+              <!-- ATA -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -205,7 +204,7 @@ $somenteHorario = date_format($data, 'H:i');
                   </div>
                 </div>
 
-                <!--  -->
+                <!-- VOTACAO -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingTwo">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -219,7 +218,7 @@ $somenteHorario = date_format($data, 'H:i');
                       { ?>                    
                           <div class="row">
                             <div class="d-flex justify-content-start">
-                              <a href="editarVotacao.php?id=$idReuniao" class="btn btn-outline-warning">Editar votação</a>
+                              <a href="editarVotacao.php?id=<?=$idReuniao?>" class="btn btn-outline-warning">Editar votação</a>
                             </div>
                           </div>
                       <?php } ?>
@@ -229,7 +228,7 @@ $somenteHorario = date_format($data, 'H:i');
                   </div>
                 </div>
 
-                <!--  -->
+                <!-- LISTA PRESENCA  -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingThree">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

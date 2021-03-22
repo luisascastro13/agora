@@ -1,30 +1,42 @@
 <?php 
 
-switch($_POST['tipoPergunta']){
-	case 'texto':
-		echo 'sou texto';
+require_once '../dao/Pergunta.dao.php';
+require_once '../dao/Alternativa.dao.php';
+require_once '../model/Alternativa.class.php';
 
-		$titulo = $_POST['titulo'];
-		$descricao = $_POST['descricao'];
+$id_votacao = $_POST['idVotacao'];
 
-		echo "<br>$titulo: $descricao";
-		break;
 
-	case 'multiplaescolha':
-		echo 'sou multipla escolha';
+	// QUAL TIPO DE PERGUNTA
+	switch($_POST['tipoPergunta']){
+		case 'texto':
+			echo 'sou texto';
 
-		$titulo = $_POST['titulo'];
-		$alternativas = array();
+			// TIPO TEXTO ==> 1
+			$tipo_pergunta = 1;
+			$enunciado = $_POST['titulo'];
 
-		foreach($_POST['op'] as $value){
-	      array_push($alternativas, $value);
-	    }
+			$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
 
-	    echo "<br>$titulo: ";
-	    foreach($alternativas as $op){
-	    	echo "<br>$op";
-	    }
-		break;		
-}
+			echo $idPergunta;
+			break;
+
+		case 'multiplaescolha':
+			echo 'sou multipla escolha';
+
+			// TIPO MULTIPLA ESCOLHA ==> 1
+			$tipo_pergunta = 2;
+			$enunciado = $_POST['titulo'];
+
+			$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
+
+			foreach($_POST['op'] as $alt){
+				$alternativa = new Alternativa($alt, $idPergunta);
+				$idAlternativa = AlternativaDAO::criarAlternativa($alternativa);
+				echo $idAlternativa;
+		    }
+			break;		
+	}
+
 
 ?>

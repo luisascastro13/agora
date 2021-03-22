@@ -15,6 +15,10 @@ if(!ISSET($_SESSION)){
 
 $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
 
+
+$idReuniao = $_GET['id'];
+$objReuniao = ReuniaoDAO::buscarPorId($idReuniao);
+
 ?>
 
 
@@ -51,6 +55,7 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 	   		<!-- EXEMPLO DE PERGUNTA TIPO TEXTO -->
 	   		<form action="../controller/Votacao.controller.php" method="POST">
 	   		<input type="hidden" name="tipoPergunta" value="texto">
+	   		<input type="hidden" name="idVotacao" value="<?=$objReuniao->getIdVotacao()?>">
  			<div id="texto" class="tipo" style="display:none;">
 				
 		    	<div class="col-sm-6 col-lg-5 my-2">
@@ -59,7 +64,6 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 							<input name="titulo" id="tituloPerguntaTexto" required class="card-title form-control" placeholder="Qual deveria ser o nome do mascote do IFRS Canoas?">
 						</div>
 						<div class="card-body">			        
-							<textarea name="descricao" onchange="save(this);" onkeyup="save(this);" class="card-text form-control text-muted" id="descricaoPergunta" placeholder="Seja criativo!" rows="1"></textarea>
 							<div class="d-grid gap-2 mt-1">
 								<button type="submit" class="btn btn-warning btn-sm d-grid gap-2">Criar Pergunta</button>
 							</div>     
@@ -73,6 +77,7 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 			<!-- EXEMPLO DE PERGUNTA TIPO MULTIPLA ESCOLHA -->
 			<form action="../controller/Votacao.controller.php" method="POST">
 	   		<input type="hidden" name="tipoPergunta" value="multiplaescolha">
+	   		<input type="hidden" name="idVotacao" value="<?=$objReuniao->getIdVotacao()?>">
 			<div id="multiplaescolha" class="tipo" style="display:none">
 				
 		    	<div class="col-sm-6 col-lg-5 my-2">
@@ -90,9 +95,9 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 							<table class="table table-borderless table-sm" name="textosAlternativas">							
 								<tbody class="row" id="alternativas">
 									<tr class="table-light">
-										<td class="col-11"><input type="text" name="op[]" class="form-control" placeholder="Azul"></td>
+										<td class="col-11"><input type="text" name="op[]" class="form-control" placeholder="Azul" required></td>
 										<td class="col-1">
-											<a class="btn btn-sm btn-danger excluir">
+											<a class="btn btn-sm btn-danger excluir" onclick="return removerAlt(this);">
 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
 													<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 												</svg>
@@ -101,10 +106,10 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 										</td>
 									</tr>
 									<tr class="table-light">
-										<td class="col-11"><input type="text" name="op[]"  class="form-control" placeholder="Amarelo"></td>
+										<td class="col-11"><input type="text" name="op[]"  class="form-control" placeholder="Amarelo" required></td>
 										<td class="col-1">
 
-											<a class="btn btn-sm btn-danger excluir">
+											<a class="btn btn-sm btn-danger excluir " onclick="return removerAlt(this);">
 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
 													<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 												</svg>
@@ -114,10 +119,10 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 									</tr>
 
 									<tr class="table-light">
-										<td class="col-11"><input type="text" name="op[]"  class="form-control" placeholder="Verde"></td>
+										<td class="col-11"><input type="text" name="op[]"  class="form-control" placeholder="Verde" required></td>
 										<td class="col-1">
 
-											<a class="btn btn-sm btn-danger excluir">
+											<a class="btn btn-sm btn-danger excluir" onclick="return removerAlt(this);">
 												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
 													<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 												</svg>
@@ -130,26 +135,15 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 							</table>
 
 							<div class="d-grid gap-2 mt-2">
-								<button type="submit" class="btn btn-warning btn-sm d-grid gap-2">Criar Pergunta</button>
+								<button onclick="return verificarAlternativas();" type="submit" class="btn btn-warning btn-sm d-grid gap-2">Criar Pergunta</button>
 							</div>	
 					  </div>
 					</div>
 
 			</div>
 			</form>
-
 	   		
 	   	</div>
-
-	    
-		    	
-
-				
-
-
-
-
-
 
 		<!-- fecha o conteudo da pagina -->
 		</div>
@@ -177,37 +171,36 @@ function save(fld) {
         });
     });
 
-
-
-	// SE HOUVER APENAS 2 ALTERNATIVAS, NAO MOSTRAR O BOTAO DE EXCLUIR
-	if($('#alternativas > tr').length <=2){
-		console.log('nao pode apagar');
-		$( ".excluir" ).hide();
-	}
-	if($('#alternativas > tr').length > 2){
-		$( ".excluir" ).show();
-	}
-
-
 	// ADICIONA ALTERNATIVA
 	$( "#addAlt" ).click(function() {
-		$( "#alternativas" ).append('<tr class="table-light"><td class="col-11"><input type="text" name="op[]" class="form-control" placeholder="Azul"></td><td class="col-1"><button class="btn btn-sm btn-danger excluir"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></button></td></tr>' );
+		$( "#alternativas" ).append('<tr class="table-light"><td class="col-11"><input type="text" name="op[]" class="form-control" required placeholder="Azul"></td><td class="col-1"><a class="btn btn-sm btn-danger excluir" onclick="return removerAlt(this);"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg></a></td></tr>' );
 	});
 
 
 	// REMOVER ALTERNATIVA
-	$('#alternativas tr').click(function(){
-    	$(this).remove();
-   		return false;
-	});
+	function removerAlt(x){
+		console.log('apagando');
+		console.log(x);
+		console.log(x.parentNode.parentNode);
+    	x.parentNode.parentNode.remove();   		
+	};
 
+
+	// IMPEDE O ENVIO DO FORMULARIO SE NAO HOUVER NO MINIMO 2 ALTERNATIVAS
+	function verificarAlternativas(){
+		var rowCount = $('#alternativas tr').length;
+
+		if(rowCount < 2){
+			alert('Obrigatório ter no mínimo 2 alternativas para a pergunta.');
+			return false;
+		}
+	}
 
     
 </script>
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
 
 </body>
 </html>
