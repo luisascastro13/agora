@@ -191,7 +191,13 @@ $somenteHorario = date_format($data, 'H:i');
                     <div class="accordion-body">
                       <?php
                           $descricao = AtaDAO::mostrarDescricao($reuniao->getIdAta());
-                          echo $descricao[0]['descricao'];                       
+                          
+                          if($descricao[0]['descricao'] == null){
+                            echo "Opa. A ata ainda não foi escrita.";
+                          }
+                          else{
+                            echo $descricao[0]['descricao']; 
+                          }                    
                         ?>
                     </div>
                    <?php } ?>
@@ -207,17 +213,19 @@ $somenteHorario = date_format($data, 'H:i');
                     </button>
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-
-                    <?php if($userAdm == true)
-                    { ?>
                     <div class="accordion-body">
-                    </div>
-                    <?php } else { ?>
-                    <div class="accordion-body">
-                      oi
-                    </div>
-                   <?php } ?>
+                    
+                      <?php if($userAdm == true)
+                      { ?>                    
+                          <div class="row">
+                            <div class="d-flex justify-content-start">
+                              <a href="editarVotacao.php?id=$idReuniao" class="btn btn-outline-warning">Editar votação</a>
+                            </div>
+                          </div>
+                      <?php } ?>
 
+                      <?php include('votacao.php'); ?>
+                   </div>
                   </div>
                 </div>
 
@@ -248,19 +256,19 @@ $somenteHorario = date_format($data, 'H:i');
                           <!-- MOSTRA LOGIN, NOME E STATUS DO USUARIO NA REUNIÃO-->
                             <!-- <th scope='row'><?= $val['id_usuario'] ?></th> -->
                             <td><?= $val['nome'] ?></td> 
-                            <td><?php
+                            <?php
 
                             if($val['convidado'] == 1){
-                              echo "Convidado";
+                              echo "<td class='text-warning'>Convidado</td>";
                             }
                             else if($val['presente'] == 0){
-                              echo "Ausente";
+                              echo "<td class='text-black'>Ausente</td>";
                             }
                             else{
-                              echo "Presente";
+                              echo "<td class='text-success fw-bold'>Presente</td>";
                             }
 
-                            ?></td>
+                            ?>
                           </tr>
                         <?php } ?>                       
                       </tbody>
