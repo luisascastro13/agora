@@ -43,6 +43,18 @@ Class PerguntaDAO{
 		$idReuniao = $conn->consultarTabela($sql, [$idPergunta]);
 		return $idReuniao;
 	}
+
+	public static function verificarSeUsuarioJaVotouNaPergunta($idUsuario, $idPergunta){
+		$conn = new Conexao();
+
+		$sql = "SELECT * FROM responde where id_pergunta = ? and id_usuario = ?";
+		$res = $conn->consultarTabela($sql, [$idPergunta, $idUsuario]);
+
+		return $res;
+
+	}
+
+
 }
 
 ?>

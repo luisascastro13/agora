@@ -34,7 +34,42 @@ else {
         <!-- CONTEÚDO DA PÁGINA -->
 	    <div id="pagina" class="container-fluid pl-md-4">
 
+	    	<!-- Modal NOVO NUCLEO-->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Inserir novo núcleo</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+
+						<div class="modal-body">
+							<!-- inserir novo nucleo-->
+							<form method="post" action='../controller/Nucleo.controller.php?a=inserir'>
+							<!-- inserir novo nucleo -->
+							<label>Nome:</label>
+							<input type="text" name="nome">
+						</div>
+
+						<div class="modal-footer">	      
+							<input type='submit' class="btn btn-primary">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 	    	<div class="row pb-5 mb-4 mt-sm-3">
+
+			    <div class="col-12 col-md-8 col-lg-5">		    		
+		    		<div class="d-flex justify-content-between">	
+		    			<!-- novo nucleo Button trigger modal -->    		
+						<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">Inserir novo núcleo</button>
+					</div>
+				</div>
+
+
 			    <div class="col-12 col-md-8 col-lg-5">	    		
 
 					<div>
@@ -60,7 +95,7 @@ else {
 
 
 <!-- botões nucleo -->
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <?php } ?>
 </body>
 </html>

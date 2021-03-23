@@ -67,7 +67,9 @@ $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
 
 $somenteData = date_format($data, 'Y-m-d');
 $somenteHorario = date_format($data, 'H:i');
-                
+        
+
+ 
 
 ?>
 
@@ -147,9 +149,6 @@ $somenteHorario = date_format($data, 'H:i');
 
           <h1><?=$reuniao->getNome()?></h1>
           <h2><?=$dataFormatada?></h2>
-
-          <!-- BOTÃO DETALHES REUNIÃO -->
-          <a href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Detalhes</a>
          
           <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
           <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?=$urlencoded?>&amp;size=100x100" alt="" title="" />
@@ -227,13 +226,33 @@ $somenteHorario = date_format($data, 'H:i');
                       <?php } ?>
 
                       <div class="row">
-                        <p class="h5 mt-3">Perguntas: <br></p>
+                        <?php foreach(PerguntaDAO::mostrarPerguntasVotacao($reuniao->getIdVotacao()) as $perg){ 
 
-                        <?php foreach(PerguntaDAO::mostrarPerguntasVotacao($reuniao->getIdVotacao()) as $perg){ ?>
+                          $res = PerguntaDAO::verificarSeUsuarioJaVotouNaPergunta($_SESSION['username'], $perg['id']);  
+                          $count = count($res);
+                          
+                          if($count != 0){ ?>
+                            <div class="col-sm-6 col-lg-4 my-2">
+                              <div class="card border border-success">
+                                  <div class="card-body pb-1">
+                                    <h5 class="card-title d-flex justify-content-between">
+                                      <span><?=$perg['enunciado']?></span>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                                        <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+                                        <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+                                      </svg>
+                                    </h5>
+                                  </div>                                              
+                              </div>
+                            </div>
+                         <?php }
+                          else{ ?>                          
 
-                                <div class="col-sm-6 col-lg-4 my-2">
+                              <div class="col-sm-6 col-lg-4 my-2">
                                   <form action="../controller/Votacao.controller.php?a=votar" method="POST" id="myForm">
                                   <div class="card">
+
+
                                     <div class="card-body pb-1">
                                       <h5 class="card-title">
                                         <span><?=$perg['enunciado']?></span>
@@ -252,8 +271,7 @@ $somenteHorario = date_format($data, 'H:i');
 
                                         } else { ?>
                                         
-                                        <input name="resposta" required class="form-control">
-                                        
+                                        <input name="resposta" required class="form-control">                               
 
                                         <?php }?>
 
@@ -265,7 +283,9 @@ $somenteHorario = date_format($data, 'H:i');
                                     <button onclick="return verificarAlternativa();" type="submit" class="d-grid col-4 mx-auto btn btn-outline-primary btn-sm my-2">Votar</button>
                                     </form>            
                                   </div>
+
                             </div>
+                            <?php }  ?>
                         <?php } ?>              
 
                       </div>
@@ -318,6 +338,9 @@ $somenteHorario = date_format($data, 'H:i');
                         <?php } ?>                       
                       </tbody>
                     </table>
+
+                    <!-- BOTÃO DETALHES -->
+                    <a href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Detalhes</a>
                       
                     </div>
                     

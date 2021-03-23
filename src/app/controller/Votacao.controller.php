@@ -81,6 +81,11 @@ if(isset($_GET['a'])){
 			}	
 
 			$idResposta = PerguntaDAO::votar($idUsuario, $idPergunta, $texto);
+
+
+			$ide = PerguntaDAO::qualReuniao($idPergunta);
+			$id = $ide[0]['id_reuniao'];
+			header("Location: ../view/visualizarReuniao.php?id=$id");
 			break;
 
 	}
