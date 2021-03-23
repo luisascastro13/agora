@@ -1,3 +1,12 @@
+<?php
+
+require_once '../dao/Alternativa.dao.php';
+require_once '../dao/Pergunta.dao.php';
+
+$reuniao = ReuniaoDAO::buscarPorId($_GET['id']);
+$idVotacao = $reuniao->getIdVotacao();
+
+?>
 <div>
 
 	<div class="row">
@@ -11,7 +20,21 @@
 	        <a href="#" class="btn btn-primary">Go somewhere</a>
 	      </div>
 	    </div>
-	  </div>	  
+	  </div>
+
+	  <?php 
+
+	  foreach(PerguntaDAO::mostrarPerguntasVotacao($idVotacao) as $perg){
+	  	echo $perg['enunciado'];
+	  	if($perg['tipo_pergunta'] == 2)){
+	  		foreach(AlternativaDAO::buscarAlternativasDePergunta($perg['id']) as $alt)
+			{
+				echo $alt;
+			}
+	  	}
+	  }	  
+
+	  ?>  
 
 
 	</div>

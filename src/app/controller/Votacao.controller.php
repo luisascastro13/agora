@@ -1,42 +1,90 @@
-<?php 
-
+<?php
 require_once '../dao/Pergunta.dao.php';
 require_once '../dao/Alternativa.dao.php';
 require_once '../model/Alternativa.class.php';
+require_once '../model/Usuario.class.php';
 
-$id_votacao = $_POST['idVotacao'];
+if(!ISSET($_SESSION)){
+  session_start();
+}
+$usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, null);
+
+if(isset($_POST['idVotacao'])){
+	$id_votacao = $_POST['idVotacao'];
+}
 
 
-	// QUAL TIPO DE PERGUNTA
-	switch($_POST['tipoPergunta']){
-		case 'texto':
-			echo 'sou texto';
+if(isset($_GET['a'])){
+	switch($_GET['a']){
+		case 'inserir':
+			echo 'inserindo nova pergunta na votacao';
 
-			// TIPO TEXTO ==> 1
-			$tipo_pergunta = 1;
-			$enunciado = $_POST['titulo'];
+			// QUAL TIPO DE PERGUNTA
+			switch($_POST['tipoPergunta']){
+				case 'texto':
+					echo 'sou texto';
 
-			$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
+					// TIPO TEXTO ==> 1
+					$tipo_pergunta = 1;
+					$enunciado = $_POST['titulo'];
 
-			echo $idPergunta;
+					$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
+
+					echo $idPergunta;
+					break;
+
+				case 'multiplaescolha':
+					echo 'sou multipla escolha';
+
+					// TIPO MULTIPLA ESCOLHA ==> 1
+					$tipo_pergunta = 2;
+					$enunciado = $_POST['titulo'];
+
+					$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
+
+					foreach($_POST['op'] as $alt){
+						$alternativa = new Alternativa($alt, $idPergunta);
+						$idAlternativa = AlternativaDAO::criarAlternativa($alternativa);
+						echo $idAlternativa;
+				    }
+					break;
+
+					$ide = PerguntaDAO::qualReuniao($idPergunta);
+					$id = $ide[0]['id_reuniao'];
+					header("Location: ../view/editarVotacao.php?id=$id");		
+			}		
 			break;
 
-		case 'multiplaescolha':
-			echo 'sou multipla escolha';
+		case 'editar':
 
-			// TIPO MULTIPLA ESCOLHA ==> 1
-			$tipo_pergunta = 2;
-			$enunciado = $_POST['titulo'];
+			$enunciado = $_POST['enunciado'];
+			$idPergunta = $_POST['idPerg'];
 
-			$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
+			PerguntaDAO::atualizarEnunciado($idPergunta, $enunciado);
+			
+			$ide = PerguntaDAO::qualReuniao($idPergunta);
+			$id = $ide[0]['id_reuniao'];
 
-			foreach($_POST['op'] as $alt){
-				$alternativa = new Alternativa($alt, $idPergunta);
-				$idAlternativa = AlternativaDAO::criarAlternativa($alternativa);
-				echo $idAlternativa;
-		    }
-			break;		
+			header("Location: ../view/editarVotacao.php?id=$id");
+			break;
+
+		case 'votar':
+
+			$idUsuario = $_SESSION['username'];
+			$idPergunta = $_POST['idPerg'];
+
+			if(isset($_POST['alternativa'])){
+				$texto = $_POST['alternativa'];
+			}
+			if(isset($_POST['resposta'])){
+				$texto = $_POST['resposta'];
+			}	
+
+			$idResposta = PerguntaDAO::votar($idUsuario, $idPergunta, $texto);
+			break;
+
 	}
+}
 
 
 ?>

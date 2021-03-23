@@ -8,6 +8,8 @@ require_once '../dao/Ata.dao.php';
 require_once '../model/Ata.class.php';
 require_once '../model/Conexao.class.php';
 require_once '../dao/ListaPresenca.dao.php';
+require_once '../dao/Alternativa.dao.php';
+require_once '../dao/Pergunta.dao.php';
 
 if(!ISSET($_SESSION)){
   session_start();
@@ -18,6 +20,8 @@ $usuario = new Usuario($_SESSION['username'], $_SESSION['nomecompleto'], null, n
 
 $idReuniao = $_GET['id'];
 $objReuniao = ReuniaoDAO::buscarPorId($idReuniao);
+
+$reuniao = ReuniaoDAO::buscarPorId($idReuniao);
 
 ?>
 
@@ -36,9 +40,12 @@ $objReuniao = ReuniaoDAO::buscarPorId($idReuniao);
 		<?php include('template/navbarGrandes.php'); ?>	
 
         <!-- CONTEÚDO DA PÁGINA -->
-	    <div id="pagina" class="container-fluid pl-md-4 pb-5">
+	    <div id="pagina" class="container-fluid pl-md-4 pb-5 mb-4">
+
+	    <p class="h4"><?=$reuniao->getNome(); ?><br></p>
 
 	   	<div class="row">
+	   	<p class="h5 mt-3">Nova Pergunta <br></p>
 
 	   		<div class="col mt-3">
 		    		<div class="input-group">
@@ -53,7 +60,7 @@ $objReuniao = ReuniaoDAO::buscarPorId($idReuniao);
 	   		
 
 	   		<!-- EXEMPLO DE PERGUNTA TIPO TEXTO -->
-	   		<form action="../controller/Votacao.controller.php" method="POST">
+	   		<form action="../controller/Votacao.controller.php?a=inserir" method="POST">
 	   		<input type="hidden" name="tipoPergunta" value="texto">
 	   		<input type="hidden" name="idVotacao" value="<?=$objReuniao->getIdVotacao()?>">
  			<div id="texto" class="tipo" style="display:none;">
@@ -75,18 +82,18 @@ $objReuniao = ReuniaoDAO::buscarPorId($idReuniao);
 
 
 			<!-- EXEMPLO DE PERGUNTA TIPO MULTIPLA ESCOLHA -->
-			<form action="../controller/Votacao.controller.php" method="POST">
+			<form action="../controller/Votacao.controller.php?a=inserir" method="POST">
 	   		<input type="hidden" name="tipoPergunta" value="multiplaescolha">
 	   		<input type="hidden" name="idVotacao" value="<?=$objReuniao->getIdVotacao()?>">
 			<div id="multiplaescolha" class="tipo" style="display:none">
 				
 		    	<div class="col-sm-6 col-lg-5 my-2">
 		    		<div class="card mb-3 w-100">
-					 <div class="card-header card-title">
+						<div class="card-header card-title">
 							<input name="titulo" required id="tituloPerguntaMultiplaEscolha" class="card-title form-control" placeholder="Qual a melhor cor para a camiseta da gincana?">
 						</div>
-					  <div class="card-body">
-					    <div class="d-flex justify-content-between">
+						<div class="card-body">
+					    	<div class="d-flex justify-content-between">
 								<label class="fw-bold form-label">Alternativas:</label>
 								<a class="btn btn-sm btn-outline-warning" id="addAlt" type="submit">Adicionar Alternativa</a>
 							</div>
@@ -143,6 +150,34 @@ $objReuniao = ReuniaoDAO::buscarPorId($idReuniao);
 			</div>
 			</form>
 	   		
+	   	</div>
+	   	<div class="row" >
+	   		<p class="h5 mt-3">Perguntas: <br></p>
+
+	   		<?php foreach(PerguntaDAO::mostrarPerguntasVotacao($reuniao->getIdVotacao()) as $perg){ ?>
+	   		   	<div class="col-sm-6 my-2">
+				    <div class="card p-3">
+						<div class="card-body pb-1">
+							<form method="POST" action="../controller/Votacao.controller.php?a=editar">
+							<h5 class="card-title">
+								<input name="enunciado" id="<?=$perg['id']?>" required class="form-control" value="<?=$perg['enunciado']?>">
+							</h5>
+						</div> 
+						<div class="text-center">  
+			    			<?php if($perg['tipo_pergunta'] == 2){
+			    				echo "<div class='fw-bold'>Alternativas: </div>";
+								foreach(AlternativaDAO::buscarAlternativasDePergunta($perg['id']) as $alt){ ?>
+									<div><?=$alt['nome']?></div>
+							<?php }
+			                } ?>
+			            </div>
+			             	<input type="hidden" name="idPerg" value="<?=$perg['id']?>">
+			            	<button type="submit" class="d-grid col-4 mx-auto btn btn-outline-info btn-sm">Salvar</button>
+			            </form>         	
+             		</div>
+              	</div>
+            <?php } ?>         	
+
 	   	</div>
 
 		<!-- fecha o conteudo da pagina -->

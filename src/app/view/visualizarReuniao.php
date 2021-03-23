@@ -7,6 +7,9 @@ require_once '../dao/Ata.dao.php';
 require_once '../model/Ata.class.php';
 require_once '../model/Conexao.class.php';
 require_once '../dao/ListaPresenca.dao.php';
+require_once '../dao/Alternativa.dao.php';
+require_once '../dao/Pergunta.dao.php';
+
 
 if(!ISSET($_SESSION)){
   session_start();
@@ -154,7 +157,7 @@ $somenteHorario = date_format($data, 'H:i');
             <!-- SE EXISTE ALGUM DOCUMENTO RELACIONADO À REUNIAO, MOSTRAR ESSES ACCORDIONS DE ACORDO COM OS DOCUMENTOS EXISTENTES -->
             <div class="accordion mb-5 pb-4" id="accordionExample">
 
-              <!-- ATA -->
+                <!-- ATA -->
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -223,7 +226,50 @@ $somenteHorario = date_format($data, 'H:i');
                           </div>
                       <?php } ?>
 
-                      <?php include('votacao.php'); ?>
+                      <div class="row">
+                        <p class="h5 mt-3">Perguntas: <br></p>
+
+                        <?php foreach(PerguntaDAO::mostrarPerguntasVotacao($reuniao->getIdVotacao()) as $perg){ ?>
+
+                                <div class="col-sm-6 col-lg-4 my-2">
+                                  <form action="../controller/Votacao.controller.php?a=votar" method="POST" id="myForm">
+                                  <div class="card">
+                                    <div class="card-body pb-1">
+                                      <h5 class="card-title">
+                                        <span><?=$perg['enunciado']?></span>
+                                      </h5>
+                                    </div> 
+                                    <div class="px-3">  
+                                        <?php if($perg['tipo_pergunta'] == 2){
+                                          echo "<div class='fw-bold'>Alternativas: </div>";
+                                          foreach(AlternativaDAO::buscarAlternativasDePergunta($perg['id']) as $alt){ ?>
+                                            <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="alternativa" value="<?=$alt['nome']?>">
+                                            <label class="form-check-label" for="alternativa">
+                                            <?=$alt['nome']?></label>
+                                            </div>
+                                        <?php }
+
+                                        } else { ?>
+                                        
+                                        <input name="resposta" required class="form-control">
+                                        
+
+                                        <?php }?>
+
+                                    </div>
+
+                                    <input type="hidden" name="idPerg" value="<?=$perg['id']?>">
+                                    <input type="hidden" name="idVotacao" value="<?=$reuniao->getIdVotacao()?>">
+                                   
+                                    <button onclick="return verificarAlternativa();" type="submit" class="d-grid col-4 mx-auto btn btn-outline-primary btn-sm my-2">Votar</button>
+                                    </form>            
+                                  </div>
+                            </div>
+                        <?php } ?>              
+
+                      </div>
+
                    </div>
                   </div>
                 </div>
@@ -304,12 +350,16 @@ $somenteHorario = date_format($data, 'H:i');
 
     </script>
 
+  
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
-</script>
+    </script>
     
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
   </body>
 </html>

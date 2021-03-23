@@ -15,5 +15,13 @@ class AlternativaDAO{
 
 		return $idAlternativa;
 	}
+
+	public static function buscarAlternativasDePergunta($idPergunta){
+		$conn = new Conexao();
+
+		$sql = "SELECT codigo, nome FROM alternativas WHERE id_pergunta = ?";
+		$alternativas = $conn->consultarTabela($sql, [$idPergunta]);
+		return $alternativas;
+	}
 }
 ?>
