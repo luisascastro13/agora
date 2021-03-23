@@ -99,6 +99,16 @@ else {
         <!-- CONTEÚDO DA PÁGINA -->
 	    <div id="pagina" class="container-fluid pl-md-4">
 
+	    	<div>                
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">                  
+                    <li class="breadcrumb-item"><a href="painel.php">Painel</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Núcleo</li>
+                  </ol>
+                </nav>
+            </div>
+
+
 			<!-- CABEÇALHO -->
 			<header>
 				<span class="display-5"><?=$nome ?></span>

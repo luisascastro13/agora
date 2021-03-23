@@ -88,8 +88,15 @@ else {
 
         <!-- CONTEÚDO DA PÁGINA -->
 	    <div id="pagina" class="container-fluid pl-md-4">
-
-   		<a href="visualizarNucleo.php?id=<?=$idNucleo?>" class="d-block">VOLTAR</a>
+	    	<div>                
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">                  
+                    <li class="breadcrumb-item"><a href="painel.php">Painel</a></li>
+                    <li class="breadcrumb-item"><a href="visualizarNucleo.php?id=<?=$idNucleo?>">Núcleo</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar Núcleo</li>
+                  </ol>
+                </nav>
+            </div>   		
 
 		<span class="display-4">Alterar nome do núcleo</span>
 		<form method="post" class="input-group w-75" action="../controller/Nucleo.controller.php?a=editarNomeNucleo">

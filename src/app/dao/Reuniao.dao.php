@@ -30,7 +30,7 @@ Class ReuniaoDAO{
 	public static function listarReunioes(){
 		$conn = new Conexao();
 
-		$sql = "SELECT * FROM REUNIAO";		
+		$sql = "SELECT * FROM REUNIAO WHERE status = 0";		
 		$resultado = $conn->consultarTabela($sql, null);
 
 		return $resultado;
@@ -72,6 +72,33 @@ Class ReuniaoDAO{
 		return $objetoReuniao;
 	}
 
+	public static function buscarProximasReunioes(){
+		$conn = new Conexao();
+
+		$sql = "SELECT reuniao.codigo, reuniao.nome, reuniao.descricao, reuniao.data, reuniao.id_nucleo, nucleo.nome as nomenucleo FROM reuniao
+			INNER JOIN nucleo ON nucleo.id = reuniao.id_nucleo			
+			WHERE data >= NOW() AND reuniao.status = 0
+			ORDER BY data";
+
+		$reunioes = $conn->consultarTabela($sql, null);
+		return $reunioes;
+	}
+
+	public static function excluirReuniao($reuniao){
+		$conn = new Conexao();
+
+		$sql = "UPDATE reuniao SET status = 1 WHERE codigo = ?";
+		$erro = $conn->atualizarTabela($sql, [$reuniao]);
+		return $erro;
+	}
+
+	public static function mostrarIdNucleo($reuniao){
+		$conn = new Conexao();
+
+		$sql = "SELECT id_nucleo FROM reuniao WHERE codigo = ?";
+		$id = $conn->consultarTabela($sql, [$reuniao]);
+		return $id;
+	}
 }
 
 ?>

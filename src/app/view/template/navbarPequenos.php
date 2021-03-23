@@ -1,8 +1,3 @@
-<!-- ######## ######## ######## -->
-<!-- dispositivos pequenos -->
-<!-- ######## ######## ######## -->
-
-<!-- navbar em cima para pequenos -->
 <nav class="navbarPequena navbar navbar-expand-lg navbar-light bg-primary mb-3 sticky-top">
   	<div class="container-fluid p-0">
   		<a class="navbar-brand" href="painel.php" style="max-width: 25%;">

@@ -21,28 +21,51 @@ $reuniao = ReuniaoDAO::buscarPorId($_GET['idReuniao']);
 if(ISSET($_GET['a'])){
 	switch($_GET['a']){
 		case 'confirmarPresenca':
-			var_dump($_POST);
-			echo "$idReuniao";
+			// var_dump($_POST);
+			// echo "$idReuniao";
 
-			$nomeMembro = $_POST['select'];
-			$matricula = $_POST['matricula'];
-			$usuarios = array();
 
-			if($nomeMembro == $_SESSION['nomecompleto']){
-				if($matricula == $_SESSION['username']){
-					// echo 'sim, pode confimar sua presenca<br>';
-					ListaPresencaDAO::atualizarMembroPresente($reuniao->getIdListapresenca(), $matricula);
-					header("Location: ../view/visualizarReuniao.php?id=$idReuniao");
+
+			if(isset($_POST['select'])){
+
+				echo 'nao sou nada1';
+				$nomeMembro = $_POST['select'];
+				$matricula = $_POST['matricula'];
+				$usuarios = array();
+
+				if($nomeMembro == $_SESSION['nomecompleto']){
+					echo 'nao sou nada2';
+					if($matricula == $_SESSION['username']){
+
+						echo 'nao sou nada3';
+						// echo 'sim, pode confimar sua presenca<br>';
+
+						ListaPresencaDAO::atualizarMembroPresente($reuniao->getIdListapresenca(), $matricula);					
+						
+						header("Location: ../view/visualizarReuniao.php?id=$idReuniao");
+					}
+					else{
+						echo 'matricula não coincide com o nome do usuario, tente novamente.';
+						header("Location: ../view/confirmarPresenca.php?id=$idReuniao&msg=1");
+					}				
 				}
 				else{
-					echo 'matricula não coincide com o nome do usuario, tente novamente.';
-					header("Location: ../view/confirmarPresenca.php?id=$idReuniao&msg=1");
-				}				
+					// echo 'nao pode confirmar a presença de outra pessoa<br>';
+					header("Location: ../view/confirmarPresenca.php?id=$idReuniao&msg=2");
+				}
 			}
-			else{
-				echo 'nao pode confirmar a presença de outra pessoa<br>';
-				header("Location: ../view/confirmarPresenca.php?id=$idReuniao&msg=2");				
-			}		
+			else if(isset($_POST['convidado'])) {
+			
+				$idReuniao = $_POST['idReuniao'];
+				$nomeMembro = $_POST['nomecompleto'];
+				$matricula = $_POST['matricula'];
+
+				var_dump(ListaPresencaDAO::adicionarConvidadoPresente($idReuniao, $nomeMembro, $matricula));
+
+				// echo 'nao pode confirmar a presença de outra pessoa<br>';
+				header("Location: ../view/confirmarPresenca.php?id=$idReuniao");
+
+			}				
 
 			break;
 	}

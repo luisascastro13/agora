@@ -65,11 +65,10 @@ foreach($membrosNucleo as $membro){
 $data = date_create($reuniao->getDatahora());
 $dataFormatada = date_format($data, 'd/m/Y à\s H:i');
 
-$somenteData = date_format($data, 'Y-m-d');
+$somenteData = date_format($data, 'd-m-Y');
 $somenteHorario = date_format($data, 'H:i');
-        
 
- 
+// echo $somenteData;   
 
 ?>
 
@@ -148,20 +147,26 @@ $somenteHorario = date_format($data, 'H:i');
           <div id="pagina" class="container-fluid pl-md-4 mt-2">       
 
             <div class="row">
+
+              <div>                
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">                  
+                    <li class="breadcrumb-item"><a href="painel.php">Painel</a></li>
+                    <li class="breadcrumb-item"><a href="visualizarNucleo.php?id=<?=$idNucleo?>">Núcleo</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Reunião</li>
+                  </ol>
+                </nav>
+              </div>
+
+
               <div class="d-flex justify-content-between">
                 <h1><?=$reuniao->getNome()?></h1>
                 
                 <!-- BOTÃO DETALHES -->
-                <a href="#" class="btn btn-primary btn-sm h-75 d-flex align-items-center">Detalhes</a>
+                <a href="detalhesReuniao.php?id=<?=$idReuniao?>" class="btn btn-primary btn-sm h-75 d-flex align-items-center">Detalhes</a>
               </div>             
             </div>
             <h2>Data: <?=$dataFormatada?></h2>
-
-
-          
-         
-          <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?=$urlencoded?>&amp;size=100x100" alt="" title="" />
 
             <!-- SE EXISTE ALGUM DOCUMENTO RELACIONADO À REUNIAO, MOSTRAR ESSES ACCORDIONS DE ACORDO COM OS DOCUMENTOS EXISTENTES -->
             <div class="accordion mb-5 pb-4" id="accordionExample">
@@ -252,6 +257,7 @@ $somenteHorario = date_format($data, 'H:i');
                                         <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
                                       </svg>
                                     </h5>
+                                    <a href="#" class="link-success">Ver resultados</a>
                                   </div>                                              
                               </div>
                             </div>
@@ -385,9 +391,7 @@ $somenteHorario = date_format($data, 'H:i');
         console.error( error );
     } );  
 
-    </script>
-
-  
+    </script>  
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     </script>

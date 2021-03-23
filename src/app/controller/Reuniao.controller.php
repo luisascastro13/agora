@@ -183,6 +183,17 @@ if(ISSET($_GET['a'])){
 			// header("Location: ../view/visualizarReuniao.php?id=$idReuniao");
 			break;
 
+		case 'excluir':
+			echo 'excluindo';
+			$idReuniao = $_GET['id'];
+
+			$idNucleo = ReuniaoDAO::mostrarIdNucleo($idReuniao);
+			$idNucleoCerto = $idNucleo[0]['id_nucleo'];
+
+			ReuniaoDAO::excluirReuniao($idReuniao);
+			header("Location: ../view/visualizarNucleo.php?id=$idNucleoCerto");
+
+			break;
 
 	}
 }

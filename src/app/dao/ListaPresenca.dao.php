@@ -56,6 +56,15 @@ class ListaPresencaDAO{
 		return $erro;
 	}
 
+	public static function adicionarConvidadoPresente($idLista, $nome, $idUsuario){
+		$conn = new Conexao();
+
+		$sql = "INSERT INTO presenca (id_lista_presenca, nomeconvidado, id_usuario, convidado, presente) VALUES (?,?,?,1,1)";
+
+		$erro = $conn->atualizarTabela($sql, [$idLista, $nome, $idUsuario]);
+		return $erro;
+	}
+
 }
 
 ?>

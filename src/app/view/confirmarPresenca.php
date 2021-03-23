@@ -15,11 +15,11 @@ $reuniao = ReuniaoDAO::buscarPorId($_GET['id']);
 if(isset($_GET['msg'])){
 	switch($_GET['msg']){
 		case 1:
-			echo "<script>alert('matricula não coincide com o nome do usuario, tente novamente.')</script>";
+			echo "<script>alert('Matricula não coincide com o nome do usuario, tente novamente.')</script>";
 			break;
 
 		case 2:
-			echo "<script>alert('esse não é o seu nome.')</script>";
+			echo "<script>alert('Esse não é o seu nome.')</script>";
 			break;
 	}
 }
@@ -43,6 +43,16 @@ if(isset($_GET['msg'])){
 
 
 	    <div class="mt-3 container">
+	    	<div>                
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">                  
+                    <li class="breadcrumb-item"><a href="painel.php">Painel</a></li>
+                    <li class="breadcrumb-item"><a href="visualizarReuniao.php?id=<?=$idReuniao?>">Reunião</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Confirmar Presença</li>
+                  </ol>
+                </nav>
+            </div>
+
 	    	<form method="POST" id="formulario" action="../controller/ListaPresenca.controller.php?a=confirmarPresenca&idReuniao=<?=$idReuniao?>" onsubmit="return check_form()">
 		    	<div class="row">
 					<div class="col">
@@ -70,9 +80,38 @@ if(isset($_GET['msg'])){
 				      <button type="submit" id="botaoConfirmarPresenca" class="btn btn-primary btn-block mt-3 mb-2">Confirmar presença</button>
 				    </div>
 				</div>
-			<!-- </form> -->
+			</form>
 
-			<a href="#" class="link-primary">Não estou na lista</a>
+			
+
+			<p>
+				<a class="link-primary" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				Não estou na lista</a>
+			</p>
+
+			<div class="collapse" id="collapseExample">
+				
+				<div class="card card-body border border-primary">
+					<span class="m-2">Por favor, informe seu nome completo e sua matrícula.</span>
+					<form method="POST" action="../controller/ListaPresenca.controller.php?a=confirmarPresenca&idReuniao=<?=$idReuniao?>" id="formularioConvidado">
+						<input type="hidden" name="idReuniao" value="<?=$idReuniao?>">
+						<input type="hidden" name="convidado" value="convidado">
+						<div class="row">
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Nome Completo" name="nomecompleto" style="height: 60px;" required>
+							</div>
+							<div class="col">
+								<input type="text" class="form-control" placeholder="Matrícula" name="matricula" style="height: 60px;" required>
+							</div>
+						</div>
+						<div class="row">
+						    <div class="col-md-4 col-lg-3">
+								<button type="submit" id="botaoConfirmarPresencaConvidado" class="btn btn-outline-primary btn-sm btn-block mt-3 mb-2">Confirmar presença</button>
+						    </div>
+						</div>
+					</form>
+				</div>
+			</div>
 
 		</div>  
 

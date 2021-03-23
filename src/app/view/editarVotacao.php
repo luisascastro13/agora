@@ -1,4 +1,6 @@
 <?php
+require_once ('../jpgraph/src/jpgraph.php');
+require_once ('../jpgraph/src/jpgraph_pie.php');
 
 require_once '../model/Reuniao.class.php';
 require_once '../dao/Reuniao.dao.php';
@@ -41,6 +43,17 @@ $reuniao = ReuniaoDAO::buscarPorId($idReuniao);
 
         <!-- CONTEÚDO DA PÁGINA -->
 	    <div id="pagina" class="container-fluid pl-md-4 pb-5 mb-4">
+
+	    	<div>                
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">                  
+                    <li class="breadcrumb-item"><a href="painel.php">Painel</a></li>
+                    <li class="breadcrumb-item"><a href="visualizarReuniao.php?id=<?=$idReuniao?>">Reunião</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Editar Votação</li>
+                  </ol>
+                </nav>
+            </div>
+
 
 	    <p class="h4"><?=$reuniao->getNome(); ?><br></p>
 
@@ -176,7 +189,38 @@ $reuniao = ReuniaoDAO::buscarPorId($idReuniao);
 			            </form>         	
              		</div>
               	</div>
-            <?php } ?>         	
+            <?php } ?>  
+
+<?php // content="text/plain; charset=utf-8"
+
+// Some data
+$data = array(40,100);
+
+// Create the Pie Graph. 
+$graph = new PieGraph(350,250);
+
+$theme_class="DefaultTheme";
+
+// Set A title for the plot
+$graph->title->Set("Pergunta: ");
+$graph->SetBox(true);
+
+// Create
+$p1 = new PiePlot($data);
+$p1->SetLegends(array("L","A"));
+$graph->Add($p1);
+
+
+$p1->ShowBorder();
+$p1->SetColor('black');
+$p1->SetSliceColors(array('#1E90FF','#2E8B57','#ADFF2F','#DC143C','#BA55D3'));
+$graph->Stroke("oute.jpg");
+
+?>
+
+
+<img src="oute.jpg">
+
 
 	   	</div>
 

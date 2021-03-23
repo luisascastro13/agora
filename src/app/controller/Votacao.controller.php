@@ -17,12 +17,12 @@ if(isset($_POST['idVotacao'])){
 if(isset($_GET['a'])){
 	switch($_GET['a']){
 		case 'inserir':
-			echo 'inserindo nova pergunta na votacao';
+			// echo 'inserindo nova pergunta na votacao';
 
 			// QUAL TIPO DE PERGUNTA
 			switch($_POST['tipoPergunta']){
 				case 'texto':
-					echo 'sou texto';
+					// echo 'sou texto';
 
 					// TIPO TEXTO ==> 1
 					$tipo_pergunta = 1;
@@ -30,11 +30,11 @@ if(isset($_GET['a'])){
 
 					$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
 
-					echo $idPergunta;
+					// echo $idPergunta;
 					break;
 
 				case 'multiplaescolha':
-					echo 'sou multipla escolha';
+					// echo 'sou multipla escolha';
 
 					// TIPO MULTIPLA ESCOLHA ==> 1
 					$tipo_pergunta = 2;
@@ -45,13 +45,14 @@ if(isset($_GET['a'])){
 					foreach($_POST['op'] as $alt){
 						$alternativa = new Alternativa($alt, $idPergunta);
 						$idAlternativa = AlternativaDAO::criarAlternativa($alternativa);
-						echo $idAlternativa;
+						// echo $idAlternativa;
 				    }
-					break;
+					
 
 					$ide = PerguntaDAO::qualReuniao($idPergunta);
 					$id = $ide[0]['id_reuniao'];
-					header("Location: ../view/editarVotacao.php?id=$id");		
+					header("Location: ../view/editarVotacao.php?id=$id");
+							
 			}		
 			break;
 
