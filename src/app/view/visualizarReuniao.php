@@ -145,10 +145,20 @@ $somenteHorario = date_format($data, 'H:i');
         ?>
 
           <!-- CONTEÚDO DA PÁGINA -->
-          <div id="pagina" class="container-fluid pl-md-4">
+          <div id="pagina" class="container-fluid pl-md-4 mt-2">       
 
-          <h1><?=$reuniao->getNome()?></h1>
-          <h2><?=$dataFormatada?></h2>
+            <div class="row">
+              <div class="d-flex justify-content-between">
+                <h1><?=$reuniao->getNome()?></h1>
+                
+                <!-- BOTÃO DETALHES -->
+                <a href="#" class="btn btn-primary btn-sm h-75 d-flex align-items-center">Detalhes</a>
+              </div>             
+            </div>
+            <h2>Data: <?=$dataFormatada?></h2>
+
+
+          
          
           <?php $urlencoded = urlencode("http://localhost/agora/src/app/view/visualizarReuniao.php?id=104"); ?>
           <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?=$urlencoded?>&amp;size=100x100" alt="" title="" />
@@ -339,8 +349,12 @@ $somenteHorario = date_format($data, 'H:i');
                       </tbody>
                     </table>
 
-                    <!-- BOTÃO DETALHES -->
-                    <a href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Detalhes</a>
+
+                    <!-- SE O USUARIO AINDA NAO SE MARCOU COMO PRESENTE, MOSTRA BOTAO. SENAO, NAO MOSTRA.  -->
+
+
+                    <!-- BOTÃO -->
+                    <a href="confirmarPresenca.php?id=<?=$idReuniao?>" class="btn btn-primary">Marcar Presença</a>
                       
                     </div>
                     

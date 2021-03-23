@@ -60,7 +60,7 @@ else {
 			</div>
 
 
-	    	<div class="row pb-5 mb-4 mt-sm-3">
+	    	<div class="pb-5 mb-4 mt-sm-3">
 
 			    <div class="col-12 col-md-8 col-lg-5">		    		
 		    		<div class="d-flex justify-content-between">	
