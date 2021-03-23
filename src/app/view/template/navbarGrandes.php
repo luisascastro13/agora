@@ -6,7 +6,7 @@
 
 	            <ul class="navbar-nav m-auto mb-2 mb-lg-0">
 
-	            	<li><a href="#"><img src="img/Loguinho.svg" class="mt-3" style="max-width: 80%;"></a></li>
+	            	<li><a href="painel.php"><img src="img/Loguinho.svg" class="mt-3" style="max-width: 80%;"></a></li>
 
 	                <li class="nav-item w-50 mt-4 mb-3">
 	                  <img src="https://moodle.canoas.ifrs.edu.br/pluginfile.php/32244/user/icon/boost/f1?rev=1351144" class="img-thumbnail rounded-circle border border-warning" alt="Foto de perfil">
@@ -17,11 +17,11 @@
 
 	                <li><hr class="text-dark w-75"></li>
 
-	                <li class="nav-item mb-3">
+	                <!-- <li class="nav-item mb-3">
 	                  <a class="nav-link active text-warning border border-warning rounded-pill mr-5 py-1" aria-current="page" href="#">
 	                    <i class="bi bi-plus"></i>
 	                  Criar</a>
-	                </li>
+	                </li> -->
 
 	                <li class="nav-item ">
 	                  <a class="nav-link active text-light" aria-current="page" href="buscar.php">
