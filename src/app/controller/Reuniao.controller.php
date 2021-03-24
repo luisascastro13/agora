@@ -61,7 +61,7 @@ if(ISSET($_GET['a'])){
 
 
 			foreach(NucleoDAO::mostrarMembrosAtivos($nucleo) as $membro){
-				var_dump($membro);
+				// var_dump($membro);
 				ListaPresencaDAO::inserirMembroNaLista($listaPresenca, $membro[1]);
 			}
 

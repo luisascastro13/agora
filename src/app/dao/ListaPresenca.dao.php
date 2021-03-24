@@ -18,7 +18,7 @@ class ListaPresencaDAO{
 	public static function inserirMembroNaLista($listaPresenca, $membro){
 		$conn = new Conexao();
 
-		$sql = "INSERT INTO presenca VALUES (?, ?, 0, 0)";
+		$sql = "INSERT INTO presenca (id_lista_presenca, id_usuario, convidado, presente) VALUES (?, ?, 0, 0)";
 		$erro = $conn->atualizarTabela($sql, [$listaPresenca->getId(), $membro]);
 		return $erro;
 	}

@@ -172,11 +172,16 @@ $somenteHorario = date_format($data, 'H:i');
             </div>
 
             <?php if($userAdm == true){ ?>
-              <a href="../controller/Reuniao.controller.php?a=excluir&id=<?=$idReuniao?>" class="btn btn-danger mt-5">Excluir Reunião</a>        
-            <?php }  ?>
+             
+              <button type="button" class="btn btn-outline-warning btn-sm" onClick="deletarReuniao()">Deletar reunião</button>          
 
-            
-                    
+              <form style="display: none" id='myForm' method="post" action="../controller/Reuniao.controller.php?a=excluir&id=<?=$idReuniao?>">
+              <input type="submit">
+              </form>
+
+
+              
+            <?php }  ?>                        
 
             
 
@@ -191,6 +196,27 @@ $somenteHorario = date_format($data, 'H:i');
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10">
     </script>
     
+    <script>
+
+      function deletarReuniao(){
+      Swal.fire({
+        title: "Você tem certeza?",
+        text: "Você não poderá reverter essa ação posteriormente.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, quero excluir.',
+        cancelButtonText: 'Não, manter reunião.'
+      }).then((result) => {
+        if (result.isConfirmed){
+          Swal.fire('Reunião excluída!', '', 'success');         
+        document.getElementById("myForm").submit();
+        }
+      })  
+
+  }
+    </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
