@@ -214,12 +214,12 @@ $graph->Add($p1);
 $p1->ShowBorder();
 $p1->SetColor('black');
 $p1->SetSliceColors(array('#1E90FF','#2E8B57','#ADFF2F','#DC143C','#BA55D3'));
-$graph->Stroke("oute.jpg");
+$graph->Stroke("votos/ou.jpg");
 
 ?>
 
 
-<img src="oute.jpg">
+<img src="votos/ou.jpg">
 
 
 	   	</div>

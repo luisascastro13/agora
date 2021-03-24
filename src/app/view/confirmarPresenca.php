@@ -92,7 +92,7 @@ if(isset($_GET['msg'])){
 			<div class="collapse" id="collapseExample">
 				
 				<div class="card card-body border border-primary">
-					<span class="m-2">Por favor, informe seu nome completo e sua matrícula.</span>
+					<span class="m-2">Por favor, informe seu nome completo e sua matrícula cadastrados no sistema.</span>
 					<form method="POST" action="../controller/ListaPresenca.controller.php?a=confirmarPresenca&idReuniao=<?=$idReuniao?>" id="formularioConvidado">
 						<input type="hidden" name="idReuniao" value="<?=$idReuniao?>">
 						<input type="hidden" name="convidado" value="convidado">

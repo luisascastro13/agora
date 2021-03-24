@@ -332,7 +332,8 @@ $somenteHorario = date_format($data, 'H:i');
                       </thead>
                       <tbody>
 
-                      <?php foreach (ListaPresencaDAO::mostrarListaPresenca($reuniao->getIdListapresenca()) as $val){ ?>
+                      <?php foreach (ListaPresencaDAO::mostrarListaPresenca($reuniao->getIdListapresenca()) as $val){
+                      ?>
                           <tr>
                           <!-- MOSTRA LOGIN, NOME E STATUS DO USUARIO NA REUNIÃO-->
                             <!-- <th scope='row'><?= $val['id_usuario'] ?></th> -->

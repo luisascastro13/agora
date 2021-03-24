@@ -24,11 +24,9 @@ if(ISSET($_GET['a'])){
 			// var_dump($_POST);
 			// echo "$idReuniao";
 
-
-
 			if(isset($_POST['select'])){
 
-				echo 'nao sou nada1';
+				// echo 'nao sou nada1';
 				$nomeMembro = $_POST['select'];
 				$matricula = $_POST['matricula'];
 				$usuarios = array();
@@ -56,14 +54,18 @@ if(ISSET($_GET['a'])){
 			}
 			else if(isset($_POST['convidado'])) {
 			
-				$idReuniao = $_POST['idReuniao'];
+				$idListaPresenca = $reuniao->getIdListapresenca();
+
 				$nomeMembro = $_POST['nomecompleto'];
 				$matricula = $_POST['matricula'];
 
-				var_dump(ListaPresencaDAO::adicionarConvidadoPresente($idReuniao, $nomeMembro, $matricula));
+				var_dump(ListaPresencaDAO::adicionarConvidadoPresente($idListaPresenca, $nomeMembro, $matricula));
 
 				// echo 'nao pode confirmar a presença de outra pessoa<br>';
 				header("Location: ../view/confirmarPresenca.php?id=$idReuniao");
+
+				 
+
 
 			}				
 
