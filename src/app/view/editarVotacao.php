@@ -191,35 +191,10 @@ $reuniao = ReuniaoDAO::buscarPorId($idReuniao);
               	</div>
             <?php } ?>  
 
-<?php // content="text/plain; charset=utf-8"
-
-// Some data
-$data = array(40,100);
-
-// Create the Pie Graph. 
-$graph = new PieGraph(350,250);
-
-$theme_class="DefaultTheme";
-
-// Set A title for the plot
-$graph->title->Set("Pergunta: ");
-$graph->SetBox(true);
-
-// Create
-$p1 = new PiePlot($data);
-$p1->SetLegends(array("L","A"));
-$graph->Add($p1);
 
 
-$p1->ShowBorder();
-$p1->SetColor('black');
-$p1->SetSliceColors(array('#1E90FF','#2E8B57','#ADFF2F','#DC143C','#BA55D3'));
-$graph->Stroke("votos/ou.jpg");
-
-?>
 
 
-<img src="votos/ou.jpg">
 
 
 	   	</div>

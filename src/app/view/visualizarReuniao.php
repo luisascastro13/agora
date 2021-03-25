@@ -1,4 +1,7 @@
 <?php
+require_once ('../jpgraph/src/jpgraph.php');
+require_once ('../jpgraph/src/jpgraph_pie.php');
+
 require_once '../model/Reuniao.class.php';
 require_once '../dao/Reuniao.dao.php';
 require_once '../dao/Nucleo.dao.php';
@@ -36,6 +39,8 @@ else {
 ########## CRIA OBJETO REUNIAO ###########
 $idReuniao = $_GET['id'];
 $reuniao = ReuniaoDAO::buscarPorId($_GET['id']);
+
+$idVotacao = $reuniao->getIdVotacao();
 
 ######### CRIA OBJETO NUCLEO ############
 $idNucleo = $reuniao->getIdNucleo();
@@ -230,6 +235,9 @@ $somenteHorario = date_format($data, 'H:i');
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
+
+                      <a class="link-success d-inline" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Ver resultados</a>
+ 
                     
                       <?php if($userAdm == true)
                       { ?>                    
@@ -257,7 +265,28 @@ $somenteHorario = date_format($data, 'H:i');
                                         <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
                                       </svg>
                                     </h5>
-                                    <a href="#" class="link-success">Ver resultados</a>
+                                    <a href="#" class="link-success"></a>
+
+
+                                    <div class="collapse" id="collapseExample">
+                                      <div class="">
+                                        <!-- qual caminho da imagem?s -->
+
+                                        <?php
+
+                                        // $caminho = "votos/".$idVotacao."/".$perg['id'].".jpg";
+
+                                        // echo '<img class="card-img-top" src="'.$caminho.'" style="width: 18rem;">';
+                                         
+                                        ?>
+
+                                        <img src="criarGrafico.php?idPerg=<?=$perg['id']?>">
+
+
+                                      </div>
+                                    </div>
+
+
                                   </div>                                              
                               </div>
                             </div>

@@ -1,4 +1,6 @@
 <?php
+require_once ('../jpgraph/src/jpgraph.php');
+require_once ('../jpgraph/src/jpgraph_pie.php');
 require_once '../dao/Pergunta.dao.php';
 require_once '../dao/Alternativa.dao.php';
 require_once '../model/Alternativa.class.php';
@@ -29,7 +31,6 @@ if(isset($_GET['a'])){
 					$enunciado = $_POST['titulo'];
 
 					$idPergunta = PerguntaDAO::criarPergunta($id_votacao, $enunciado, $tipo_pergunta);
-
 					// echo $idPergunta;
 					break;
 
@@ -47,13 +48,15 @@ if(isset($_GET['a'])){
 						$idAlternativa = AlternativaDAO::criarAlternativa($alternativa);
 						// echo $idAlternativa;
 				    }
-					
+				    break;				
 
-					$ide = PerguntaDAO::qualReuniao($idPergunta);
+					
+							
+			}
+			$ide = PerguntaDAO::qualReuniao($idPergunta);
 					$id = $ide[0]['id_reuniao'];
 					header("Location: ../view/editarVotacao.php?id=$id");
 							
-			}		
 			break;
 
 		case 'editar':
@@ -83,7 +86,37 @@ if(isset($_GET['a'])){
 
 			$idResposta = PerguntaDAO::votar($idUsuario, $idPergunta, $texto);
 
+			// // settar o gráfico.
+			// $data = PerguntaDAO::verificarVotos($idPergunta);
+			// $arrayAlternativas = [];
+			// $arrayVotos = [];
 
+			// foreach(PerguntaDAO::verificarVotos($idPergunta) as $val){
+
+			// 	$idVotacao = $val['id_votacao'];
+			// 	$titulo = $val['enunciado'];
+			// 	$alt = '"'.$val['texto'].'"';
+			// 	array_push($arrayAlternativas, $alt);
+			// 	array_push($arrayVotos, $val['quant']);
+			// }
+
+			// $myPath = "..\\view\\votos\\$idVotacao";
+
+			// if (!is_dir($myPath)) {	
+			//     mkdir($myPath, 777, true);
+			// }
+			
+			// $path = $myPath."\\"."$idPergunta".".jpg";
+
+			// $graph = new PieGraph(300,350);
+			// $graph->SetShadow();			 
+			// $graph->title->Set($titulo);			 
+			// $p1 = new PiePlot($arrayVotos);
+			// $p1->SetLegends($arrayAlternativas);
+			// $graph->Add($p1);
+			
+			// $graph->Stroke($path); 
+			
 			$ide = PerguntaDAO::qualReuniao($idPergunta);
 			$id = $ide[0]['id_reuniao'];
 			header("Location: ../view/visualizarReuniao.php?id=$id");

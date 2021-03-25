@@ -53,6 +53,13 @@ Class PerguntaDAO{
 		return $res;
 
 	}
+	public static function verificarVotos($idPergunta){
+		$conn = new Conexao();
+
+		$sql = "SELECT id_votacao, texto, count(texto) as quant, pergunta.enunciado as enunciado FROM responde INNER JOIN pergunta ON pergunta.id = responde.id_pergunta where id_pergunta = ? GROUP BY texto";
+		$lista = $conn->consultarTabela($sql, [$idPergunta]);
+		return $lista;
+	}
 
 
 }
